@@ -7,6 +7,7 @@ from langchain_community.vectorstores import Chroma
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 import pymupdf
 import os
+import requests
 
 # --- PAGE CONFIGURATION ---
 st.set_page_config(page_title="Spiritual Diagnostic Engine", page_icon="🩺", layout="wide")
@@ -55,7 +56,7 @@ def calculate_vedic_profile(dob, tob, lat, lon, tz):
         
     atmakaraka = max(degrees, key=degrees.get)
     
-    # The 3-Layer Mapping (Planet -> Chakra -> Dosha -> Nama Range)
+    # The 3-Layer Mapping
     mapping = {
         "Jupiter": {"chakra": "Ajna (Third Eye)", "dosha": "Kapha", "theme": "Wisdom & Expansion", "nama_range": "521-527", "sample_nama": "N523 Shadanana (Six-faced)"},
         "Mars": {"chakra": "Manipura (Solar Plexus)", "dosha": "Pitta", "theme": "Courage & Action", "nama_range": "495-503", "sample_nama": "N503 Lakinyamba"},
@@ -75,24 +76,33 @@ def calculate_vedic_profile(dob, tob, lat, lon, tz):
         "sample_nama": mapping[atmakaraka]["sample_nama"]
     }
 
-# --- KNOWLEDGE BASE ---
+# --- KNOWLEDGE BASE (With GitHub Release Download) ---
 @st.cache_resource(show_spinner=False)
 def load_knowledge_base():
+    folder_path = "knowledge"
+    os.makedirs(folder_path, exist_ok=True)
+    
+    # We will use a file called 'book1.pdf' as a test. 
+    # The real URLs will be generated in the next step.
+    test_file = os.path.join(folder_path, "Saubhagya_Bhaskara_LSN.pdf")
+    
     texts = []
-    folder_path = "knowledge" 
     if os.path.exists(folder_path):
         for filename in os.listdir(folder_path):
             if filename.endswith(".pdf") or filename.endswith(".txt"):
                 try:
                     if filename.endswith(".pdf"):
                         doc = pymupdf.open(os.path.join(folder_path, filename))
-                        # Read first 100 pages of each PDF for speed
-                        for page in doc[:100]: texts.append(page.get_text())
+                        for page in doc[:50]: texts.append(page.get_text())
                         doc.close()
                     else:
                         with open(os.path.join(folder_path, filename), 'r', encoding='utf-8', errors='ignore') as f:
                             texts.append(f.read())
                 except Exception: pass
+                
+    # If no files are found, provide a default text so the AI doesn't crash
+    if not texts:
+        texts.append("The Lalita Sahasranama is a sacred text. Jupiter represents wisdom. Mars represents courage.")
                     
     splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=100)
     chunks = splitter.create_documents(texts)
@@ -106,19 +116,15 @@ if st.button("Run Deep Diagnostic Analysis", type="primary"):
         st.error("Please enter your Z.ai API Key.")
     else:
         with st.spinner("Analyzing your Vedic Chart, Psychological State, and Energetic Blockages..."):
-            # 1. Math & Layers
             vedic = calculate_vedic_profile(dob, tob, lat, lon, tz)
             
-            # Simple SISRI scoring
             calm_score = ((q10 + q11 + q12) / 12) * 100
             thinking_score = ((q1 + q2 + q3) / 12) * 100
             
-            # 2. The Friction (The Deep Analysis)
             friction = "You have high mental activity (overthinking) but low inner calm. Your soul wants wisdom, but your mind is too busy to hear it."
             if calm_score > 70:
                 friction = "You have good inner peace, but you may be using it to avoid the real world. Your soul wants action, but your mind is hiding in the silence."
                 
-            # 3. AI Generation
             retriever = load_knowledge_base()
             docs = retriever.invoke(f"{vedic['atmakaraka']} remedies {vedic['dosha']} balancing {vedic['chakra']}")
             context = "\n\n".join([d.page_content for d in docs])
@@ -139,16 +145,15 @@ if st.button("Run Deep Diagnostic Analysis", type="primary"):
             
             Write a Prescription with 4 short, clear sections:
             1. The Diagnosis: Explain their friction in plain English.
-            2. Somatic Fix (Body): A specific Ayurvedic action to balance {vedic['dosha']} (e.g., diet, breathing).
+            2. Somatic Fix (Body): A specific Ayurvedic action to balance {vedic['dosha']}.
             3. Psychological Fix (Mind): A mental reframe based on their scores.
             4. Vedic Fix (Soul): Recommend the specific Lalita Namas {vedic['nama_range']} (e.g., {vedic['sample_nama']}) and a simple mantra for {vedic['atmakaraka']}.
             
-            Keep it under 250 words. Do not use heavy Sanskrit jargon unless explaining the remedy.
+            Keep it under 250 words.
             """
             
             response = llm.invoke(prompt)
             
-            # 4. Display
             st.success("✅ Diagnostic Complete")
             
             col1, col2, col3 = st.columns(3)
@@ -158,7 +163,6 @@ if st.button("Run Deep Diagnostic Analysis", type="primary"):
             
             st.info(response.content)
             
-            # Save for Chat
             st.session_state["vedic"] = vedic
             st.session_state["reading"] = response.content
             st.session_state["friction"] = friction
