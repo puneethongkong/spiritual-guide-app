@@ -75,18 +75,17 @@ def calculate_vedic_profile(dob, tob, lat, lon, tz):
         "sample_nama": mapping[atmakaraka]["sample_nama"]
     }
 
-# --- KNOWLEDGE BASE (Downloading from TmpFiles) ---
+# --- KNOWLEDGE BASE ---
 @st.cache_resource(show_spinner=False)
 def load_knowledge_base():
     folder_path = "knowledge"
     os.makedirs(folder_path, exist_ok=True)
     
-    # The direct link to the LSN text file
+    # The direct link to the LSN text file (TmpFiles)
     file_url = "https://tmpfiles.org/dl/wQAp0NxHXK6I/srilalitasahasranamawithsaubhagyabhaskarabhaskaravilasakavyam-wlspansikar1935nsp_text.pdf"
     filename = "LSN_Text.pdf"
     filepath = os.path.join(folder_path, filename)
     
-    # Download the file if it doesn't exist
     if not os.path.exists(filepath):
         with st.spinner("Downloading the Lalita Sahasranama text..."):
             r = requests.get(file_url)
@@ -95,7 +94,6 @@ def load_knowledge_base():
     
     texts = []
     try:
-        # Since it's a PDF, we use pymupdf
         doc = pymupdf.open(filepath)
         for page in doc: 
             texts.append(page.get_text())
@@ -132,24 +130,27 @@ if st.button("Run Deep Diagnostic Analysis", type="primary"):
             llm = ChatOpenAI(model="glm-4.5-flash", openai_api_key=api_key, openai_api_base="https://api.z.ai/api/paas/v4", temperature=0.7, extra_body={"thinking": {"type": "disabled"}})
             
             prompt = f"""
-            You are a Spiritual Doctor. 
+            You are an expert Vedic Astrologer, Ayurvedic Doctor, and Spiritual Guide. 
+            Do NOT give generic psychological advice. You MUST base every sentence on the specific ancient data calculated below.
+
             Patient Data:
-            - Core Theme: {vedic['theme']} ({vedic['atmakaraka']})
+            - Core Theme (Atmakaraka): {vedic['theme']} ({vedic['atmakaraka']})
             - Active Chakra: {vedic['chakra']}
             - Ayurvedic Imbalance: {vedic['dosha']}
             - Mind State: Calm Score {calm_score}/100, Thinking Score {thinking_score}/100.
-            
+
             Friction Diagnosis: {friction}
-            
+
             Context from ancient texts: {context}
-            
-            Write a Prescription with 4 short, clear sections:
-            1. The Diagnosis: Explain their friction in plain English.
-            2. Somatic Fix (Body): A specific Ayurvedic action to balance {vedic['dosha']}.
-            3. Psychological Fix (Mind): A mental reframe based on their scores.
-            4. Vedic Fix (Soul): Recommend the specific Lalita Namas {vedic['nama_range']} (e.g., {vedic['sample_nama']}) and a simple mantra for {vedic['atmakaraka']}.
-            
-            Keep it under 250 words.
+
+            Write a deep, 4-part Prescription. Use these exact headings:
+
+            **1. The Vedic Diagnosis:** Explain the friction between the soul ({vedic['atmakaraka']}) and the mind (overthinking). 
+            **2. The Chakra Blockage:** Explain what happens when the {vedic['chakra']} is blocked, and how it relates to their specific problem.
+            **3. The Ayurvedic Remedy:** Give a specific action to balance {vedic['dosha']} (e.g., food, breathwork). Explain WHY this balances the {vedic['dosha']}.
+            **4. The Lalita Sahasranama Remedy:** Based on the Nama range {vedic['nama_range']} (e.g., {vedic['sample_nama']}), prescribe the exact mantra or contemplation from the texts. 
+
+            Keep it under 300 words, but make it deeply rooted in the ancient tradition, using the exact Sanskrit terms for the remedies.
             """
             
             response = llm.invoke(prompt)
