@@ -4,20 +4,25 @@ from datetime import datetime
 from langchain_openai import ChatOpenAI
 from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_community.vectorstores import Chroma
-from langchain_text_splitters import RecursiveCharacterTextSplitter
-import pymupdf
 import os
 import requests
 
 # --- PAGE CONFIGURATION ---
-st.set_page_config(page_title="Spiritual Diagnostic Engine", page_icon="🩺", layout="wide")
-st.title("🩺 Ancient Wisdom Diagnostic Engine")
-st.markdown("*Deep analysis of your Vedic Chart, Mind, and Body to find the friction and prescribe corrective action.*")
+st.set_page_config(page_title="Ancient Wisdom Guide", page_icon="🕉️", layout="wide")
+st.title("🕉️ Ancient Wisdom & Modern Science Guide")
+st.markdown("*Deep analysis of your Vedic Chart, Mind, and Body.*")
 
-# --- SIDEBAR: SETUP & QUESTIONS ---
+# --- SIDEBAR: SETUP & SLIDER ---
 with st.sidebar:
     st.header("1. Setup")
     api_key = st.text_input("Z.ai API Key", type="password")
+    
+    # THE EPISTEMOLOGY SLIDER
+    slider_val = st.slider(
+        "How should we explain your results?", 
+        0, 100, 50, 
+        help="0 = Modern Science (Psychology), 100 = Ancient Philosophy (Vedic/Kashmir Shaivism)"
+    )
     
     st.header("2. Birth Details")
     dob = st.date_input("Date of Birth", datetime(1983, 12, 27))
@@ -40,7 +45,7 @@ with st.sidebar:
     q11 = st.slider("I experience moments of deep mental silence.", 0, 4, 2)
     q12 = st.slider("I stay calm in stressful situations.", 0, 4, 2)
 
-# --- CORE ASTROLOGY & MAPPING ---
+# --- CORE ASTROLOGY ---
 def calculate_vedic_profile(dob, tob, lat, lon, tz):
     dt = datetime.combine(dob, tob)
     ut_hour = dt.hour + dt.minute/60 - tz
@@ -57,7 +62,7 @@ def calculate_vedic_profile(dob, tob, lat, lon, tz):
     atmakaraka = max(degrees, key=degrees.get)
     
     mapping = {
-        "Jupiter": {"chakra": "Ajna (Third Eye)", "dosha": "Kapha", "theme": "Wisdom & Expansion", "nama_range": "521-527", "sample_nama": "N523 Shadanana (Six-faced)"},
+        "Jupiter": {"chakra": "Ajna (Third Eye)", "dosha": "Kapha", "theme": "Wisdom & Expansion", "nama_range": "521-527", "sample_nama": "N523 Shadanana"},
         "Mars": {"chakra": "Manipura (Solar Plexus)", "dosha": "Pitta", "theme": "Courage & Action", "nama_range": "495-503", "sample_nama": "N503 Lakinyamba"},
         "Venus": {"chakra": "Svadhisthana (Sacral)", "dosha": "Kapha", "theme": "Love & Creativity", "nama_range": "504-513", "sample_nama": "N513 Kakini"},
         "Saturn": {"chakra": "Muladhara (Root)", "dosha": "Vata", "theme": "Discipline & Grounding", "nama_range": "514-520", "sample_nama": "N520 Sakinyamba"},
@@ -75,87 +80,68 @@ def calculate_vedic_profile(dob, tob, lat, lon, tz):
         "sample_nama": mapping[atmakaraka]["sample_nama"]
     }
 
-# --- KNOWLEDGE BASE ---
+# --- KNOWLEDGE BASE (Pulling SQLITE from GitHub) ---
 @st.cache_resource(show_spinner=False)
 def load_knowledge_base():
-    folder_path = "knowledge"
-    os.makedirs(folder_path, exist_ok=True)
+    # Make sure this URL matches YOUR GitHub raw link!
+    # Format: https://raw.githubusercontent.com/username/repo/main/filename.sqlite3
+    sqlite_url = "https://raw.githubusercontent.com/puneethongkong/spiritual-guide-app/main/chroma.sqlite3"
     
-    # The direct link to the LSN text file (TmpFiles)
-    file_url = "https://tmpfiles.org/dl/wQAp0NxHXK6I/srilalitasahasranamawithsaubhagyabhaskarabhaskaravilasakavyam-wlspansikar1935nsp_text.pdf"
-    filename = "LSN_Text.pdf"
-    filepath = os.path.join(folder_path, filename)
+    os.makedirs("chroma_db", exist_ok=True)
+    filepath = "chroma_db/chroma.sqlite3"
     
     if not os.path.exists(filepath):
-        with st.spinner("Downloading the Lalita Sahasranama text..."):
-            r = requests.get(file_url)
+        with st.spinner("Downloading 10-book database from GitHub..."):
+            r = requests.get(sqlite_url)
             with open(filepath, 'wb') as f:
                 f.write(r.content)
-    
-    texts = []
-    try:
-        doc = pymupdf.open(filepath)
-        for page in doc: 
-            texts.append(page.get_text())
-        doc.close()
-    except Exception as e:
-        st.error(f"Error reading the PDF: {e}")
-        texts.append("Knowledge base loading failed.")
                 
-    splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=100)
-    chunks = splitter.create_documents(texts)
-    embeddings = HuggingFaceEmbeddings(model_name="paraphrase-MiniLM-L3-v2")
-    vectorstore = Chroma.from_documents(chunks, embeddings)
-    return vectorstore.as_retriever(search_kwargs={"k": 3})
+    embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
+    vectorstore = Chroma(persist_directory="chroma_db", embedding_function=embeddings)
+    return vectorstore.as_retriever(search_kwargs={"k": 5})
 
 # --- MAIN APP ---
 if st.button("Run Deep Diagnostic Analysis", type="primary"):
     if not api_key:
         st.error("Please enter your Z.ai API Key.")
     else:
-        with st.spinner("Analyzing your Vedic Chart, Psychological State, and Energetic Blockages..."):
+        with st.spinner("Analyzing your Vedic Chart and consulting the 10 ancient books..."):
+            
             vedic = calculate_vedic_profile(dob, tob, lat, lon, tz)
             
-            calm_score = ((q10 + q11 + q12) / 12) * 100
-            thinking_score = ((q1 + q2 + q3) / 12) * 100
+            calm_score = int(((q10 + q11 + q12) / 12) * 100)
+            thinking_score = int(((q1 + q2 + q3) / 12) * 100)
             
-            friction = "You have high mental activity (overthinking) but low inner calm. Your soul wants wisdom, but your mind is too busy to hear it."
-            if calm_score > 70:
-                friction = "You have good inner peace, but you may be using it to avoid the real world. Your soul wants action, but your mind is hiding in the silence."
-                
             retriever = load_knowledge_base()
-            docs = retriever.invoke(f"{vedic['atmakaraka']} remedies {vedic['dosha']} balancing {vedic['chakra']}")
+            docs = retriever.invoke(f"{vedic['atmakaraka']} remedies {vedic['dosha']} balancing {vedic['chakra']} ancient text")
             context = "\n\n".join([d.page_content for d in docs])
             
             llm = ChatOpenAI(model="glm-4.5-flash", openai_api_key=api_key, openai_api_base="https://api.z.ai/api/paas/v4", temperature=0.7, extra_body={"thinking": {"type": "disabled"}})
             
+            # THE SYNTHESIS PROMPT WITH SLIDER
             prompt = f"""
-            You are an expert Vedic Astrologer, Ayurvedic Doctor, and Spiritual Guide. 
-            Do NOT give generic psychological advice. You MUST base every sentence on the specific ancient data calculated below.
-
+            You are a Spiritual Guide blending Ancient Vedic Wisdom with Modern Psychology.
+            User Slider Preference (0=Science, 100=Philosophy): {slider_val}
+            
             Patient Data:
-            - Core Theme (Atmakaraka): {vedic['theme']} ({vedic['atmakaraka']})
+            - Core Theme: {vedic['theme']} ({vedic['atmakaraka']})
             - Active Chakra: {vedic['chakra']}
             - Ayurvedic Imbalance: {vedic['dosha']}
-            - Mind State: Calm Score {calm_score}/100, Thinking Score {thinking_score}/100.
-
-            Friction Diagnosis: {friction}
-
-            Context from ancient texts: {context}
-
-            Write a deep, 4-part Prescription. Use these exact headings:
-
-            **1. The Vedic Diagnosis:** Explain the friction between the soul ({vedic['atmakaraka']}) and the mind (overthinking). 
-            **2. The Chakra Blockage:** Explain what happens when the {vedic['chakra']} is blocked, and how it relates to their specific problem.
-            **3. The Ayurvedic Remedy:** Give a specific action to balance {vedic['dosha']} (e.g., food, breathwork). Explain WHY this balances the {vedic['dosha']}.
-            **4. The Lalita Sahasranama Remedy:** Based on the Nama range {vedic['nama_range']} (e.g., {vedic['sample_nama']}), prescribe the exact mantra or contemplation from the texts. 
-
-            Keep it under 300 words, but make it deeply rooted in the ancient tradition, using the exact Sanskrit terms for the remedies.
+            - Modern Mind State: {calm_score}/100 Calm, {thinking_score}/100 Overthinking.
+            
+            Context from the 10 ancient books: {context}
+            
+            Task: Write a 3-part prescription.
+            1. The Diagnosis: Explain their friction. If the slider is closer to 100, use Vedic terms (Vritti, Karma). If closer to 0, use modern terms (Overthinking, Nervous System).
+            2. The Body & Mind Fix: Blend Ayurveda and Psychology. Give one physical action (for {vedic['dosha']}) and one mental reframe (for {thinking_score} overthinking).
+            3. The Vedic Remedy: Recommend Lalita Namas {vedic['nama_range']} (e.g., {vedic['sample_nama']}) and explain how it pierces the {vedic['chakra']}.
+            
+            Keep it under 250 words.
             """
             
             response = llm.invoke(prompt)
             
-            st.success("✅ Diagnostic Complete")
+            st.success("✅ Synthesis Complete")
             
             col1, col2, col3 = st.columns(3)
             col1.metric("Core Theme", vedic['theme'])
@@ -166,9 +152,8 @@ if st.button("Run Deep Diagnostic Analysis", type="primary"):
             
             st.session_state["vedic"] = vedic
             st.session_state["reading"] = response.content
-            st.session_state["friction"] = friction
 
-# --- CHAT INTERFACE ---
+# --- CHAT ---
 st.divider()
 st.header("💬 Discuss Your Corrective Actions")
 if "messages" not in st.session_state: st.session_state.messages = []
@@ -176,7 +161,7 @@ if "messages" not in st.session_state: st.session_state.messages = []
 for msg in st.session_state.messages:
     with st.chat_message(msg["role"]): st.markdown(msg["content"])
 
-if user_query := st.chat_input("Ask about your remedies, dosha, or chakra..."):
+if user_query := st.chat_input("Ask about your remedies..."):
     if not api_key: st.error("API Key missing.")
     elif "vedic" not in st.session_state: st.error("Please run the diagnostic first.")
     else:
@@ -186,7 +171,7 @@ if user_query := st.chat_input("Ask about your remedies, dosha, or chakra..."):
         with st.chat_message("assistant"):
             with st.spinner("Reflecting..."):
                 llm = ChatOpenAI(model="glm-4.5-flash", openai_api_key=api_key, openai_api_base="https://api.z.ai/api/paas/v4", temperature=0.7, extra_body={"thinking": {"type": "disabled"}})
-                chat_prompt = f"User Chart: {st.session_state['vedic']}. Friction: {st.session_state['friction']}. Context: {st.session_state['reading']}. Answer: {user_query}"
+                chat_prompt = f"User Chart: {st.session_state['vedic']}. Previous Reading: {st.session_state['reading']}. Answer: {user_query}"
                 response = llm.invoke(chat_prompt)
                 st.markdown(response.content)
                 st.session_state.messages.append({"role": "assistant", "content": response.content})
