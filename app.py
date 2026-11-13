@@ -56,7 +56,6 @@ def calculate_vedic_profile(dob, tob, lat, lon, tz):
         
     atmakaraka = max(degrees, key=degrees.get)
     
-    # The 3-Layer Mapping
     mapping = {
         "Jupiter": {"chakra": "Ajna (Third Eye)", "dosha": "Kapha", "theme": "Wisdom & Expansion", "nama_range": "521-527", "sample_nama": "N523 Shadanana (Six-faced)"},
         "Mars": {"chakra": "Manipura (Solar Plexus)", "dosha": "Pitta", "theme": "Courage & Action", "nama_range": "495-503", "sample_nama": "N503 Lakinyamba"},
@@ -76,34 +75,35 @@ def calculate_vedic_profile(dob, tob, lat, lon, tz):
         "sample_nama": mapping[atmakaraka]["sample_nama"]
     }
 
-# --- KNOWLEDGE BASE (With GitHub Release Download) ---
+# --- KNOWLEDGE BASE (Downloading from TmpFiles) ---
 @st.cache_resource(show_spinner=False)
 def load_knowledge_base():
     folder_path = "knowledge"
     os.makedirs(folder_path, exist_ok=True)
     
-    # We will use a file called 'book1.pdf' as a test. 
-    # The real URLs will be generated in the next step.
-    test_file = os.path.join(folder_path, "Saubhagya_Bhaskara_LSN.pdf")
+    # The direct link to the LSN text file
+    file_url = "https://tmpfiles.org/dl/wQAp0NxHXK6I/srilalitasahasranamawithsaubhagyabhaskarabhaskaravilasakavyam-wlspansikar1935nsp_text.pdf"
+    filename = "LSN_Text.pdf"
+    filepath = os.path.join(folder_path, filename)
+    
+    # Download the file if it doesn't exist
+    if not os.path.exists(filepath):
+        with st.spinner("Downloading the Lalita Sahasranama text..."):
+            r = requests.get(file_url)
+            with open(filepath, 'wb') as f:
+                f.write(r.content)
     
     texts = []
-    if os.path.exists(folder_path):
-        for filename in os.listdir(folder_path):
-            if filename.endswith(".pdf") or filename.endswith(".txt"):
-                try:
-                    if filename.endswith(".pdf"):
-                        doc = pymupdf.open(os.path.join(folder_path, filename))
-                        for page in doc[:50]: texts.append(page.get_text())
-                        doc.close()
-                    else:
-                        with open(os.path.join(folder_path, filename), 'r', encoding='utf-8', errors='ignore') as f:
-                            texts.append(f.read())
-                except Exception: pass
+    try:
+        # Since it's a PDF, we use pymupdf
+        doc = pymupdf.open(filepath)
+        for page in doc: 
+            texts.append(page.get_text())
+        doc.close()
+    except Exception as e:
+        st.error(f"Error reading the PDF: {e}")
+        texts.append("Knowledge base loading failed.")
                 
-    # If no files are found, provide a default text so the AI doesn't crash
-    if not texts:
-        texts.append("The Lalita Sahasranama is a sacred text. Jupiter represents wisdom. Mars represents courage.")
-                    
     splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=100)
     chunks = splitter.create_documents(texts)
     embeddings = HuggingFaceEmbeddings(model_name="paraphrase-MiniLM-L3-v2")
@@ -185,7 +185,7 @@ if user_query := st.chat_input("Ask about your remedies, dosha, or chakra..."):
         with st.chat_message("assistant"):
             with st.spinner("Reflecting..."):
                 llm = ChatOpenAI(model="glm-4.5-flash", openai_api_key=api_key, openai_api_base="https://api.z.ai/api/paas/v4", temperature=0.7, extra_body={"thinking": {"type": "disabled"}})
-                chat_prompt = f"User Chart: {st.session_state['vedic']}. Friction: {st.session_state['friction']}. Answer: {user_query}"
+                chat_prompt = f"User Chart: {st.session_state['vedic']}. Friction: {st.session_state['friction']}. Context: {st.session_state['reading']}. Answer: {user_query}"
                 response = llm.invoke(chat_prompt)
                 st.markdown(response.content)
                 st.session_state.messages.append({"role": "assistant", "content": response.content})
