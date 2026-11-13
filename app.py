@@ -17,7 +17,6 @@ with st.sidebar:
     st.header("1. Setup")
     api_key = st.text_input("Z.ai API Key", type="password")
     
-    # THE EPISTEMOLOGY SLIDER
     slider_val = st.slider(
         "How should we explain your results?", 
         0, 100, 50, 
@@ -31,16 +30,20 @@ with st.sidebar:
     lon = st.number_input("Longitude", value=76.13, format="%.4f")
     tz = st.number_input("Timezone (UTC offset)", value=5.5)
 
-    st.header("3. The 12 Questions (0=Never, 4=Always)")
+    st.header("3. The 12 Scientific Questions (0=Never, 4=Always)")
+    # CET (Critical Existential Thinking)
     q1 = st.slider("I think deeply about life and death.", 0, 4, 2)
     q2 = st.slider("I question my core beliefs.", 0, 4, 2)
     q3 = st.slider("I handle uncertainty well.", 0, 4, 2)
+    # PMP (Personal Meaning Production)
     q4 = st.slider("I find meaning in hard times.", 0, 4, 2)
     q5 = st.slider("My life has a clear direction.", 0, 4, 2)
     q6 = st.slider("I learn from my past mistakes.", 0, 4, 2)
+    # TA (Transcendental Awareness)
     q7 = st.slider("I feel a deep spiritual connection.", 0, 4, 2)
     q8 = st.slider("I feel deeply connected to nature.", 0, 4, 2)
     q9 = st.slider("I can watch my thoughts without getting swept away.", 0, 4, 2)
+    # CSE (Conscious State Expansion)
     q10 = st.slider("I can find inner peace on demand.", 0, 4, 2)
     q11 = st.slider("I experience moments of deep mental silence.", 0, 4, 2)
     q12 = st.slider("I stay calm in stressful situations.", 0, 4, 2)
@@ -80,13 +83,10 @@ def calculate_vedic_profile(dob, tob, lat, lon, tz):
         "sample_nama": mapping[atmakaraka]["sample_nama"]
     }
 
-# --- KNOWLEDGE BASE (Pulling SQLITE from GitHub) ---
+# --- KNOWLEDGE BASE ---
 @st.cache_resource(show_spinner=False)
 def load_knowledge_base():
-    # Make sure this URL matches YOUR GitHub raw link!
-    # Format: https://raw.githubusercontent.com/username/repo/main/filename.sqlite3
     sqlite_url = "https://raw.githubusercontent.com/puneethongkong/spiritual-guide-app/main/chroma.sqlite3"
-    
     os.makedirs("chroma_db", exist_ok=True)
     filepath = "chroma_db/chroma.sqlite3"
     
@@ -105,35 +105,43 @@ if st.button("Run Deep Diagnostic Analysis", type="primary"):
     if not api_key:
         st.error("Please enter your Z.ai API Key.")
     else:
-        with st.spinner("Analyzing your Vedic Chart and consulting the 10 ancient books..."):
+        with st.spinner("Analyzing your Vedic Chart, Psychological State, and 10 books..."):
             
             vedic = calculate_vedic_profile(dob, tob, lat, lon, tz)
             
-            calm_score = int(((q10 + q11 + q12) / 12) * 100)
-            thinking_score = int(((q1 + q2 + q3) / 12) * 100)
+            # --- CALCULATE THE SCIENTIFIC SISRI SCORES ---
+            cet_score = int(((q1 + q2 + q3) / 12) * 100)
+            pmp_score = int(((q4 + q5 + q6) / 12) * 100)
+            ta_score = int(((q7 + q8 + q9) / 12) * 100)
+            cse_score = int(((q10 + q11 + q12) / 12) * 100)
             
             retriever = load_knowledge_base()
-            docs = retriever.invoke(f"{vedic['atmakaraka']} remedies {vedic['dosha']} balancing {vedic['chakra']} ancient text")
+            docs = retriever.invoke(f"{vedic['atmakaraka']} remedies {vedic['dosha']} balancing {vedic['chakra']}")
             context = "\n\n".join([d.page_content for d in docs])
             
             llm = ChatOpenAI(model="glm-4.5-flash", openai_api_key=api_key, openai_api_base="https://api.z.ai/api/paas/v4", temperature=0.7, extra_body={"thinking": {"type": "disabled"}})
             
-            # THE SYNTHESIS PROMPT WITH SLIDER
+            # THE SYNTHESIS PROMPT
             prompt = f"""
-            You are a Spiritual Guide blending Ancient Vedic Wisdom with Modern Psychology.
+            You are a Spiritual Guide blending Ancient Vedic Wisdom with Modern Psychology (SISRI-24).
             User Slider Preference (0=Science, 100=Philosophy): {slider_val}
             
-            Patient Data:
+            Ancient Data:
             - Core Theme: {vedic['theme']} ({vedic['atmakaraka']})
             - Active Chakra: {vedic['chakra']}
             - Ayurvedic Imbalance: {vedic['dosha']}
-            - Modern Mind State: {calm_score}/100 Calm, {thinking_score}/100 Overthinking.
+            
+            Modern Scientific SISRI-24 Scores:
+            - Critical Existential Thinking: {cet_score}/100
+            - Personal Meaning Production: {pmp_score}/100
+            - Transcendental Awareness: {ta_score}/100
+            - Conscious State Expansion (Inner Calm): {cse_score}/100
             
             Context from the 10 ancient books: {context}
             
             Task: Write a 3-part prescription.
-            1. The Diagnosis: Explain their friction. If the slider is closer to 100, use Vedic terms (Vritti, Karma). If closer to 0, use modern terms (Overthinking, Nervous System).
-            2. The Body & Mind Fix: Blend Ayurveda and Psychology. Give one physical action (for {vedic['dosha']}) and one mental reframe (for {thinking_score} overthinking).
+            1. The Diagnosis: Blend the Vedic theme ({vedic['atmakaraka']}) with the modern psychological scores (e.g., high CET but low CSE). If the slider is closer to 100, use Vedic terms. If closer to 0, use modern psychological terms.
+            2. The Body & Mind Fix: Give one Ayurvedic action for {vedic['dosha']} AND one psychological reframe for their specific SISRI scores.
             3. The Vedic Remedy: Recommend Lalita Namas {vedic['nama_range']} (e.g., {vedic['sample_nama']}) and explain how it pierces the {vedic['chakra']}.
             
             Keep it under 250 words.
@@ -143,10 +151,14 @@ if st.button("Run Deep Diagnostic Analysis", type="primary"):
             
             st.success("✅ Synthesis Complete")
             
+            # DISPLAY THE METRICS
             col1, col2, col3 = st.columns(3)
-            col1.metric("Core Theme", vedic['theme'])
-            col2.metric("Active Chakra", vedic['chakra'])
-            col3.metric("Ayurvedic Type", vedic['dosha'])
+            col1.metric("Vedic Theme", vedic['theme'])
+            col2.metric("Chakra", vedic['chakra'])
+            col3.metric("Dosha", vedic['dosha'])
+            
+            st.markdown("### Modern Scientific Scores (SISRI-24)")
+            st.write(f"**Critical Thinking:** {cet_score}% | **Meaning:** {pmp_score}% | **Transcendental Awareness:** {ta_score}% | **Inner Calm:** {cse_score}%")
             
             st.info(response.content)
             
@@ -171,7 +183,7 @@ if user_query := st.chat_input("Ask about your remedies..."):
         with st.chat_message("assistant"):
             with st.spinner("Reflecting..."):
                 llm = ChatOpenAI(model="glm-4.5-flash", openai_api_key=api_key, openai_api_base="https://api.z.ai/api/paas/v4", temperature=0.7, extra_body={"thinking": {"type": "disabled"}})
-                chat_prompt = f"User Chart: {st.session_state['vedic']}. Previous Reading: {st.session_state['reading']}. Answer: {user_query}"
+                chat_prompt = f"User Chart: {st.session_state['vedic']}. Reading: {st.session_state['reading']}. Answer: {user_query}"
                 response = llm.invoke(chat_prompt)
                 st.markdown(response.content)
                 st.session_state.messages.append({"role": "assistant", "content": response.content})
