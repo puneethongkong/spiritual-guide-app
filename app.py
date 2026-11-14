@@ -16,11 +16,9 @@ st.markdown("*Deep analysis of your Vedic Chart, Mind, and Body.*")
 with st.sidebar:
     st.header("1. Setup")
     api_key = st.text_input("Z.ai API Key", type="password")
-    
     user_name = st.text_input("Your Name", value="Seeker")
     
     st.divider()
-    
     slider_val = st.slider("How should we explain your results?", 0, 100, 50)
     if slider_val < 30:
         st.caption("**Current Bias:** Modern Science (Psychological).")
@@ -30,28 +28,23 @@ with st.sidebar:
         st.caption("**Current Bias:** Balanced Synthesis.")
     
     st.divider()
-    
     st.header("2. Birth Details")
-    # FIXED: Replaced buggy calendar with 3 simple dropdowns
     st.markdown("**Date of Birth**")
     col_y, col_m, col_d = st.columns(3)
-    
     with col_y:
-        birth_year = st.selectbox("Year", options=list(range(2030, 1900, -1)), index=47) # Defaults to 1983
+        birth_year = st.selectbox("Year", options=list(range(2030, 1900, -1)), index=47)
     with col_m:
         birth_month = st.selectbox("Month", options=list(range(1, 13)), format_func=lambda x: datetime(2000, x, 1).strftime('%b'), index=11)
     with col_d:
-        birth_day = st.selectbox("Day", options=list(range(1, 32)), index=26) # Defaults to 27
+        birth_day = st.selectbox("Day", options=list(range(1, 32)), index=26)
         
     tob = st.time_input("Time of Birth", datetime.strptime("00:35", "%H:%M").time())
-    
     lat = st.number_input("Latitude", value=31.64, format="%.4f")
     lon = st.number_input("Longitude", value=76.13, format="%.4f")
     tz = st.number_input("Timezone (UTC offset)", value=5.5)
 
     st.divider()
     st.header("3. The 12 Scientific Questions (0=Never, 4=Always)")
-    
     q1 = st.slider("I think deeply about life and death.", 0, 4, 2)
     q2 = st.slider("I question my core beliefs.", 0, 4, 2)
     q3 = st.slider("I handle uncertainty well.", 0, 4, 2)
@@ -124,7 +117,6 @@ if st.button("Run Deep Diagnostic Analysis", type="primary"):
     else:
         with st.spinner(f"Analyzing {user_name}'s Vedic Chart and Modern Psychology Profile..."):
             
-            # Pass the dropdown values to the calculator
             vedic = calculate_vedic_profile(birth_year, birth_month, birth_day, tob, lat, lon, tz)
             
             cet_score = int(((q1 + q2 + q3) / 12) * 100)
@@ -132,39 +124,71 @@ if st.button("Run Deep Diagnostic Analysis", type="primary"):
             ta_score = int(((q7 + q8 + q9) / 12) * 100)
             cse_score = int(((q10 + q11 + q12) / 12) * 100)
             
+            # --- CALCULATE SPIRITUAL SCORE OUT OF 10 ---
+            # Base score is the average of the 4 modern psychology scores
+            base_avg = (cet_score + pmp_score + ta_score + cse_score) / 4
+            
+            # Vedic adjustment
+            vedic_bonus = 0
+            if vedic['atmakaraka'] in ["Jupiter", "Moon", "Rahu"]:
+                vedic_bonus = 10  # Sattvic/Spiritual planets add a boost
+            elif vedic['atmakaraka'] in ["Venus", "Mercury"]:
+                vedic_bonus = 5   # Rajasic/Neutral planets
+            elif vedic['atmakaraka'] in ["Mars", "Saturn"]:
+                vedic_bonus = 0   # Tamasic/Intense karmic planets
+            
+            # Calculate final score out of 10
+            final_raw_score = base_avg + vedic_bonus
+            spiritual_score = round((final_raw_score / 110) * 10, 1) # Scale 0-110 to 0-10
+            if spiritual_score > 10.0: spiritual_score = 10.0
+            
             retriever = load_knowledge_base()
             docs = retriever.invoke(f"{vedic['atmakaraka']} remedies {vedic['dosha']} balancing {vedic['chakra']}")
             context = "\n\n".join([d.page_content for d in docs])
             
-            llm = ChatOpenAI(model="glm-4.5-flash", openai_api_key=api_key, openai_api_base="https://api.z.ai/api/paas/v4", temperature=0.7, extra_body={"thinking": {"type": "disabled"}})
+            llm = ChatOpenAI(model="glm-4.5-flash", openai_api_key=api_key, openai_api_base="https://api.z.ai/api/paas/v4", temperature=0.7, max_tokens=1500, extra_body={"thinking": {"type": "disabled"}})
             
+            # UPDATED PROMPT WITH SCORE
             prompt = f"""
-            You are a Spiritual Guide blending Ancient Vedic Wisdom with Modern Psychology.
+            You are an expert Vedic Astrologer, Ayurvedic Doctor, and Spiritual Guide. 
             The user's name is: {user_name}. Address them by name.
-            User Slider Preference (0=Science, 100=Philosophy): {slider_val}
+            Their calculated Spiritual Score is: {spiritual_score} out of 10.
             
-            Ancient Data: {vedic['theme']} ({vedic['atmakaraka']}), Chakra: {vedic['chakra']}, Dosha: {vedic['dosha']}.
-            Modern SISRI Scores: Thinking {cet_score}/100, Meaning {pmp_score}/100, Spiritual {ta_score}/100, Calm {cse_score}/100.
+            Patient's Ancient Data:
+            - Atmakaraka (Core Theme): {vedic['theme']} ({vedic['atmakaraka']})
+            - Active Chakra: {vedic['chakra']}
+            - Ayurvedic Imbalance: {vedic['dosha']}
+            - Lalita Nama Range: {vedic['nama_range']} (e.g., {vedic['sample_nama']})
+            
+            Patient's Modern SISRI-24 Scores:
+            - Critical Thinking: {cet_score}/100
+            - Meaning & Purpose: {pmp_score}/100
+            - Transcendental Awareness: {ta_score}/100
+            - Inner Calm (CSE): {cse_score}/100
             
             Context from ancient texts: {context}
             
-            Output strictly in this format:
-            DIAGNOSIS: [Address {user_name}. 1-2 sentences blending their Vedic friction with their SISRI scores.]
-            BODY_FIX: [1 specific Ayurvedic action for {vedic['dosha']}.]
-            MIND_FIX: [1 psychological reframe based on their lowest SISRI score.]
-            VEDIC_REMEDY: [Recommend Namas {vedic['nama_range']} and explain how it pierces the {vedic['chakra']}.]
+            Write a DETAILED, deeply analytical prescription. 
+            
+            **1. The Vedic Diagnosis:** Address {user_name}. Explain the specific friction between their soul's desire ({vedic['atmakaraka']}) and their mind's modern psychological state. Mention their Spiritual Score of {spiritual_score}/10 and explain what it means for their current journey.
+            **2. The Chakra Blockage (Detailed):** Focus on the {vedic['chakra']}. Explain what it governs, the symptoms of blockage, and why their SISRI scores indicate a block here.
+            **3. The Ayurvedic Body Fix (Detailed):** Explain the {vedic['dosha']} imbalance. Prescribe 2 specific Ayurvedic actions (e.g., Pranayama, dietary change). Explain the mechanism of WHY this balances {vedic['dosha']}.
+            **4. The Psychological Mind Fix (Detailed):** Prescribe a specific psychological reframe based on their lowest SISRI score.
+            **5. The Lalita Sahasranama Spiritual Remedy:** Introduce Nama {vedic['nama_range']} (e.g., {vedic['sample_nama']}). Explain its meaning, prescribe how to chant it, and explain how it pierces the {vedic['chakra']}.
             """
             
             response = llm.invoke(prompt)
             content = response.content
             
-            # DISPLAY
+            # DISPLAY METRICS
             st.success(f"✅ Synthesis Complete for {user_name}")
             
-            col1, col2, col3 = st.columns(3)
+            # NEW LAYOUT WITH SPIRITUAL SCORE COLUMN
+            col1, col2, col3, col4 = st.columns(4)
             col1.metric("Vedic Theme", vedic['theme'])
             col2.metric("Active Chakra", vedic['chakra'])
             col3.metric("Ayurvedic Type", vedic['dosha'])
+            col4.metric("Spiritual Score", f"{spiritual_score}/10") # The new column!
             
             st.markdown(f"### {user_name}'s Modern Psychological Profile (SISRI-24)")
             st.progress(cet_score, text=f"Critical Thinking: {cet_score}%")
@@ -175,21 +199,25 @@ if st.button("Run Deep Diagnostic Analysis", type="primary"):
             st.divider()
             
             try:
-                diag = content.split("DIAGNOSIS:")[1].split("BODY_FIX:")[0].strip()
-                body = content.split("BODY_FIX:")[1].split("MIND_FIX:")[0].strip()
-                mind = content.split("MIND_FIX:")[1].split("VEDIC_REMEDY:")[0].strip()
-                remedy = content.split("VEDIC_REMEDY:")[1].strip()
+                diag = content.split("**1. The Vedic Diagnosis:**")[1].split("**2. The Chakra Blockage (Detailed):**")[0].strip()
+                chakra = content.split("**2. The Chakra Blockage (Detailed):**")[1].split("**3. The Ayurvedic Body Fix (Detailed):**")[0].strip()
+                body = content.split("**3. The Ayurvedic Body Fix (Detailed):**")[1].split("**4. The Psychological Mind Fix (Detailed):**")[0].strip()
+                mind = content.split("**4. The Psychological Mind Fix (Detailed):**")[1].split("**5. The Lalita Sahasranama Spiritual Remedy:**")[0].strip()
+                remedy = content.split("**5. The Lalita Sahasranama Spiritual Remedy:**")[1].strip()
                 
-                with st.expander(f"🔍 The Diagnosis for {user_name}", expanded=True):
+                with st.expander(f"🔍 The Vedic Diagnosis for {user_name}", expanded=True):
                     st.write(diag)
+                
+                with st.expander(f"🌀 The Chakra Blockage: {vedic['chakra']}", expanded=True):
+                    st.write(chakra)
                     
                 col_a, col_b = st.columns(2)
                 with col_a:
-                    st.info(f"**🧘 Ayurvedic Body Fix**\n\n{body}")
+                    st.info(f"**🧘 Ayurvedic Body Fix ({vedic['dosha']})**\n\n{body}")
                 with col_b:
                     st.warning(f"**🧠 Psychological Mind Fix**\n\n{mind}")
                     
-                st.success(f"**🕉️ Lalita Sahasranama Remedy**\n\n{remedy}")
+                st.success(f"**🕉️ Lalita Sahasranama Spiritual Remedy**\n\n{remedy}")
                 
             except Exception:
                 st.info(content)
