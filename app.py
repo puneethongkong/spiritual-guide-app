@@ -37,6 +37,7 @@ with st.sidebar:
     st.divider()
     
     st.header("2. Birth Details")
+    # FIXED: Full date range from 1900 to 2030
     dob = st.date_input("Date of Birth", value=date(1983, 12, 27), min_value=date(1900, 1, 1), max_value=date(2030, 12, 31))
     tob = st.time_input("Time of Birth", datetime.strptime("00:35", "%H:%M").time())
     
