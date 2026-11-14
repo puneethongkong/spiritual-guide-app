@@ -17,28 +17,32 @@ with st.sidebar:
     st.header("1. Setup")
     api_key = st.text_input("Z.ai API Key", type="password")
     
-    # USER NAME INPUT
     user_name = st.text_input("Your Name", value="Seeker")
     
     st.divider()
     
-    # THE EXPLAINED SLIDER
-    slider_val = st.slider(
-        "How should we explain your results?", 
-        0, 100, 50
-    )
+    slider_val = st.slider("How should we explain your results?", 0, 100, 50)
     if slider_val < 30:
-        st.caption("**Current Bias:** Modern Science (Psychological & Neurological).")
+        st.caption("**Current Bias:** Modern Science (Psychological).")
     elif slider_val > 70:
-        st.caption("**Current Bias:** Ancient Philosophy (Vedic & Sanskrit).")
+        st.caption("**Current Bias:** Ancient Philosophy (Vedic).")
     else:
-        st.caption("**Current Bias:** Balanced Synthesis (Ancient + Modern).")
+        st.caption("**Current Bias:** Balanced Synthesis.")
     
     st.divider()
     
     st.header("2. Birth Details")
-    # FIXED: Full date range from 1900 to 2030
-    dob = st.date_input("Date of Birth", value=date(1983, 12, 27), min_value=date(1900, 1, 1), max_value=date(2030, 12, 31))
+    # FIXED: Replaced buggy calendar with 3 simple dropdowns
+    st.markdown("**Date of Birth**")
+    col_y, col_m, col_d = st.columns(3)
+    
+    with col_y:
+        birth_year = st.selectbox("Year", options=list(range(2030, 1900, -1)), index=47) # Defaults to 1983
+    with col_m:
+        birth_month = st.selectbox("Month", options=list(range(1, 13)), format_func=lambda x: datetime(2000, x, 1).strftime('%b'), index=11)
+    with col_d:
+        birth_day = st.selectbox("Day", options=list(range(1, 32)), index=26) # Defaults to 27
+        
     tob = st.time_input("Time of Birth", datetime.strptime("00:35", "%H:%M").time())
     
     lat = st.number_input("Latitude", value=31.64, format="%.4f")
@@ -62,8 +66,8 @@ with st.sidebar:
     q12 = st.slider("I stay calm in stressful situations.", 0, 4, 2)
 
 # --- CORE ASTROLOGY ---
-def calculate_vedic_profile(dob, tob, lat, lon, tz):
-    dt = datetime.combine(dob, tob)
+def calculate_vedic_profile(year, month, day, tob, lat, lon, tz):
+    dt = datetime(year, month, day, tob.hour, tob.minute)
     ut_hour = dt.hour + dt.minute/60 - tz
     jd = swe.julday(dt.year, dt.month, dt.day, ut_hour)
     
@@ -120,7 +124,8 @@ if st.button("Run Deep Diagnostic Analysis", type="primary"):
     else:
         with st.spinner(f"Analyzing {user_name}'s Vedic Chart and Modern Psychology Profile..."):
             
-            vedic = calculate_vedic_profile(dob, tob, lat, lon, tz)
+            # Pass the dropdown values to the calculator
+            vedic = calculate_vedic_profile(birth_year, birth_month, birth_day, tob, lat, lon, tz)
             
             cet_score = int(((q1 + q2 + q3) / 12) * 100)
             pmp_score = int(((q4 + q5 + q6) / 12) * 100)
