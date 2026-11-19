@@ -1,8 +1,8 @@
-import html
 import json
 import os
 from datetime import date, datetime, timezone
 
+import chromadb
 import plotly.graph_objects as go
 import streamlit as st
 import swisseph as swe
@@ -10,864 +10,240 @@ from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_community.vectorstores import Chroma
 from langchain_openai import ChatOpenAI
 
-# ============================================================
-# 1. PAGE CONFIGURATION
-# ============================================================
-st.set_page_config(
-    page_title="Ancient Wisdom Synthesis",
-    page_icon="🕉️",
-    layout="wide",
-    initial_sidebar_state="expanded",
-)
+st.set_page_config(page_title="Ancient Wisdom Synthesis", page_icon="🕉️", layout="wide")
 
-st.markdown(
-    """
-    <style>
-        .stApp {
-            background-color: #0F1226;
-            color: #EAE6DF;
-        }
-        h1, h2, h3, h4 {
-            color: #EAE6DF;
-        }
-        p, li, .stMarkdown {
-            color: #C9C4BB;
-        }
-        hr {
-            border-color: #2A2D4A;
-        }
-        [data-testid="stMetric"] {
-            background: #171A33;
-            border: 1px solid #2A2D4A;
-            border-radius: 12px;
-            padding: 16px;
-        }
-        [data-testid="stMetricLabel"] {
-            color: #9C9A93 !important;
-        }
-        [data-testid="stMetricValue"] {
-            color: #C9A84C !important;
-        }
-        .stButton > button {
-            background: linear-gradient(135deg, #4A3F78, #7C5CBF);
-            color: white;
-            border: none;
-            border-radius: 28px;
-            padding: 10px 28px;
-            font-weight: 600;
-        }
-        [data-testid="stSidebar"] {
-            background-color: #12142B;
-            border-right: 1px solid #2A2D4A;
-        }
-        [data-testid="stChatMessage"] {
-            background: #171A33;
-            border: 1px solid #2A2D4A;
-            border-radius: 12px;
-        }
-    </style>
-    """,
-    unsafe_allow_html=True,
-)
+st.markdown("""
+<style>
+.stApp {background:#0f1226;color:#eae6df}
+[data-testid="stSidebar"] {background:#12142b;border-right:1px solid #2a2d4a}
+[data-testid="stMetric"] {background:#171a33;border:1px solid #2a2d4a;border-radius:12px;padding:15px}
+[data-testid="stMetricLabel"] {color:#aaa6a0!important}
+[data-testid="stMetricValue"] {color:#d7b958!important}
+.stButton>button {background:linear-gradient(135deg,#4a3f78,#7c5cbf);color:white;border:0;border-radius:26px;padding:10px 26px;font-weight:600}
+[data-testid="stChatMessage"] {background:#171a33;border:1px solid #2a2d4a;border-radius:12px}
+h1,h2,h3,h4 {color:#eae6df} p,li,.stMarkdown {color:#c9c4bb}
+</style>
+""", unsafe_allow_html=True)
 
-# ============================================================
-# 2. CONSTANTS
-# ============================================================
-SIGNS = [
-    "Aries", "Taurus", "Gemini", "Cancer", "Leo", "Virgo",
-    "Libra", "Scorpio", "Sagittarius", "Capricorn", "Aquarius", "Pisces",
-]
+SIGNS = ["Aries","Taurus","Gemini","Cancer","Leo","Virgo","Libra","Scorpio","Sagittarius","Capricorn","Aquarius","Pisces"]
+NAKSHATRAS = ["Ashwini","Bharani","Krittika","Rohini","Mrigashirsha","Ardra","Punarvasu","Pushya","Ashlesha","Magha","Purva Phalguni","Uttara Phalguni","Hasta","Chitra","Swati","Vishakha","Anuradha","Jyeshtha","Mula","Purvashadha","Uttarashadha","Shravana","Dhanishta","Shatabhisha","Purva Bhadrapada","Uttara Bhadrapada","Revati"]
+NAKSHATRA_LORDS = ["Ketu","Venus","Sun","Moon","Mars","Rahu","Jupiter","Saturn","Mercury"]
+NAK_SIZE = 360/27
+PADA_SIZE = NAK_SIZE/4
+FLAGS = swe.FLG_SWIEPH | swe.FLG_SIDEREAL
 
-NAKSHATRAS = [
-    "Ashwini", "Bharani", "Krittika", "Rohini", "Mrigashirsha", "Ardra",
-    "Punarvasu", "Pushya", "Ashlesha", "Magha", "Purva Phalguni",
-    "Uttara Phalguni", "Hasta", "Chitra", "Swati", "Vishakha", "Anuradha",
-    "Jyeshtha", "Mula", "Purvashadha", "Uttarashadha", "Shravana",
-    "Dhanishta", "Shatabhisha", "Purva Bhadrapada", "Uttara Bhadrapada",
-    "Revati",
-]
-
-NAKSHATRA_LORDS = [
-    "Ketu", "Venus", "Sun", "Moon", "Mars", "Rahu",
-    "Jupiter", "Saturn", "Mercury",
-]
-
-NAKSHATRA_SIZE = 360.0 / 27.0
-PADA_SIZE = NAKSHATRA_SIZE / 4.0
-SIDEREAL_FLAGS = swe.FLG_SWIEPH | swe.FLG_SIDEREAL
-
-PLANET_MAPPING = {
-    "Jupiter": {
-        "chakra": "Ajna (Third Eye)",
-        "dosha": "Kapha",
-        "theme": "Wisdom & Expansion",
-        "nama": "N523 Shadanana",
-    },
-    "Mars": {
-        "chakra": "Manipura (Solar Plexus)",
-        "dosha": "Pitta",
-        "theme": "Courage & Action",
-        "nama": "N503 Lakinyamba",
-    },
-    "Venus": {
-        "chakra": "Svadhisthana (Sacral)",
-        "dosha": "Kapha",
-        "theme": "Love & Creativity",
-        "nama": "N513 Kakini",
-    },
-    "Saturn": {
-        "chakra": "Muladhara (Root)",
-        "dosha": "Vata",
-        "theme": "Discipline & Grounding",
-        "nama": "N520 Sakinyamba",
-    },
-    "Moon": {
-        "chakra": "Anahata (Heart)",
-        "dosha": "Kapha",
-        "theme": "Emotion & Nurturing",
-        "nama": "N494 Rakinyamba",
-    },
-    "Mercury": {
-        "chakra": "Vishuddha (Throat)",
-        "dosha": "Vata",
-        "theme": "Communication & Logic",
-        "nama": "N484 Dakinishvari",
-    },
+PLANET_MAP = {
+    "Sun":{"chakra":"Manipura","dosha":"Pitta","theme":"Purpose & Vitality","nama":"Needs Verification"},
+    "Moon":{"chakra":"Anahata","dosha":"Kapha","theme":"Emotion & Nurturing","nama":"N494 Rakinyamba"},
+    "Mars":{"chakra":"Manipura","dosha":"Pitta","theme":"Courage & Action","nama":"N503 Lakinyamba"},
+    "Mercury":{"chakra":"Vishuddha","dosha":"Vata","theme":"Communication & Logic","nama":"N484 Dakinishvari"},
+    "Jupiter":{"chakra":"Ajna","dosha":"Kapha","theme":"Wisdom & Expansion","nama":"N523 Shadanana"},
+    "Venus":{"chakra":"Svadhisthana","dosha":"Kapha","theme":"Love & Creativity","nama":"N513 Kakini"},
+    "Saturn":{"chakra":"Muladhara","dosha":"Vata","theme":"Discipline & Grounding","nama":"N520 Sakinyamba"},
 }
 
-# ============================================================
-# 3. SIDEREAL ASTROLOGY ENGINE - PHASE 1A
-# ============================================================
-def normalise_longitude(value: float) -> float:
-    return value % 360.0
+def sign_info(lon):
+    lon %= 360
+    return {"longitude":lon,"sign":SIGNS[int(lon/30)],"degree":lon%30}
 
+def nak_info(lon):
+    lon %= 360
+    idx = min(int(lon/NAK_SIZE),26)
+    within = lon - idx*NAK_SIZE
+    return {"nakshatra":NAKSHATRAS[idx],"pada":min(int(within/PADA_SIZE)+1,4),"lord":NAKSHATRA_LORDS[idx%9]}
 
-def format_degree(value: float) -> str:
-    value = value % 30.0
-    degrees = int(value)
-    minutes_float = (value - degrees) * 60.0
-    minutes = int(minutes_float)
-    seconds = int(round((minutes_float - minutes) * 60.0))
+def fmt_deg(v):
+    d=int(v); mf=(v-d)*60; m=int(mf); s=round((mf-m)*60)
+    if s==60: s=0; m+=1
+    if m==60: m=0; d+=1
+    return f"{d:02d}° {m:02d}′ {s:02d}″"
 
-    if seconds == 60:
-        seconds = 0
-        minutes += 1
-    if minutes == 60:
-        minutes = 0
-        degrees += 1
+def calc_body(jd,pid):
+    data,_=swe.calc_ut(jd,pid,FLAGS)
+    out=sign_info(data[0]); out.update(nak_info(data[0])); out["retrograde"]=data[3]<0
+    return out
 
-    return f"{degrees:02d}° {minutes:02d}′ {seconds:02d}″"
-
-
-def get_sign_details(longitude: float) -> dict:
-    longitude = normalise_longitude(longitude)
-    sign_index = int(longitude / 30.0)
+def calculate_chart(dob,tob,lat,lon,tz):
+    swe.set_sid_mode(swe.SIDM_LAHIRI,0,0)
+    local_hour=tob.hour+tob.minute/60+tob.second/3600
+    jd=swe.julday(dob.year,dob.month,dob.day,local_hour-tz,swe.GREG_CAL)
+    _,ascmc=swe.houses_ex(jd,lat,lon,b"W",swe.FLG_SIDEREAL)
+    asc=sign_info(ascmc[0]); asc.update(nak_info(ascmc[0]))
+    ids={"Sun":swe.SUN,"Moon":swe.MOON,"Mars":swe.MARS,"Mercury":swe.MERCURY,"Jupiter":swe.JUPITER,"Venus":swe.VENUS,"Saturn":swe.SATURN,"Rahu":swe.MEAN_NODE}
+    planets={name:calc_body(jd,pid) for name,pid in ids.items()}
+    ketu=sign_info(planets["Rahu"]["longitude"]+180); ketu.update(nak_info(ketu["longitude"])); ketu["retrograde"]=True; planets["Ketu"]=ketu
+    ak=max(["Sun","Moon","Mars","Mercury","Jupiter","Venus","Saturn"],key=lambda x:planets[x]["degree"])
+    now=datetime.now(timezone.utc); jd_now=swe.julday(now.year,now.month,now.day,now.hour+now.minute/60,swe.GREG_CAL)
     return {
-        "sign": SIGNS[sign_index],
-        "sign_index": sign_index,
-        "degree_in_sign": longitude % 30.0,
-        "longitude": longitude,
+        "system":"Lahiri / Chitrapaksha sidereal zodiac","house_system":"Whole Sign",
+        "ayanamsa":swe.get_ayanamsa_ut(jd),"ascendant":asc,"planets":planets,
+        "moon_nakshatra":planets["Moon"]["nakshatra"],"moon_pada":planets["Moon"]["pada"],"moon_lord":planets["Moon"]["lord"],
+        "atmakaraka":ak,"atmakaraka_degree":planets[ak]["degree"],"karaka_method":"Seven-karaka system; Rahu and Ketu excluded",
+        "saturn_transit":calc_body(jd_now,swe.SATURN),"jupiter_transit":calc_body(jd_now,swe.JUPITER),"transit_date":now.date().isoformat(),
+        **PLANET_MAP[ak]
     }
 
-
-def get_nakshatra_details(longitude: float) -> dict:
-    longitude = normalise_longitude(longitude)
-    nakshatra_index = min(int(longitude / NAKSHATRA_SIZE), 26)
-    position_in_nakshatra = longitude - (nakshatra_index * NAKSHATRA_SIZE)
-    pada = min(int(position_in_nakshatra / PADA_SIZE) + 1, 4)
-
-    return {
-        "nakshatra": NAKSHATRAS[nakshatra_index],
-        "nakshatra_index": nakshatra_index,
-        "nakshatra_lord": NAKSHATRA_LORDS[nakshatra_index % 9],
-        "pada": pada,
-        "position_in_nakshatra": position_in_nakshatra,
-    }
-
-
-def local_birth_to_julian_day(dob: date, tob, utc_offset: float) -> float:
-    local_hour = tob.hour + tob.minute / 60.0 + tob.second / 3600.0
-    universal_hour = local_hour - float(utc_offset)
-    return swe.julday(dob.year, dob.month, dob.day, universal_hour, swe.GREG_CAL)
-
-
-def sidereal_planet_position(jd_ut: float, planet_id: int) -> dict:
-    data, return_flags = swe.calc_ut(jd_ut, planet_id, SIDEREAL_FLAGS)
-    longitude = normalise_longitude(data[0])
-    speed = data[3]
-    details = get_sign_details(longitude)
-    details.update(
-        {
-            "speed": speed,
-            "retrograde": speed < 0,
-            "return_flags": return_flags,
-        }
-    )
-    return details
-
-
-def calculate_vedic_profile(dob, tob, lat, lon, utc_offset):
-    if not -90.0 <= lat <= 90.0:
-        raise ValueError("Latitude must be between -90 and +90 degrees.")
-    if not -180.0 <= lon <= 180.0:
-        raise ValueError("Longitude must be between -180 and +180 degrees.")
-    if not -12.0 <= utc_offset <= 14.0:
-        raise ValueError("UTC offset must be between -12 and +14 hours.")
-
-    jd_ut = local_birth_to_julian_day(dob, tob, utc_offset)
-
-    # Explicit Vedic sidereal mode: Lahiri / Chitrapaksha.
-    swe.set_sid_mode(swe.SIDM_LAHIRI, 0, 0)
-
-    # houses_ex accepts the sidereal flag. Whole Sign houses are used.
-    _, ascmc = swe.houses_ex(jd_ut, lat, lon, b"W", swe.FLG_SIDEREAL)
-    ascendant_longitude = normalise_longitude(ascmc[0])
-    ascendant = get_sign_details(ascendant_longitude)
-    ascendant.update(get_nakshatra_details(ascendant_longitude))
-
-    planet_ids = {
-        "Sun": swe.SUN,
-        "Moon": swe.MOON,
-        "Mars": swe.MARS,
-        "Mercury": swe.MERCURY,
-        "Jupiter": swe.JUPITER,
-        "Venus": swe.VENUS,
-        "Saturn": swe.SATURN,
-        "Rahu": swe.MEAN_NODE,
-    }
-
-    planets = {}
-    for planet_name, planet_id in planet_ids.items():
-        planet = sidereal_planet_position(jd_ut, planet_id)
-        planet.update(get_nakshatra_details(planet["longitude"]))
-        planets[planet_name] = planet
-
-    # Ketu is exactly opposite Rahu.
-    ketu_longitude = normalise_longitude(planets["Rahu"]["longitude"] + 180.0)
-    ketu = get_sign_details(ketu_longitude)
-    ketu.update(get_nakshatra_details(ketu_longitude))
-    ketu.update({"speed": planets["Rahu"]["speed"], "retrograde": True})
-    planets["Ketu"] = ketu
-
-    # Jaimini seven-karaka convention: Sun through Saturn, excluding Rahu/Ketu.
-    chara_karaka_planets = [
-        "Sun", "Moon", "Mars", "Mercury", "Jupiter", "Venus", "Saturn"
-    ]
-    atmakaraka = max(
-        chara_karaka_planets,
-        key=lambda name: planets[name]["degree_in_sign"],
-    )
-
-    moon_nakshatra = get_nakshatra_details(planets["Moon"]["longitude"])
-    ayanamsa_value = swe.get_ayanamsa_ut(jd_ut)
-
-    mapping = PLANET_MAPPING.get(
-        atmakaraka,
-        {
-            "chakra": "Needs Verification",
-            "dosha": "Needs Verification",
-            "theme": "Needs Verification",
-            "nama": "Needs Verification",
-        },
-    )
-
-    now_utc = datetime.now(timezone.utc)
-    transit_jd = swe.julday(
-        now_utc.year,
-        now_utc.month,
-        now_utc.day,
-        now_utc.hour + now_utc.minute / 60.0 + now_utc.second / 3600.0,
-        swe.GREG_CAL,
-    )
-    saturn_transit = sidereal_planet_position(transit_jd, swe.SATURN)
-    jupiter_transit = sidereal_planet_position(transit_jd, swe.JUPITER)
-
-    return {
-        "calculation_system": "Lahiri / Chitrapaksha sidereal zodiac",
-        "house_system": "Whole Sign",
-        "chara_karaka_system": "Seven-karaka system; Rahu and Ketu excluded",
-        "julian_day_ut": jd_ut,
-        "ayanamsa_value": ayanamsa_value,
-        "ascendant": ascendant,
-        "planets": planets,
-        "moon_nakshatra": moon_nakshatra["nakshatra"],
-        "moon_pada": moon_nakshatra["pada"],
-        "moon_nakshatra_lord": moon_nakshatra["nakshatra_lord"],
-        "atmakaraka": atmakaraka,
-        "atmakaraka_degree": planets[atmakaraka]["degree_in_sign"],
-        "saturn_transit": saturn_transit,
-        "jupiter_transit": jupiter_transit,
-        "transit_date_utc": now_utc.date().isoformat(),
-        **mapping,
-    }
-
-# ============================================================
-# 4. KNOWLEDGE BASE AND Z.AI
-# ============================================================
 @st.cache_resource(show_spinner=False)
 def load_knowledge_base():
-    # The GitHub screenshot shows chroma.sqlite3 in the repository root.
-    # Chroma expects the directory containing that file as persist_directory.
-    candidate_directories = [".", "chroma_db"]
-    persist_directory = None
+    db_dir = "." if os.path.isfile("chroma.sqlite3") else "chroma_db"
+    db_file=os.path.join(db_dir,"chroma.sqlite3")
+    if not os.path.isfile(db_file):
+        raise FileNotFoundError("chroma.sqlite3 was not found in the GitHub repository.")
+    client=chromadb.PersistentClient(path=db_dir)
+    collections=client.list_collections()
+    populated=[]
+    for item in collections:
+        name=item.name if hasattr(item,"name") else str(item)
+        try:
+            count=client.get_collection(name=name).count()
+        except Exception:
+            count=0
+        if count>0: populated.append((name,count))
+    if not populated:
+        raise RuntimeError("No populated Chroma collection was found in chroma.sqlite3.")
+    populated.sort(key=lambda x:x[1],reverse=True)
+    collection_name=populated[0][0]
+    embeddings=HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
+    store=Chroma(client=client,collection_name=collection_name,embedding_function=embeddings)
+    return store.as_retriever(search_kwargs={"k":4}),collection_name,populated[0][1]
 
-    for directory in candidate_directories:
-        database_path = os.path.join(directory, "chroma.sqlite3")
-        if os.path.isfile(database_path):
-            persist_directory = directory
-            break
+def build_llm(key):
+    return ChatOpenAI(model="glm-4.5-flash",openai_api_key=key,openai_api_base="https://api.z.ai/api/paas/v4",temperature=0.6,max_tokens=2000,extra_body={"thinking":{"type":"disabled"}})
 
-    if persist_directory is None:
-        raise FileNotFoundError(
-            "chroma.sqlite3 was not found in the repository root or chroma_db folder."
-        )
-
-    embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
-    vectorstore = Chroma(
-        persist_directory=persist_directory,
-        embedding_function=embeddings,
-    )
-
+def parse_json(raw):
     try:
-        collection_count = vectorstore._collection.count()
-    except Exception:
-        collection_count = 0
+        a=raw.find("{"); b=raw.rfind("}")+1
+        return json.loads(raw[a:b]) if a>=0 and b>a else None
+    except Exception: return None
 
-    if collection_count == 0:
-        raise RuntimeError(
-            "The Chroma database opened but contains no retrievable documents."
-        )
+def make_prompt(name,chart,scores,balance,context):
+    facts={p:{"sign":v["sign"],"degree":round(v["degree"],4),"nakshatra":v["nakshatra"],"pada":v["pada"],"retrograde":v["retrograde"]} for p,v in chart["planets"].items()}
+    return f'''Return ONLY valid JSON with keys executive_summary, vedic_interpretation, psychological_interpretation, ayurvedic_interpretation, convergence, practical_actions, vedic_practice, cautions.
+practical_actions must be a list of objects with action, why, how, frequency. vedic_practice must contain mantra, nama, practice, explanation.
+Interpret but never alter the calculated facts. Do not diagnose illness, claim certainty, invent quotations, or call the Nakshatra lord the current Mahadasha.
+User: {name}. Presentation balance 0=practical and 100=traditional: {balance}.
+System: {chart['system']}; houses: {chart['house_system']}; ayanamsa: {chart['ayanamsa']:.6f}.
+Ascendant: {chart['ascendant']['sign']} {chart['ascendant']['degree']:.6f}.
+Moon Nakshatra: {chart['moon_nakshatra']}, Pada {chart['moon_pada']}, birth Nakshatra lord {chart['moon_lord']}.
+Atmakaraka: {chart['atmakaraka']} {chart['atmakaraka_degree']:.6f}; method: {chart['karaka_method']}.
+Planets: {json.dumps(facts)}. Self-reflection: {json.dumps(scores)}.
+Symbolic mapping: theme {chart['theme']}; chakra {chart['chakra']}; dosha {chart['dosha']}; nama {chart['nama']}.
+Retrieved context:\n{context}'''
 
-    return vectorstore.as_retriever(search_kwargs={"k": 4})
-
-
-def build_llm(api_key: str):
-    return ChatOpenAI(
-        model="glm-4.5-flash",
-        openai_api_key=api_key,
-        openai_api_base="https://api.z.ai/api/paas/v4",
-        temperature=0.6,
-        max_tokens=2000,
-        extra_body={"thinking": {"type": "disabled"}},
-    )
-
-
-def build_prompt(user_name, chart, scores, balance, source_context):
-    planet_summary = {
-        name: {
-            "sign": value["sign"],
-            "degree": round(value["degree_in_sign"], 4),
-            "nakshatra": value["nakshatra"],
-            "pada": value["pada"],
-            "retrograde": value.get("retrograde", False),
-        }
-        for name, value in chart["planets"].items()
-    }
-
-    return f"""
-Return ONLY valid JSON, without markdown or code fences.
-
-You are interpreting calculated Vedic astrology data, a non-clinical self-reflection
-profile, and retrieved classical-source passages. Do not recalculate or alter any
-astronomical fact supplied below. Do not present symbolic correspondences as medical
-diagnoses. Do not claim certainty, prediction, or supernatural proof.
-
-Use exactly this JSON structure:
-{{
-  "executive_summary": "3 to 5 concise sentences",
-  "vedic_interpretation": "Interpret the supplied sidereal facts",
-  "psychological_interpretation": "Interpret the self-reported indicators cautiously",
-  "ayurvedic_interpretation": "Describe the symbolic correspondence, not constitution or diagnosis",
-  "convergence": "Explain possible converging themes without claiming causation",
-  "practical_actions": [
-    {{"action": "", "why": "", "how": "", "frequency": ""}}
-  ],
-  "vedic_practice": {{
-    "mantra": "",
-    "nama": "{chart['nama']}",
-    "practice": "",
-    "explanation": ""
-  }},
-  "cautions": ""
-}}
-
-USER
-Name: {user_name}
-Presentation balance: {balance}/100, where 0 is practical/modern language and 100 is traditional/Vedic language.
-
-CALCULATED FACTS
-Calculation system: {chart['calculation_system']}
-House system: {chart['house_system']}
-Ayanamsa at birth: {chart['ayanamsa_value']:.6f} degrees
-Ascendant: {chart['ascendant']['sign']} {chart['ascendant']['degree_in_sign']:.6f} degrees
-Moon Nakshatra: {chart['moon_nakshatra']}, Pada {chart['moon_pada']}
-Birth Nakshatra Lord: {chart['moon_nakshatra_lord']}
-Atmakaraka: {chart['atmakaraka']} {chart['atmakaraka_degree']:.6f} degrees
-Chara Karaka method: {chart['chara_karaka_system']}
-Planets: {json.dumps(planet_summary, ensure_ascii=False)}
-Current Saturn transit: {chart['saturn_transit']['sign']}
-Current Jupiter transit: {chart['jupiter_transit']['sign']}
-Transit date UTC: {chart['transit_date_utc']}
-
-SELF-REFLECTION INDICATORS
-{json.dumps(scores, ensure_ascii=False)}
-
-RETRIEVED SOURCE CONTEXT
-{source_context}
-
-RULES
-- Do not call the Nakshatra lord the current Mahadasha.
-- Proper Vimshottari Mahadasha is not implemented in Phase 1A.
-- Do not invent Sanskrit quotations, book titles, page numbers, or citations.
-- Use the retrieved context only as supporting material.
-- Keep each section concise and practical.
-"""
-
-
-def parse_json_safe(raw: str):
-    try:
-        start = raw.find("{")
-        end = raw.rfind("}") + 1
-        if start == -1 or end <= start:
-            return None
-        parsed = json.loads(raw[start:end])
-        return parsed if isinstance(parsed, dict) else None
-    except (json.JSONDecodeError, TypeError):
-        return None
-
-# ============================================================
-# 5. USER INTERFACE
-# ============================================================
-def render_sidebar():
+def sidebar():
     with st.sidebar:
         st.markdown("### Configuration")
-        configured_key = ""
-        try:
-            configured_key = st.secrets.get("ZAI_API_KEY", "")
-        except Exception:
-            configured_key = ""
-
-        if configured_key:
-            st.success("Z.ai API key loaded from Streamlit Secrets.")
-            api_key = configured_key
-        else:
-            api_key = st.text_input("Z.ai API Key", type="password", help="The key is not displayed.")
-
-        with st.expander("Advanced settings", expanded=False):
-            balance = st.slider(
-                "Explanation balance",
-                0,
-                100,
-                50,
-                help="0 = practical/modern language; 100 = traditional/Vedic language",
-            )
-            st.caption(
-                "Practical" if balance < 30 else
-                "Traditional" if balance > 70 else
-                "Balanced"
-            )
-
-        st.divider()
-        st.markdown("### Profile")
-        name = st.text_input("Name", value="Puneet")
-
+        try: secret=st.secrets.get("ZAI_API_KEY","")
+        except Exception: secret=""
+        key=secret or st.text_input("Z.ai API Key",type="password")
+        with st.expander("Advanced settings"):
+            balance=st.slider("Explanation balance",0,100,50,help="0 = practical; 100 = traditional")
+        st.divider(); st.markdown("### Profile")
+        name=st.text_input("Name","Puneet")
         st.markdown("### Birth details")
-        dob = st.date_input(
-            "Date of birth",
-            value=date(1983, 12, 27),
-            min_value=date(1900, 1, 1),
-            max_value=date.today(),
-        )
-        tob = st.time_input("Time of birth", value=datetime.strptime("00:35", "%H:%M").time())
-        lat = st.number_input(
-            "Latitude",
-            min_value=-90.0,
-            max_value=90.0,
-            value=31.6400,
-            format="%.4f",
-        )
-        lon = st.number_input(
-            "Longitude",
-            min_value=-180.0,
-            max_value=180.0,
-            value=76.1300,
-            format="%.4f",
-        )
-        utc_offset = st.number_input(
-            "Birthplace UTC offset",
-            min_value=-12.0,
-            max_value=14.0,
-            value=5.5,
-            step=0.25,
-            help="For the birth date and place. India is UTC+5.5.",
-        )
+        dob=st.date_input("Date of birth",date(1983,12,27),min_value=date(1900,1,1),max_value=date.today())
+        tob=st.time_input("Time of birth",datetime.strptime("00:35","%H:%M").time())
+        lat=st.number_input("Latitude",-90.0,90.0,31.64,format="%.4f")
+        lon=st.number_input("Longitude",-180.0,180.0,76.13,format="%.4f")
+        tz=st.number_input("Birthplace UTC offset",-12.0,14.0,5.5,0.25)
+    return dict(key=key,balance=balance,name=name or "Seeker",dob=dob,tob=tob,lat=lat,lon=lon,tz=tz)
 
-        return {
-            "api_key": api_key,
-            "balance": balance,
-            "name": name.strip() or "Seeker",
-            "dob": dob,
-            "tob": tob,
-            "lat": float(lat),
-            "lon": float(lon),
-            "utc_offset": float(utc_offset),
-        }
-
-
-def render_assessment():
+def assessment():
     st.markdown("## Personal Self-Reflection Profile")
-    st.caption(
-        "A non-clinical reflective exercise. Scale: 0 = Never, 1 = Rarely, "
-        "2 = Sometimes, 3 = Often, 4 = Always."
-    )
-
-    groups = {
-        "Reflective Thinking": [
-            "I question the nature of reality and the self behind my thoughts.",
-            "I am comfortable holding uncertainty and paradox.",
-            "I reflect on purpose beyond material goals.",
-        ],
-        "Meaning & Direction": [
-            "I find meaning even in difficult experiences.",
-            "My life feels oriented towards a larger purpose.",
-            "I learn from my past rather than repeat it.",
-        ],
-        "Spiritual Perception": [
-            "I sense a connection with other living beings.",
-            "I experience a sense of the sacred in nature or everyday life.",
-            "I can observe my thoughts without being swept away by them.",
-        ],
-        "Inner Calm": [
-            "I can quiet my mind when I choose to.",
-            "I experience moments of mental stillness.",
-            "I remain steady during stressful situations.",
-        ],
-    }
-
-    answers = {}
-    columns = st.columns(2)
-    for group_index, (group_name, questions) in enumerate(groups.items()):
-        with columns[group_index % 2]:
+    st.caption("Non-clinical reflective indicators. 0 = Never, 4 = Always.")
+    groups={
+        "Reflective Thinking":["I question the nature of reality and the self behind my thoughts.","I am comfortable holding uncertainty and paradox.","I reflect on purpose beyond material goals."],
+        "Meaning & Direction":["I find meaning even in difficult experiences.","My life feels oriented towards a larger purpose.","I learn from my past rather than repeat it."],
+        "Spiritual Perception":["I sense a connection with other living beings.","I experience the sacred in nature or everyday life.","I can observe my thoughts without being swept away."],
+        "Inner Calm":["I can quiet my mind when I choose to.","I experience moments of mental stillness.","I remain steady during stressful situations."]}
+    scores={}; cols=st.columns(2)
+    for i,(group,questions) in enumerate(groups.items()):
+        with cols[i%2]:
             with st.container(border=True):
-                st.markdown(f"#### {group_name}")
-                values = []
-                for question_index, question in enumerate(questions):
-                    key = f"assessment_{group_index}_{question_index}"
-                    values.append(st.slider(question, 0, 4, 2, key=key))
-                answers[group_name] = values
-
-    scores = {
-        group_name: round(sum(values) / (len(values) * 4) * 100)
-        for group_name, values in answers.items()
-    }
+                st.markdown(f"#### {group}"); values=[]
+                for j,q in enumerate(questions): values.append(st.slider(q,0,4,2,key=f"q_{i}_{j}"))
+                scores[group]=round(sum(values)/(len(values)*4)*100)
     return scores
 
-
-def render_planet_table(chart):
-    rows = []
-    for name in ["Sun", "Moon", "Mars", "Mercury", "Jupiter", "Venus", "Saturn", "Rahu", "Ketu"]:
-        item = chart["planets"][name]
-        rows.append(
-            {
-                "Body": name,
-                "Sidereal Sign": item["sign"],
-                "Degree": format_degree(item["degree_in_sign"]),
-                "Nakshatra": item["nakshatra"],
-                "Pada": item["pada"],
-                "Motion": "Retrograde" if item.get("retrograde") else "Direct",
-            }
-        )
-    st.dataframe(rows, use_container_width=True, hide_index=True)
-
-
-def render_profile_chart(scores):
-    labels = list(scores.keys())
-    values = list(scores.values())
-    if labels:
-        labels_closed = labels + [labels[0]]
-        values_closed = values + [values[0]]
-    else:
-        labels_closed = []
-        values_closed = []
-
-    figure = go.Figure(
-        data=go.Scatterpolar(
-            r=values_closed,
-            theta=labels_closed,
-            fill="toself",
-            line=dict(color="#7C5CBF"),
-            marker=dict(color="#C9A84C"),
-        )
-    )
-    figure.update_layout(
-        polar=dict(
-            radialaxis=dict(visible=True, range=[0, 100], gridcolor="#2A2D4A"),
-            angularaxis=dict(gridcolor="#2A2D4A"),
-        ),
-        showlegend=False,
-        paper_bgcolor="rgba(0,0,0,0)",
-        plot_bgcolor="rgba(0,0,0,0)",
-        font=dict(color="#C9C4BB"),
-        height=330,
-        margin=dict(t=30, b=30, l=30, r=30),
-    )
-    st.plotly_chart(figure, use_container_width=True)
-
-
-def render_calculated_profile(chart):
+def show_chart(chart):
     st.markdown("## Calculated Vedic Profile")
-    st.caption(
-        f"{chart['calculation_system']} · {chart['house_system']} houses · "
-        f"Ayanamsa at birth {chart['ayanamsa_value']:.4f}°"
-    )
+    st.caption(f"{chart['system']} · {chart['house_system']} houses · Ayanamsa {chart['ayanamsa']:.4f}°")
+    c1,c2,c3,c4=st.columns(4)
+    c1.metric("Ascendant",chart["ascendant"]["sign"],fmt_deg(chart["ascendant"]["degree"]))
+    c2.metric("Moon",f"{chart['moon_nakshatra']} · Pada {chart['moon_pada']}",chart["planets"]["Moon"]["sign"])
+    c3.metric("Nakshatra Lord",chart["moon_lord"],"Not current Mahadasha")
+    c4.metric("Atmakaraka",chart["atmakaraka"],fmt_deg(chart["atmakaraka_degree"]))
+    rows=[]
+    for p in ["Sun","Moon","Mars","Mercury","Jupiter","Venus","Saturn","Rahu","Ketu"]:
+        v=chart["planets"][p]; rows.append({"Body":p,"Sidereal Sign":v["sign"],"Degree":fmt_deg(v["degree"]),"Nakshatra":v["nakshatra"],"Pada":v["pada"],"Motion":"Retrograde" if v["retrograde"] else "Direct"})
+    with st.expander("Full sidereal planetary table",expanded=True): st.dataframe(rows,use_container_width=True,hide_index=True); st.caption(chart["karaka_method"])
 
-    col1, col2, col3, col4 = st.columns(4)
-    col1.metric(
-        "Ascendant",
-        chart["ascendant"]["sign"],
-        format_degree(chart["ascendant"]["degree_in_sign"]),
-    )
-    col2.metric(
-        "Moon",
-        f"{chart['moon_nakshatra']} · Pada {chart['moon_pada']}",
-        chart["planets"]["Moon"]["sign"],
-    )
-    col3.metric(
-        "Nakshatra Lord",
-        chart["moon_nakshatra_lord"],
-        "Not current Mahadasha",
-    )
-    col4.metric(
-        "Atmakaraka",
-        chart["atmakaraka"],
-        format_degree(chart["atmakaraka_degree"]),
-    )
+def show_scores(scores):
+    labels=list(scores); values=list(scores.values()); labels+=labels[:1]; values+=values[:1]
+    fig=go.Figure(go.Scatterpolar(r=values,theta=labels,fill="toself",line=dict(color="#7c5cbf"),marker=dict(color="#c9a84c")))
+    fig.update_layout(polar=dict(radialaxis=dict(visible=True,range=[0,100])),showlegend=False,paper_bgcolor="rgba(0,0,0,0)",font=dict(color="#c9c4bb"),height=330,margin=dict(t=25,b=25,l=25,r=25))
+    st.plotly_chart(fig,use_container_width=True)
 
-    with st.expander("Full sidereal planetary table", expanded=True):
-        render_planet_table(chart)
-        st.caption(chart["chara_karaka_system"])
-
-
-def render_synthesis(result, raw):
-    if not result:
-        st.warning("Z.ai returned an unstructured response. The raw response is shown below.")
-        with st.container(border=True):
-            st.markdown(raw)
-        return
-
-    section_map = [
-        ("Executive Summary", "executive_summary"),
-        ("Vedic Perspective", "vedic_interpretation"),
-        ("Self-Reflection Perspective", "psychological_interpretation"),
-        ("Ayurvedic Symbolic Perspective", "ayurvedic_interpretation"),
-        ("Where the Systems Converge", "convergence"),
-    ]
-
-    for title, key in section_map:
-        with st.container(border=True):
-            st.markdown(f"#### {title}")
-            st.markdown(str(result.get(key, "No content returned.")))
-
-    actions = result.get("practical_actions", [])
-    if isinstance(actions, list) and actions:
+def show_result(result,raw):
+    if not result: st.warning("Z.ai returned unstructured content."); st.markdown(raw); return
+    for title,key in [("Executive Summary","executive_summary"),("Vedic Perspective","vedic_interpretation"),("Self-Reflection Perspective","psychological_interpretation"),("Ayurvedic Symbolic Perspective","ayurvedic_interpretation"),("Where the Systems Converge","convergence")]:
+        with st.container(border=True): st.markdown(f"#### {title}"); st.markdown(str(result.get(key,"No content returned.")))
+    actions=result.get("practical_actions",[])
+    if isinstance(actions,list):
         with st.container(border=True):
             st.markdown("#### Practical Actions")
-            for index, action in enumerate(actions, 1):
-                if not isinstance(action, dict):
-                    continue
-                st.markdown(f"**{index}. {action.get('action', 'Action')}**")
-                st.markdown(f"**Why:** {action.get('why', 'Needs Verification')}")
-                st.markdown(f"**How:** {action.get('how', 'Needs Verification')}")
-                st.markdown(f"**Frequency:** {action.get('frequency', 'Needs Verification')}")
+            for i,a in enumerate(actions,1):
+                if isinstance(a,dict): st.markdown(f"**{i}. {a.get('action','Action')}**\n\n**Why:** {a.get('why','')}  \n**How:** {a.get('how','')}  \n**Frequency:** {a.get('frequency','')}")
+    vp=result.get("vedic_practice",{})
+    if isinstance(vp,dict) and vp:
+        with st.container(border=True): st.markdown("#### Recommended Vedic Practice"); st.markdown(f"**Mantra:** {vp.get('mantra','')}  \n**Nama:** {vp.get('nama','')}  \n**Practice:** {vp.get('practice','')}  \n{vp.get('explanation','')}")
+    if result.get("cautions"): st.info(f"Framing note: {result['cautions']}")
 
-    practice = result.get("vedic_practice", {})
-    if isinstance(practice, dict) and practice:
-        with st.container(border=True):
-            st.markdown("#### Recommended Vedic Practice")
-            st.markdown(f"**Mantra:** {practice.get('mantra', 'Needs Verification')}")
-            st.markdown(f"**Nama:** {practice.get('nama', 'Needs Verification')}")
-            st.markdown(f"**Practice:** {practice.get('practice', 'Needs Verification')}")
-            st.markdown(str(practice.get("explanation", "")))
-
-    if result.get("cautions"):
-        st.info(f"Framing note: {result['cautions']}")
-
-
-def render_sources(docs):
-    with st.expander("Sources retrieved from the knowledge base", expanded=False):
-        for index, document in enumerate(docs, 1):
-            metadata = document.metadata or {}
-            source_name = metadata.get("source") or metadata.get("book") or f"Source {index}"
-            page = metadata.get("page", "Needs Verification")
-            st.markdown(f"**S{index} · {source_name} · Page {page}**")
-            st.markdown(document.page_content[:800])
-            st.divider()
-
-
-def answer_chat_question(question, api_key, chart, synthesis_text):
-    llm = build_llm(api_key)
-    safe_chart = {
-        "system": chart["calculation_system"],
-        "ascendant": chart["ascendant"]["sign"],
-        "moon_nakshatra": chart["moon_nakshatra"],
-        "moon_pada": chart["moon_pada"],
-        "nakshatra_lord": chart["moon_nakshatra_lord"],
-        "atmakaraka": chart["atmakaraka"],
-    }
-    prompt = f"""
-Answer the user's question using the supplied chart facts and previous synthesis.
-Do not recalculate the chart. Do not call the Nakshatra lord the current Mahadasha.
-Do not diagnose illness or claim certainty. If evidence is missing, say Needs Verification.
-
-Chart facts: {json.dumps(safe_chart)}
-Previous synthesis: {synthesis_text}
-Question: {question}
-"""
-    return llm.invoke(prompt).content
-
-
-def render_chat(api_key, chart, synthesis_text):
-    st.markdown("## Explore Your Reading")
-    st.caption("Ask about the calculated chart, interpretation, or suggested practices.")
-
-    if "messages" not in st.session_state:
-        st.session_state.messages = []
-
-    for message in st.session_state.messages:
-        with st.chat_message(message["role"]):
-            st.markdown(message["content"])
-
-    question = st.chat_input("Ask a follow-up question")
-    if question:
-        st.session_state.messages.append({"role": "user", "content": question})
-        with st.chat_message("user"):
-            st.markdown(question)
-        with st.chat_message("assistant"):
-            with st.spinner("Reflecting..."):
-                response_text = answer_chat_question(
-                    question,
-                    api_key,
-                    chart,
-                    synthesis_text,
-                )
-                st.markdown(response_text)
-        st.session_state.messages.append({"role": "assistant", "content": response_text})
-
-# ============================================================
-# 6. MAIN APPLICATION
-# ============================================================
 def main():
-    st.markdown(
-        "<h1 style='text-align:center;'>Ancient Wisdom Synthesis</h1>",
-        unsafe_allow_html=True,
-    )
-    st.markdown(
-        "<p style='text-align:center;color:#9C9A93;'>"
-        "Lahiri sidereal astrology · self-reflection · ancient texts · practical synthesis"
-        "</p>",
-        unsafe_allow_html=True,
-    )
-    st.divider()
-
-    config = render_sidebar()
-    scores = render_assessment()
-
-    st.divider()
-    generate = st.button("Generate My Synthesis", type="primary", use_container_width=True)
-
-    if generate:
-        if not config["api_key"]:
-            st.error("Add the Z.ai API key in Streamlit Secrets or the sidebar.")
-        else:
-            progress = st.progress(5, text="Validating birth data")
+    st.markdown("<h1 style='text-align:center'>Ancient Wisdom Synthesis</h1>",unsafe_allow_html=True)
+    st.markdown("<p style='text-align:center;color:#9c9a93'>Lahiri sidereal astrology · self-reflection · ancient texts · practical synthesis</p>",unsafe_allow_html=True)
+    cfg=sidebar(); scores=assessment(); st.divider()
+    if st.button("Generate My Synthesis",type="primary",use_container_width=True):
+        try:
+            chart=calculate_chart(cfg["dob"],cfg["tob"],cfg["lat"],cfg["lon"],cfg["tz"])
+            st.session_state.chart=chart; st.session_state.scores=scores
+            st.session_state.kb_status="Not tested"; st.session_state.zai_status="Not tested"
+            docs=[]; context=""
             try:
-                chart = calculate_vedic_profile(
-                    config["dob"],
-                    config["tob"],
-                    config["lat"],
-                    config["lon"],
-                    config["utc_offset"],
-                )
-
-                progress.progress(30, text="Calculating Lahiri sidereal chart")
-                retriever = load_knowledge_base()
-
-                progress.progress(55, text="Retrieving passages from the knowledge base")
-                query = (
-                    f"{chart['atmakaraka']} {chart['moon_nakshatra']} "
-                    f"{chart['theme']} {chart['chakra']} contemplation practice"
-                )
-                documents = retriever.invoke(query)
-
-                source_blocks = []
-                for index, document in enumerate(documents, 1):
-                    metadata = document.metadata or {}
-                    source_name = metadata.get("source") or metadata.get("book") or "Unknown source"
-                    page = metadata.get("page", "Needs Verification")
-                    source_blocks.append(
-                        f"[S{index}]\nSource: {source_name}\nPage: {page}\nText: {document.page_content}"
-                    )
-                source_context = "\n\n".join(source_blocks)
-
-                progress.progress(75, text="Preparing the Z.ai synthesis")
-                llm = build_llm(config["api_key"])
-                prompt = build_prompt(
-                    config["name"],
-                    chart,
-                    scores,
-                    config["balance"],
-                    source_context,
-                )
-                raw_response = llm.invoke(prompt).content
-                result = parse_json_safe(raw_response)
-
-                progress.progress(100, text="Synthesis complete")
-
-                st.session_state["chart"] = chart
-                st.session_state["scores"] = scores
-                st.session_state["documents"] = documents
-                st.session_state["raw_response"] = raw_response
-                st.session_state["result"] = result
-                st.session_state["api_key"] = config["api_key"]
-                st.session_state["synthesis_text"] = (
-                    result.get("executive_summary", raw_response)
-                    if result else raw_response
-                )
-                st.session_state["messages"] = []
-
-            except Exception as error:
-                progress.empty()
-                st.error(f"The synthesis could not be completed: {error}")
-
+                retriever,cname,ccount=load_knowledge_base(); docs=retriever.invoke(f"{chart['atmakaraka']} {chart['moon_nakshatra']} {chart['theme']} contemplation practice")
+                st.session_state.kb_status=f"Connected: {cname} ({ccount} records)"
+                blocks=[]
+                for i,d in enumerate(docs,1):
+                    md=d.metadata or {}; blocks.append(f"[S{i}] Source: {md.get('source') or md.get('book') or 'Unknown'}; Page: {md.get('page','Needs Verification')}\n{d.page_content}")
+                context="\n\n".join(blocks)
+            except Exception as e:
+                st.session_state.kb_status=f"Unavailable: {e}"
+            if cfg["key"]:
+                try:
+                    raw=build_llm(cfg["key"]).invoke(make_prompt(cfg["name"],chart,scores,cfg["balance"],context or "No knowledge-base context was available.")).content
+                    st.session_state.raw=raw; st.session_state.result=parse_json(raw); st.session_state.zai_status="Connected"
+                except Exception as e:
+                    st.session_state.raw=""; st.session_state.result=None; st.session_state.zai_status=f"Unavailable: {e}"
+            else:
+                st.session_state.raw=""; st.session_state.result=None; st.session_state.zai_status="API key missing"
+            st.session_state.docs=docs
+        except Exception as e: st.error(f"Astrology calculation failed: {e}")
     if "chart" in st.session_state:
-        st.divider()
-        render_calculated_profile(st.session_state["chart"])
-
-        left, right = st.columns([2, 1])
+        st.divider(); show_chart(st.session_state.chart)
+        a,b,c=st.columns(3); a.success("Astrology engine: Ready")
+        if str(st.session_state.get("kb_status","")).startswith("Connected"): b.success(f"Knowledge base: {st.session_state.kb_status}")
+        else: b.warning(f"Knowledge base: {st.session_state.get('kb_status','Not tested')}")
+        if st.session_state.get("zai_status")=="Connected": c.success("Z.ai: Connected")
+        else: c.warning(f"Z.ai: {st.session_state.get('zai_status','Not tested')}")
+        left,right=st.columns([2,1])
         with left:
             st.markdown("## Synthesis")
-            render_synthesis(
-                st.session_state.get("result"),
-                st.session_state.get("raw_response", ""),
-            )
-        with right:
-            st.markdown("## Self-Reflection")
-            render_profile_chart(st.session_state.get("scores", {}))
-            st.caption("Self-reported indicators, not clinical measures.")
+            if st.session_state.get("zai_status")=="Connected": show_result(st.session_state.get("result"),st.session_state.get("raw",""))
+            else: st.info("The calculated chart remains available. Synthesis will appear when Z.ai is connected.")
+        with right: st.markdown("## Self-Reflection"); show_scores(st.session_state.scores); st.caption("Self-reported indicators, not clinical measures.")
+        docs=st.session_state.get("docs",[])
+        if docs:
+            with st.expander("Retrieved source passages"):
+                for i,d in enumerate(docs,1): st.markdown(f"**S{i} · {(d.metadata or {}).get('source','Source')}**\n\n{d.page_content[:800]}"); st.divider()
 
-        render_sources(st.session_state.get("documents", []))
-
-        st.divider()
-        render_chat(
-            st.session_state.get("api_key", config["api_key"]),
-            st.session_state["chart"],
-            st.session_state.get("synthesis_text", ""),
-        )
-    else:
-        st.divider()
-        st.markdown("## Explore Your Reading")
-        st.caption("Generate the synthesis first to unlock follow-up questions.")
-
-
-if __name__ == "__main__":
-    main()
+if __name__=="__main__": main()
