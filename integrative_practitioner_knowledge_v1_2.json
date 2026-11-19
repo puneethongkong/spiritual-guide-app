@@ -1,0 +1,3473 @@
+{
+  "index_name": "Ancient Wisdom Synthesis - Curated Practitioner Knowledge",
+  "version": "1.2-retrieval-ready",
+  "created_utc": "2026-11-19T10:45:00Z",
+  "scope": {
+    "speakers": [
+      "Siddharth Banerjee",
+      "Harshdev Madhav",
+      "Vasant Lad",
+      "David Frawley",
+      "Robert Svoboda",
+      "Komilla Sutton"
+    ],
+    "record_count": 70,
+    "rag_eligible_count": 56,
+    "catalogue_only_count": 14,
+    "exact_answer_eligible_count": 56
+  },
+  "usage_policy": {
+    "separate_collection": "integrative_talks",
+    "do_not_merge_authority": "Practitioner material must not be represented as scripture, classical consensus, or modern clinical evidence.",
+    "attribution_required": true,
+    "timestamp_and_url_required_for_user_display": true,
+    "full_transcript_storage": "Not included. Use original summaries and short necessary quotations only unless reuse permission exists.",
+    "medical_safety": "Health claims and remedies require independent evidence/safety screening before recommendation."
+  },
+  "records": [
+    {
+      "id": "SB-CHAKRA-001",
+      "source_type": "modern_integrative_interpretation",
+      "author": "Siddharth Banerjee",
+      "tradition": "astro_yoga_ayurveda",
+      "authority_level": "practitioner_framework",
+      "media_type": "youtube_talk",
+      "video_title": "Science of Chakras & Planets- Yogic Remedies, Back Pain, Wealth, Creativity",
+      "video_url": "https://www.youtube.com/watch?v=tBUPb9Oy4ew",
+      "timestamp_start": "03:09",
+      "timestamp_end": "04:03",
+      "topic": "Chakras and planets",
+      "summary": "Introduces an integrative framework connecting planetary influences with the chakra system and practical yogic balancing methods.",
+      "tags": [
+        "chakras",
+        "planets",
+        "yogic remedies"
+      ],
+      "verification_status": "video-description-derived; transcript verification recommended",
+      "record_role": "structured_practitioner_note",
+      "rag_eligible": true,
+      "copyright_note": "Original structured summary based on published chapters/descriptions; not a transcript reproduction.",
+      "entities": {
+        "planets": [],
+        "chakras": [],
+        "doshas": [],
+        "mantra_types": [],
+        "remedy_types": []
+      },
+      "retrieval_terms": [
+        "Chakras and planets",
+        "astro_yoga_ayurveda"
+      ],
+      "explanation_text": "Practitioner perspective from Unknown speaker. Topic: Chakras and planets. Introduces an integrative framework connecting planetary influences with the chakra system and practical yogic balancing methods. Source: Science of Chakras & Planets- Yogic Remedies, Back Pain, Wealth, Creativity. Timestamp: 03:09–04:03. Verification: video-description-derived; transcript verification recommended. Safety classification: not stated.",
+      "exact_answer_eligible": true
+    },
+    {
+      "id": "SB-CHAKRA-002",
+      "source_type": "modern_integrative_interpretation",
+      "author": "Siddharth Banerjee",
+      "tradition": "astro_yoga_ayurveda",
+      "authority_level": "practitioner_framework",
+      "media_type": "youtube_talk",
+      "video_title": "Science of Chakras & Planets- Yogic Remedies, Back Pain, Wealth, Creativity",
+      "video_url": "https://www.youtube.com/watch?v=tBUPb9Oy4ew",
+      "timestamp_start": "04:59",
+      "timestamp_end": "07:49",
+      "chakra": "Muladhara (Root)",
+      "topic": "Root chakra",
+      "summary": "Discusses Muladhara within the planetary and yogic-energy framework. The published description specifically associates an overactive root chakra with Mars-related accident tendencies; exact detailed mapping requires transcript verification.",
+      "planet": "Mars",
+      "tags": [
+        "Muladhara",
+        "Mars",
+        "root chakra"
+      ],
+      "verification_status": "partly explicit in published description; detailed claims need transcript verification",
+      "record_role": "structured_practitioner_note",
+      "rag_eligible": true,
+      "copyright_note": "Original structured summary based on published chapters/descriptions; not a transcript reproduction.",
+      "entities": {
+        "planets": [
+          "Mars"
+        ],
+        "chakras": [
+          "Muladhara",
+          "Muladhara (Root)"
+        ],
+        "doshas": [],
+        "mantra_types": [],
+        "remedy_types": []
+      },
+      "retrieval_terms": [
+        "Root chakra",
+        "astro_yoga_ayurveda",
+        "kuja",
+        "mangal",
+        "mars",
+        "muladhara",
+        "root chakra"
+      ],
+      "explanation_text": "Practitioner perspective from Unknown speaker. Topic: Root chakra. Discusses Muladhara within the planetary and yogic-energy framework. The published description specifically associates an overactive root chakra with Mars-related accident tendencies; exact detailed mapping requires transcript verification. Source: Science of Chakras & Planets- Yogic Remedies, Back Pain, Wealth, Creativity. Timestamp: 04:59–07:49. Verification: partly explicit in published description; detailed claims need transcript verification. Safety classification: not stated.",
+      "exact_answer_eligible": true
+    },
+    {
+      "id": "SB-CHAKRA-003",
+      "source_type": "modern_integrative_interpretation",
+      "author": "Siddharth Banerjee",
+      "tradition": "astro_yoga_ayurveda",
+      "authority_level": "practitioner_framework",
+      "media_type": "youtube_talk",
+      "video_title": "Science of Chakras & Planets- Yogic Remedies, Back Pain, Wealth, Creativity",
+      "video_url": "https://www.youtube.com/watch?v=tBUPb9Oy4ew",
+      "timestamp_start": "07:49",
+      "timestamp_end": "09:25",
+      "chakra": "Svadhisthana (Sacral)",
+      "topic": "Sacral chakra",
+      "summary": "Dedicated discussion of Svadhisthana in the speaker's chakra-planet framework. Specific planetary assignments and remedies should be taken from the transcript before being treated as verified.",
+      "tags": [
+        "Svadhisthana",
+        "sacral chakra"
+      ],
+      "verification_status": "chapter-derived; transcript verification required",
+      "record_role": "structured_practitioner_note",
+      "rag_eligible": true,
+      "copyright_note": "Original structured summary based on published chapters/descriptions; not a transcript reproduction.",
+      "entities": {
+        "planets": [],
+        "chakras": [
+          "Svadhisthana",
+          "Svadhisthana (Sacral)"
+        ],
+        "doshas": [],
+        "mantra_types": [],
+        "remedy_types": []
+      },
+      "retrieval_terms": [
+        "Sacral chakra",
+        "astro_yoga_ayurveda",
+        "sacral chakra",
+        "svadhisthana"
+      ],
+      "explanation_text": "Practitioner perspective from Unknown speaker. Topic: Sacral chakra. Dedicated discussion of Svadhisthana in the speaker's chakra-planet framework. Specific planetary assignments and remedies should be taken from the transcript before being treated as verified. Source: Science of Chakras & Planets- Yogic Remedies, Back Pain, Wealth, Creativity. Timestamp: 07:49–09:25. Verification: chapter-derived; transcript verification required. Safety classification: not stated.",
+      "exact_answer_eligible": true
+    },
+    {
+      "id": "SB-CHAKRA-004",
+      "source_type": "modern_integrative_interpretation",
+      "author": "Siddharth Banerjee",
+      "tradition": "astro_yoga_ayurveda",
+      "authority_level": "practitioner_framework",
+      "media_type": "youtube_talk",
+      "video_title": "Science of Chakras & Planets- Yogic Remedies, Back Pain, Wealth, Creativity",
+      "video_url": "https://www.youtube.com/watch?v=tBUPb9Oy4ew",
+      "timestamp_start": "09:25",
+      "timestamp_end": "15:51",
+      "chakra": "Manipura (Solar Plexus)",
+      "topic": "Solar plexus chakra",
+      "summary": "Dedicated discussion of Manipura within an integrative chakra, planetary-energy and health framework. Exact mappings require transcript verification.",
+      "tags": [
+        "Manipura",
+        "solar plexus"
+      ],
+      "verification_status": "chapter-derived; transcript verification required",
+      "record_role": "structured_practitioner_note",
+      "rag_eligible": true,
+      "copyright_note": "Original structured summary based on published chapters/descriptions; not a transcript reproduction.",
+      "entities": {
+        "planets": [
+          "Sun"
+        ],
+        "chakras": [
+          "Manipura",
+          "Manipura (Solar Plexus)"
+        ],
+        "doshas": [],
+        "mantra_types": [],
+        "remedy_types": []
+      },
+      "retrieval_terms": [
+        "Solar plexus chakra",
+        "astro_yoga_ayurveda",
+        "manipura",
+        "solar",
+        "solar plexus",
+        "sun",
+        "surya"
+      ],
+      "explanation_text": "Practitioner perspective from Unknown speaker. Topic: Solar plexus chakra. Dedicated discussion of Manipura within an integrative chakra, planetary-energy and health framework. Exact mappings require transcript verification. Source: Science of Chakras & Planets- Yogic Remedies, Back Pain, Wealth, Creativity. Timestamp: 09:25–15:51. Verification: chapter-derived; transcript verification required. Safety classification: not stated.",
+      "exact_answer_eligible": true
+    },
+    {
+      "id": "SB-CHAKRA-005",
+      "source_type": "modern_integrative_interpretation",
+      "author": "Siddharth Banerjee",
+      "tradition": "astro_yoga_ayurveda",
+      "authority_level": "practitioner_framework",
+      "media_type": "youtube_talk",
+      "video_title": "Science of Chakras & Planets- Yogic Remedies, Back Pain, Wealth, Creativity",
+      "video_url": "https://www.youtube.com/watch?v=tBUPb9Oy4ew",
+      "timestamp_start": "15:51",
+      "timestamp_end": "19:18",
+      "chakra": "Anahata (Heart)",
+      "topic": "Heart chakra",
+      "summary": "Dedicated discussion of Anahata in the speaker's chakra framework. Specific planet, dosha and remedy claims require transcript verification.",
+      "tags": [
+        "Anahata",
+        "heart chakra"
+      ],
+      "verification_status": "chapter-derived; transcript verification required",
+      "record_role": "structured_practitioner_note",
+      "rag_eligible": true,
+      "copyright_note": "Original structured summary based on published chapters/descriptions; not a transcript reproduction.",
+      "entities": {
+        "planets": [],
+        "chakras": [
+          "Anahata",
+          "Anahata (Heart)"
+        ],
+        "doshas": [],
+        "mantra_types": [],
+        "remedy_types": []
+      },
+      "retrieval_terms": [
+        "Heart chakra",
+        "anahata",
+        "astro_yoga_ayurveda",
+        "heart chakra"
+      ],
+      "explanation_text": "Practitioner perspective from Unknown speaker. Topic: Heart chakra. Dedicated discussion of Anahata in the speaker's chakra framework. Specific planet, dosha and remedy claims require transcript verification. Source: Science of Chakras & Planets- Yogic Remedies, Back Pain, Wealth, Creativity. Timestamp: 15:51–19:18. Verification: chapter-derived; transcript verification required. Safety classification: not stated.",
+      "exact_answer_eligible": true
+    },
+    {
+      "id": "SB-CHAKRA-006",
+      "source_type": "modern_integrative_interpretation",
+      "author": "Siddharth Banerjee",
+      "tradition": "astro_yoga_ayurveda",
+      "authority_level": "practitioner_framework",
+      "media_type": "youtube_talk",
+      "video_title": "Science of Chakras & Planets- Yogic Remedies, Back Pain, Wealth, Creativity",
+      "video_url": "https://www.youtube.com/watch?v=tBUPb9Oy4ew",
+      "timestamp_start": "19:18",
+      "timestamp_end": "21:43",
+      "chakra": "Vishuddha (Throat)",
+      "topic": "Throat chakra",
+      "summary": "Dedicated discussion of Vishuddha in the speaker's integrative framework. Exact planetary/dosha mappings require transcript verification.",
+      "tags": [
+        "Vishuddha",
+        "throat chakra"
+      ],
+      "verification_status": "chapter-derived; transcript verification required",
+      "record_role": "structured_practitioner_note",
+      "rag_eligible": true,
+      "copyright_note": "Original structured summary based on published chapters/descriptions; not a transcript reproduction.",
+      "entities": {
+        "planets": [],
+        "chakras": [
+          "Vishuddha",
+          "Vishuddha (Throat)"
+        ],
+        "doshas": [],
+        "mantra_types": [],
+        "remedy_types": []
+      },
+      "retrieval_terms": [
+        "Throat chakra",
+        "astro_yoga_ayurveda",
+        "throat chakra",
+        "vishuddha"
+      ],
+      "explanation_text": "Practitioner perspective from Unknown speaker. Topic: Throat chakra. Dedicated discussion of Vishuddha in the speaker's integrative framework. Exact planetary/dosha mappings require transcript verification. Source: Science of Chakras & Planets- Yogic Remedies, Back Pain, Wealth, Creativity. Timestamp: 19:18–21:43. Verification: chapter-derived; transcript verification required. Safety classification: not stated.",
+      "exact_answer_eligible": true
+    },
+    {
+      "id": "SB-CHAKRA-007",
+      "source_type": "modern_integrative_interpretation",
+      "author": "Siddharth Banerjee",
+      "tradition": "astro_yoga_ayurveda",
+      "authority_level": "practitioner_framework",
+      "media_type": "youtube_talk",
+      "video_title": "Science of Chakras & Planets- Yogic Remedies, Back Pain, Wealth, Creativity",
+      "video_url": "https://www.youtube.com/watch?v=tBUPb9Oy4ew",
+      "timestamp_start": "21:43",
+      "timestamp_end": "25:25",
+      "chakra": "Ajna (Third Eye)",
+      "topic": "Third-eye chakra",
+      "summary": "Dedicated discussion of Ajna within the chakra and planetary framework. Exact associations require transcript verification.",
+      "tags": [
+        "Ajna",
+        "third eye"
+      ],
+      "verification_status": "chapter-derived; transcript verification required",
+      "record_role": "structured_practitioner_note",
+      "rag_eligible": true,
+      "copyright_note": "Original structured summary based on published chapters/descriptions; not a transcript reproduction.",
+      "entities": {
+        "planets": [],
+        "chakras": [
+          "Ajna",
+          "Ajna (Third Eye)"
+        ],
+        "doshas": [],
+        "mantra_types": [],
+        "remedy_types": []
+      },
+      "retrieval_terms": [
+        "Third-eye chakra",
+        "ajna",
+        "astro_yoga_ayurveda",
+        "third eye"
+      ],
+      "explanation_text": "Practitioner perspective from Unknown speaker. Topic: Third-eye chakra. Dedicated discussion of Ajna within the chakra and planetary framework. Exact associations require transcript verification. Source: Science of Chakras & Planets- Yogic Remedies, Back Pain, Wealth, Creativity. Timestamp: 21:43–25:25. Verification: chapter-derived; transcript verification required. Safety classification: not stated.",
+      "exact_answer_eligible": true
+    },
+    {
+      "id": "SB-REMEDY-001",
+      "source_type": "modern_integrative_interpretation",
+      "author": "Siddharth Banerjee",
+      "tradition": "astro_yoga_ayurveda",
+      "authority_level": "practitioner_framework",
+      "media_type": "youtube_talk",
+      "video_title": "Science of Chakras & Planets- Yogic Remedies, Back Pain, Wealth, Creativity",
+      "video_url": "https://www.youtube.com/watch?v=tBUPb9Oy4ew",
+      "timestamp_start": "25:25",
+      "timestamp_end": "29:11",
+      "topic": "Chakra remedies",
+      "summary": "Presents practical yogic remedies intended to work with chakra imbalances in the speaker's framework.",
+      "remedy_type": [
+        "yoga",
+        "breath",
+        "behavioural"
+      ],
+      "safety": "Individual practices must be checked before automated prescription; advanced breathing or physical practices may require supervision.",
+      "verification_status": "chapter-derived; exact remedies require transcript verification",
+      "record_role": "structured_practitioner_note",
+      "rag_eligible": true,
+      "copyright_note": "Original structured summary based on published chapters/descriptions; not a transcript reproduction.",
+      "entities": {
+        "planets": [],
+        "chakras": [],
+        "doshas": [],
+        "mantra_types": [],
+        "remedy_types": [
+          "behavioural",
+          "yoga"
+        ]
+      },
+      "retrieval_terms": [
+        "Chakra remedies",
+        "astro_yoga_ayurveda",
+        "behavioural",
+        "yoga"
+      ],
+      "explanation_text": "Practitioner perspective from Unknown speaker. Topic: Chakra remedies. Presents practical yogic remedies intended to work with chakra imbalances in the speaker's framework. Source: Science of Chakras & Planets- Yogic Remedies, Back Pain, Wealth, Creativity. Timestamp: 25:25–29:11. Verification: chapter-derived; exact remedies require transcript verification. Safety classification: Individual practices must be checked before automated prescription; advanced breathing or physical practices may require supervision..",
+      "exact_answer_eligible": true
+    },
+    {
+      "id": "SB-PLANET-001",
+      "source_type": "modern_integrative_interpretation",
+      "author": "Siddharth Banerjee",
+      "tradition": "astro_yoga_ayurveda",
+      "authority_level": "practitioner_framework",
+      "media_type": "youtube_talk",
+      "video_title": "Effects of Planet- Horoscope, Sun, Saturn, Ketu & Manglik",
+      "video_url": "https://www.youtube.com/watch?v=Bvm2F8VCJLk",
+      "timestamp_start": "05:01",
+      "timestamp_end": "06:16",
+      "planet": "Saturn",
+      "dosha": "Vata",
+      "topic": "Saturn, Vata and Padmasana",
+      "summary": "Links Saturn with Vata in an integrative astro-Ayurvedic framework and discusses Padmasana in that context.",
+      "remedy_type": [
+        "yoga"
+      ],
+      "verification_status": "explicit in published chapter title",
+      "record_role": "structured_practitioner_note",
+      "rag_eligible": true,
+      "copyright_note": "Original structured summary based on published chapters/descriptions; not a transcript reproduction.",
+      "entities": {
+        "planets": [
+          "Ketu",
+          "Saturn",
+          "Sun"
+        ],
+        "chakras": [],
+        "doshas": [
+          "Vata"
+        ],
+        "mantra_types": [],
+        "remedy_types": [
+          "yoga"
+        ]
+      },
+      "retrieval_terms": [
+        "Saturn, Vata and Padmasana",
+        "astro_yoga_ayurveda",
+        "ketu",
+        "saturn",
+        "shani",
+        "solar",
+        "south node",
+        "sun",
+        "surya",
+        "vata",
+        "yoga"
+      ],
+      "explanation_text": "Practitioner perspective from Unknown speaker. Topic: Saturn, Vata and Padmasana. Links Saturn with Vata in an integrative astro-Ayurvedic framework and discusses Padmasana in that context. Source: Effects of Planet- Horoscope, Sun, Saturn, Ketu & Manglik. Timestamp: 05:01–06:16. Verification: explicit in published chapter title. Safety classification: not stated.",
+      "exact_answer_eligible": true
+    },
+    {
+      "id": "SB-PLANET-002",
+      "source_type": "modern_integrative_interpretation",
+      "author": "Siddharth Banerjee",
+      "tradition": "astro_yoga_ayurveda",
+      "authority_level": "practitioner_framework",
+      "media_type": "youtube_talk",
+      "video_title": "Effects of Planet- Horoscope, Sun, Saturn, Ketu & Manglik",
+      "video_url": "https://www.youtube.com/watch?v=Bvm2F8VCJLk",
+      "timestamp_start": "06:16",
+      "timestamp_end": "07:28",
+      "topic": "Planets and Vata-Pitta-Kapha",
+      "summary": "Introduces the speaker's mapping between planetary forces and the Ayurvedic Vata, Pitta and Kapha framework.",
+      "tags": [
+        "Vata",
+        "Pitta",
+        "Kapha",
+        "planets"
+      ],
+      "verification_status": "explicit in published chapter title; planet-by-planet detail requires transcript verification",
+      "record_role": "structured_practitioner_note",
+      "rag_eligible": true,
+      "copyright_note": "Original structured summary based on published chapters/descriptions; not a transcript reproduction.",
+      "entities": {
+        "planets": [
+          "Ketu",
+          "Saturn",
+          "Sun"
+        ],
+        "chakras": [],
+        "doshas": [
+          "Kapha",
+          "Pitta",
+          "Vata"
+        ],
+        "mantra_types": [],
+        "remedy_types": []
+      },
+      "retrieval_terms": [
+        "Planets and Vata-Pitta-Kapha",
+        "astro_yoga_ayurveda",
+        "kapha",
+        "ketu",
+        "pitta",
+        "saturn",
+        "shani",
+        "solar",
+        "south node",
+        "sun",
+        "surya",
+        "vata"
+      ],
+      "explanation_text": "Practitioner perspective from Unknown speaker. Topic: Planets and Vata-Pitta-Kapha. Introduces the speaker's mapping between planetary forces and the Ayurvedic Vata, Pitta and Kapha framework. Source: Effects of Planet- Horoscope, Sun, Saturn, Ketu & Manglik. Timestamp: 06:16–07:28. Verification: explicit in published chapter title; planet-by-planet detail requires transcript verification. Safety classification: not stated.",
+      "exact_answer_eligible": true
+    },
+    {
+      "id": "SB-PLANET-003",
+      "source_type": "modern_integrative_interpretation",
+      "author": "Siddharth Banerjee",
+      "tradition": "astro_yoga_ayurveda",
+      "authority_level": "practitioner_framework",
+      "media_type": "youtube_talk",
+      "video_title": "Effects of Planet- Horoscope, Sun, Saturn, Ketu & Manglik",
+      "video_url": "https://www.youtube.com/watch?v=Bvm2F8VCJLk",
+      "timestamp_start": "07:28",
+      "timestamp_end": "08:35",
+      "topic": "Planets, chakras and elements",
+      "summary": "Explains an integrative correspondence among planets, chakras and elemental qualities. Detailed mapping requires transcript verification.",
+      "tags": [
+        "planets",
+        "chakras",
+        "elements"
+      ],
+      "verification_status": "explicit topic; detailed claims require transcript verification",
+      "record_role": "structured_practitioner_note",
+      "rag_eligible": true,
+      "copyright_note": "Original structured summary based on published chapters/descriptions; not a transcript reproduction.",
+      "entities": {
+        "planets": [
+          "Ketu",
+          "Saturn",
+          "Sun"
+        ],
+        "chakras": [],
+        "doshas": [],
+        "mantra_types": [],
+        "remedy_types": []
+      },
+      "retrieval_terms": [
+        "Planets, chakras and elements",
+        "astro_yoga_ayurveda",
+        "ketu",
+        "saturn",
+        "shani",
+        "solar",
+        "south node",
+        "sun",
+        "surya"
+      ],
+      "explanation_text": "Practitioner perspective from Unknown speaker. Topic: Planets, chakras and elements. Explains an integrative correspondence among planets, chakras and elemental qualities. Detailed mapping requires transcript verification. Source: Effects of Planet- Horoscope, Sun, Saturn, Ketu & Manglik. Timestamp: 07:28–08:35. Verification: explicit topic; detailed claims require transcript verification. Safety classification: not stated.",
+      "exact_answer_eligible": true
+    },
+    {
+      "id": "SB-SUN-001",
+      "source_type": "modern_integrative_interpretation",
+      "author": "Siddharth Banerjee",
+      "tradition": "astro_yoga_ayurveda",
+      "authority_level": "practitioner_framework",
+      "media_type": "youtube_talk",
+      "video_title": "Effects of Planet- Horoscope, Sun, Saturn, Ketu & Manglik",
+      "video_url": "https://www.youtube.com/watch?v=Bvm2F8VCJLk",
+      "timestamp_start": "08:35",
+      "timestamp_end": "14:46",
+      "planet": "Sun",
+      "dosha": "Pitta",
+      "topic": "Sun effects on the body and Pingala Nadi",
+      "summary": "Associates the Sun with Pitta and discusses bodily effects, Pingala Nadi and timing of eating within the speaker's integrative framework.",
+      "verification_status": "Pitta link explicit in published chapter title; detailed health claims need transcript and evidence review",
+      "record_role": "structured_practitioner_note",
+      "rag_eligible": true,
+      "copyright_note": "Original structured summary based on published chapters/descriptions; not a transcript reproduction.",
+      "entities": {
+        "planets": [
+          "Ketu",
+          "Saturn",
+          "Sun"
+        ],
+        "chakras": [],
+        "doshas": [
+          "Pitta"
+        ],
+        "mantra_types": [],
+        "remedy_types": []
+      },
+      "retrieval_terms": [
+        "Sun effects on the body and Pingala Nadi",
+        "astro_yoga_ayurveda",
+        "ketu",
+        "pitta",
+        "saturn",
+        "shani",
+        "solar",
+        "south node",
+        "sun",
+        "surya"
+      ],
+      "explanation_text": "Practitioner perspective from Unknown speaker. Topic: Sun effects on the body and Pingala Nadi. Associates the Sun with Pitta and discusses bodily effects, Pingala Nadi and timing of eating within the speaker's integrative framework. Source: Effects of Planet- Horoscope, Sun, Saturn, Ketu & Manglik. Timestamp: 08:35–14:46. Verification: Pitta link explicit in published chapter title; detailed health claims need transcript and evidence review. Safety classification: not stated.",
+      "exact_answer_eligible": true
+    },
+    {
+      "id": "SB-SUN-002",
+      "source_type": "modern_integrative_interpretation",
+      "author": "Siddharth Banerjee",
+      "tradition": "astro_yoga_ayurveda",
+      "authority_level": "practitioner_framework",
+      "media_type": "youtube_talk",
+      "video_title": "Effects of Planet- Horoscope, Sun, Saturn, Ketu & Manglik",
+      "video_url": "https://www.youtube.com/watch?v=Bvm2F8VCJLk",
+      "timestamp_start": "14:46",
+      "timestamp_end": "17:22",
+      "planet": "Sun",
+      "dosha": "Pitta",
+      "topic": "Sun remedies",
+      "summary": "Presents Ayurveda- and yoga-oriented remedies for balancing Sun/Pitta themes.",
+      "remedy_type": [
+        "ayurveda_lifestyle",
+        "yoga"
+      ],
+      "safety": "Do not convert health-related claims into medical treatment advice without independent evidence.",
+      "verification_status": "remedy category explicit; exact remedies require transcript verification",
+      "record_role": "structured_practitioner_note",
+      "rag_eligible": true,
+      "copyright_note": "Original structured summary based on published chapters/descriptions; not a transcript reproduction.",
+      "entities": {
+        "planets": [
+          "Ketu",
+          "Saturn",
+          "Sun"
+        ],
+        "chakras": [],
+        "doshas": [
+          "Pitta"
+        ],
+        "mantra_types": [],
+        "remedy_types": [
+          "lifestyle",
+          "yoga"
+        ]
+      },
+      "retrieval_terms": [
+        "Sun remedies",
+        "astro_yoga_ayurveda",
+        "ketu",
+        "lifestyle",
+        "pitta",
+        "saturn",
+        "shani",
+        "solar",
+        "south node",
+        "sun",
+        "surya",
+        "yoga"
+      ],
+      "explanation_text": "Practitioner perspective from Unknown speaker. Topic: Sun remedies. Presents Ayurveda- and yoga-oriented remedies for balancing Sun/Pitta themes. Source: Effects of Planet- Horoscope, Sun, Saturn, Ketu & Manglik. Timestamp: 14:46–17:22. Verification: remedy category explicit; exact remedies require transcript verification. Safety classification: Do not convert health-related claims into medical treatment advice without independent evidence..",
+      "exact_answer_eligible": true
+    },
+    {
+      "id": "SB-MOON-001",
+      "source_type": "modern_integrative_interpretation",
+      "author": "Siddharth Banerjee",
+      "tradition": "astro_yoga_ayurveda",
+      "authority_level": "practitioner_framework",
+      "media_type": "youtube_talk",
+      "video_title": "Effects of Planet- Horoscope, Sun, Saturn, Ketu & Manglik",
+      "video_url": "https://www.youtube.com/watch?v=Bvm2F8VCJLk",
+      "timestamp_start": "17:22",
+      "timestamp_end": "24:39",
+      "planet": "Moon",
+      "topic": "Moon, mind and emotions; balancing remedies",
+      "summary": "Discusses Moon-related themes concerning mind and emotions, followed by balancing practices in the speaker's framework.",
+      "remedy_type": [
+        "lifestyle",
+        "yoga",
+        "mind_body"
+      ],
+      "verification_status": "explicit in published chapters; specifics require transcript verification",
+      "record_role": "structured_practitioner_note",
+      "rag_eligible": true,
+      "copyright_note": "Original structured summary based on published chapters/descriptions; not a transcript reproduction.",
+      "entities": {
+        "planets": [
+          "Ketu",
+          "Moon",
+          "Saturn",
+          "Sun"
+        ],
+        "chakras": [],
+        "doshas": [],
+        "mantra_types": [],
+        "remedy_types": [
+          "lifestyle",
+          "yoga"
+        ]
+      },
+      "retrieval_terms": [
+        "Moon, mind and emotions; balancing remedies",
+        "astro_yoga_ayurveda",
+        "chandra",
+        "ketu",
+        "lifestyle",
+        "lunar",
+        "moon",
+        "saturn",
+        "shani",
+        "solar",
+        "south node",
+        "sun",
+        "surya",
+        "yoga"
+      ],
+      "explanation_text": "Practitioner perspective from Unknown speaker. Topic: Moon, mind and emotions; balancing remedies. Discusses Moon-related themes concerning mind and emotions, followed by balancing practices in the speaker's framework. Source: Effects of Planet- Horoscope, Sun, Saturn, Ketu & Manglik. Timestamp: 17:22–24:39. Verification: explicit in published chapters; specifics require transcript verification. Safety classification: not stated.",
+      "exact_answer_eligible": true
+    },
+    {
+      "id": "SB-MARS-001",
+      "source_type": "modern_integrative_interpretation",
+      "author": "Siddharth Banerjee",
+      "tradition": "astro_yoga_ayurveda",
+      "authority_level": "practitioner_framework",
+      "media_type": "youtube_talk",
+      "video_title": "Effects of Planet- Horoscope, Sun, Saturn, Ketu & Manglik",
+      "video_url": "https://www.youtube.com/watch?v=Bvm2F8VCJLk",
+      "timestamp_start": "24:39",
+      "timestamp_end": "33:03",
+      "planet": "Mars",
+      "dosha": "Pitta",
+      "topic": "Mars, blood, Manglik themes and cooling remedies",
+      "summary": "Connects Mars with heat/Pitta-type themes, blood and Manglik discussion, then presents cooling-oriented remedies. A separate talk's published description also mentions blood donation as a Mars-pacifying remedy.",
+      "remedy_type": [
+        "cooling_lifestyle",
+        "behavioural",
+        "traditional_upaya"
+      ],
+      "safety": "Blood donation must follow medical eligibility and blood-service requirements; it must not be prescribed solely as an astrological remedy.",
+      "verification_status": "topic explicit; exact mechanism claims require transcript/evidence review",
+      "record_role": "structured_practitioner_note",
+      "rag_eligible": true,
+      "copyright_note": "Original structured summary based on published chapters/descriptions; not a transcript reproduction.",
+      "entities": {
+        "planets": [
+          "Ketu",
+          "Mars",
+          "Saturn",
+          "Sun"
+        ],
+        "chakras": [],
+        "doshas": [
+          "Pitta"
+        ],
+        "mantra_types": [],
+        "remedy_types": [
+          "behavioural",
+          "lifestyle"
+        ]
+      },
+      "retrieval_terms": [
+        "Mars, blood, Manglik themes and cooling remedies",
+        "astro_yoga_ayurveda",
+        "behavioural",
+        "ketu",
+        "kuja",
+        "lifestyle",
+        "mangal",
+        "mars",
+        "pitta",
+        "saturn",
+        "shani",
+        "solar",
+        "south node",
+        "sun",
+        "surya"
+      ],
+      "explanation_text": "Practitioner perspective from Unknown speaker. Topic: Mars, blood, Manglik themes and cooling remedies. Connects Mars with heat/Pitta-type themes, blood and Manglik discussion, then presents cooling-oriented remedies. A separate talk's published description also mentions blood donation as a Mars-pacifying remedy. Source: Effects of Planet- Horoscope, Sun, Saturn, Ketu & Manglik. Timestamp: 24:39–33:03. Verification: topic explicit; exact mechanism claims require transcript/evidence review. Safety classification: Blood donation must follow medical eligibility and blood-service requirements; it must not be prescribed solely as an astrological remedy..",
+      "exact_answer_eligible": true
+    },
+    {
+      "id": "SB-RAHU-KETU-001",
+      "source_type": "modern_integrative_interpretation",
+      "author": "Siddharth Banerjee",
+      "tradition": "astro_yoga_ayurveda",
+      "authority_level": "practitioner_framework",
+      "media_type": "youtube_talk",
+      "video_title": "Effects of Planet- Horoscope, Sun, Saturn, Ketu & Manglik",
+      "video_url": "https://www.youtube.com/watch?v=Bvm2F8VCJLk",
+      "timestamp_start": "33:03",
+      "timestamp_end": "46:16",
+      "planet": "Rahu/Ketu",
+      "topic": "Rahu-Ketu and mind/addiction themes",
+      "summary": "Discusses Rahu and Ketu within a yogic-astrological interpretation, including Rahu-related mind and addiction themes.",
+      "safety": "Addiction is a health condition; the app must prioritise evidence-based professional support and must not present astrology as treatment.",
+      "verification_status": "topics explicit in published chapters; detailed claims require transcript verification",
+      "record_role": "structured_practitioner_note",
+      "rag_eligible": true,
+      "copyright_note": "Original structured summary based on published chapters/descriptions; not a transcript reproduction.",
+      "entities": {
+        "planets": [
+          "Ketu",
+          "Rahu",
+          "Rahu/Ketu",
+          "Saturn",
+          "Sun"
+        ],
+        "chakras": [],
+        "doshas": [],
+        "mantra_types": [],
+        "remedy_types": []
+      },
+      "retrieval_terms": [
+        "Rahu-Ketu and mind/addiction themes",
+        "astro_yoga_ayurveda",
+        "ketu",
+        "north node",
+        "rahu",
+        "saturn",
+        "shani",
+        "solar",
+        "south node",
+        "sun",
+        "surya"
+      ],
+      "explanation_text": "Practitioner perspective from Unknown speaker. Topic: Rahu-Ketu and mind/addiction themes. Discusses Rahu and Ketu within a yogic-astrological interpretation, including Rahu-related mind and addiction themes. Source: Effects of Planet- Horoscope, Sun, Saturn, Ketu & Manglik. Timestamp: 33:03–46:16. Verification: topics explicit in published chapters; detailed claims require transcript verification. Safety classification: Addiction is a health condition; the app must prioritise evidence-based professional support and must not present astrology as treatment..",
+      "exact_answer_eligible": true
+    },
+    {
+      "id": "SB-VENUS-001",
+      "source_type": "modern_integrative_interpretation",
+      "author": "Siddharth Banerjee",
+      "tradition": "astro_yoga_ayurveda",
+      "authority_level": "practitioner_framework",
+      "media_type": "youtube_talk",
+      "video_title": "Effects of Planet- Horoscope, Sun, Saturn, Ketu & Manglik",
+      "video_url": "https://www.youtube.com/watch?v=Bvm2F8VCJLk",
+      "timestamp_start": "46:16",
+      "timestamp_end": "47:07",
+      "planet": "Venus",
+      "topic": "Venus effects",
+      "summary": "Discusses Venus-related themes concerning love and beauty in the speaker's integrative framework.",
+      "verification_status": "explicit in published chapter title",
+      "record_role": "structured_practitioner_note",
+      "rag_eligible": true,
+      "copyright_note": "Original structured summary based on published chapters/descriptions; not a transcript reproduction.",
+      "entities": {
+        "planets": [
+          "Ketu",
+          "Saturn",
+          "Sun",
+          "Venus"
+        ],
+        "chakras": [],
+        "doshas": [],
+        "mantra_types": [],
+        "remedy_types": []
+      },
+      "retrieval_terms": [
+        "Venus effects",
+        "astro_yoga_ayurveda",
+        "ketu",
+        "saturn",
+        "shani",
+        "shukra",
+        "solar",
+        "south node",
+        "sun",
+        "surya",
+        "venus"
+      ],
+      "explanation_text": "Practitioner perspective from Unknown speaker. Topic: Venus effects. Discusses Venus-related themes concerning love and beauty in the speaker's integrative framework. Source: Effects of Planet- Horoscope, Sun, Saturn, Ketu & Manglik. Timestamp: 46:16–47:07. Verification: explicit in published chapter title. Safety classification: not stated.",
+      "exact_answer_eligible": true
+    },
+    {
+      "id": "SB-JUPITER-001",
+      "source_type": "modern_integrative_interpretation",
+      "author": "Siddharth Banerjee",
+      "tradition": "astro_yoga_ayurveda",
+      "authority_level": "practitioner_framework",
+      "media_type": "youtube_talk",
+      "video_title": "Effects of Planet- Horoscope, Sun, Saturn, Ketu & Manglik",
+      "video_url": "https://www.youtube.com/watch?v=Bvm2F8VCJLk",
+      "timestamp_start": "47:07",
+      "timestamp_end": "47:36",
+      "planet": "Jupiter",
+      "topic": "Jupiter, wealth and obesity themes",
+      "summary": "Discusses Jupiter-related wealth and obesity themes. Treat the obesity linkage as practitioner interpretation, not medical causation.",
+      "safety": "Weight and obesity are medical/health matters; any advice must be evidence-based and non-diagnostic.",
+      "verification_status": "explicit in published chapter title",
+      "record_role": "structured_practitioner_note",
+      "rag_eligible": true,
+      "copyright_note": "Original structured summary based on published chapters/descriptions; not a transcript reproduction.",
+      "entities": {
+        "planets": [
+          "Jupiter",
+          "Ketu",
+          "Saturn",
+          "Sun"
+        ],
+        "chakras": [],
+        "doshas": [],
+        "mantra_types": [],
+        "remedy_types": []
+      },
+      "retrieval_terms": [
+        "Jupiter, wealth and obesity themes",
+        "astro_yoga_ayurveda",
+        "brihaspati",
+        "guru",
+        "jupiter",
+        "ketu",
+        "saturn",
+        "shani",
+        "solar",
+        "south node",
+        "sun",
+        "surya"
+      ],
+      "explanation_text": "Practitioner perspective from Unknown speaker. Topic: Jupiter, wealth and obesity themes. Discusses Jupiter-related wealth and obesity themes. Treat the obesity linkage as practitioner interpretation, not medical causation. Source: Effects of Planet- Horoscope, Sun, Saturn, Ketu & Manglik. Timestamp: 47:07–47:36. Verification: explicit in published chapter title. Safety classification: Weight and obesity are medical/health matters; any advice must be evidence-based and non-diagnostic..",
+      "exact_answer_eligible": true
+    },
+    {
+      "id": "SB-SATURN-001",
+      "source_type": "modern_integrative_interpretation",
+      "author": "Siddharth Banerjee",
+      "tradition": "astro_yoga_ayurveda",
+      "authority_level": "practitioner_framework",
+      "media_type": "youtube_talk",
+      "video_title": "Effects of Planet- Horoscope, Sun, Saturn, Ketu & Manglik",
+      "video_url": "https://www.youtube.com/watch?v=Bvm2F8VCJLk",
+      "timestamp_start": "47:36",
+      "timestamp_end": "50:56",
+      "planet": "Saturn",
+      "dosha": "Vata",
+      "topic": "Saturn problems",
+      "summary": "Discusses Saturn in relation to low-energy/laziness themes, within the wider Saturn-Vata framework described in the talk.",
+      "verification_status": "topic explicit; detailed claims require transcript verification",
+      "record_role": "structured_practitioner_note",
+      "rag_eligible": true,
+      "copyright_note": "Original structured summary based on published chapters/descriptions; not a transcript reproduction.",
+      "entities": {
+        "planets": [
+          "Ketu",
+          "Saturn",
+          "Sun"
+        ],
+        "chakras": [],
+        "doshas": [
+          "Vata"
+        ],
+        "mantra_types": [],
+        "remedy_types": []
+      },
+      "retrieval_terms": [
+        "Saturn problems",
+        "astro_yoga_ayurveda",
+        "ketu",
+        "saturn",
+        "shani",
+        "solar",
+        "south node",
+        "sun",
+        "surya",
+        "vata"
+      ],
+      "explanation_text": "Practitioner perspective from Unknown speaker. Topic: Saturn problems. Discusses Saturn in relation to low-energy/laziness themes, within the wider Saturn-Vata framework described in the talk. Source: Effects of Planet- Horoscope, Sun, Saturn, Ketu & Manglik. Timestamp: 47:36–50:56. Verification: topic explicit; detailed claims require transcript verification. Safety classification: not stated.",
+      "exact_answer_eligible": true
+    },
+    {
+      "id": "SB-MERCURY-001",
+      "source_type": "modern_integrative_interpretation",
+      "author": "Siddharth Banerjee",
+      "tradition": "astro_yoga_ayurveda",
+      "authority_level": "practitioner_framework",
+      "media_type": "youtube_talk",
+      "video_title": "Effects of Planet- Horoscope, Sun, Saturn, Ketu & Manglik",
+      "video_url": "https://www.youtube.com/watch?v=Bvm2F8VCJLk",
+      "timestamp_start": "50:56",
+      "timestamp_end": "59:55",
+      "planet": "Mercury",
+      "topic": "Mercury, mind and communication; Tulsi and pranayama remedies",
+      "summary": "Discusses Mercury-related mind and communication themes, followed by remedies involving Tulsi and pranayama.",
+      "remedy_type": [
+        "plant_tradition",
+        "pranayama"
+      ],
+      "safety": "Herbal ingestion and advanced pranayama need separate safety assessment; do not imply medical efficacy from the astrological framework.",
+      "verification_status": "explicit in published chapters; specifics require transcript verification",
+      "record_role": "structured_practitioner_note",
+      "rag_eligible": true,
+      "copyright_note": "Original structured summary based on published chapters/descriptions; not a transcript reproduction.",
+      "entities": {
+        "planets": [
+          "Ketu",
+          "Mercury",
+          "Saturn",
+          "Sun"
+        ],
+        "chakras": [],
+        "doshas": [],
+        "mantra_types": [],
+        "remedy_types": [
+          "pranayama",
+          "tulsi"
+        ]
+      },
+      "retrieval_terms": [
+        "Mercury, mind and communication; Tulsi and pranayama remedies",
+        "astro_yoga_ayurveda",
+        "budha",
+        "ketu",
+        "mercury",
+        "pranayama",
+        "saturn",
+        "shani",
+        "solar",
+        "south node",
+        "sun",
+        "surya",
+        "tulsi"
+      ],
+      "explanation_text": "Practitioner perspective from Unknown speaker. Topic: Mercury, mind and communication; Tulsi and pranayama remedies. Discusses Mercury-related mind and communication themes, followed by remedies involving Tulsi and pranayama. Source: Effects of Planet- Horoscope, Sun, Saturn, Ketu & Manglik. Timestamp: 50:56–59:55. Verification: explicit in published chapters; specifics require transcript verification. Safety classification: Herbal ingestion and advanced pranayama need separate safety assessment; do not imply medical efficacy from the astrological framework..",
+      "exact_answer_eligible": true
+    },
+    {
+      "id": "SB-VENUS-002",
+      "source_type": "modern_integrative_interpretation",
+      "author": "Siddharth Banerjee",
+      "tradition": "astro_yoga_ayurveda",
+      "authority_level": "practitioner_framework",
+      "media_type": "youtube_talk",
+      "video_title": "Effects of Planet- Horoscope, Sun, Saturn, Ketu & Manglik",
+      "video_url": "https://www.youtube.com/watch?v=Bvm2F8VCJLk",
+      "timestamp_start": "59:55",
+      "timestamp_end": "01:08:13",
+      "planet": "Venus",
+      "topic": "Venus balance, bhakti and energy",
+      "summary": "Presents bhakti and energy-oriented balancing approaches for Venus themes.",
+      "remedy_type": [
+        "bhakti",
+        "behavioural"
+      ],
+      "verification_status": "explicit in published chapter title; details require transcript verification",
+      "record_role": "structured_practitioner_note",
+      "rag_eligible": true,
+      "copyright_note": "Original structured summary based on published chapters/descriptions; not a transcript reproduction.",
+      "entities": {
+        "planets": [
+          "Ketu",
+          "Saturn",
+          "Sun",
+          "Venus"
+        ],
+        "chakras": [],
+        "doshas": [],
+        "mantra_types": [],
+        "remedy_types": [
+          "behavioural",
+          "bhakti"
+        ]
+      },
+      "retrieval_terms": [
+        "Venus balance, bhakti and energy",
+        "astro_yoga_ayurveda",
+        "behavioural",
+        "bhakti",
+        "ketu",
+        "saturn",
+        "shani",
+        "shukra",
+        "solar",
+        "south node",
+        "sun",
+        "surya",
+        "venus"
+      ],
+      "explanation_text": "Practitioner perspective from Unknown speaker. Topic: Venus balance, bhakti and energy. Presents bhakti and energy-oriented balancing approaches for Venus themes. Source: Effects of Planet- Horoscope, Sun, Saturn, Ketu & Manglik. Timestamp: 59:55–01:08:13. Verification: explicit in published chapter title; details require transcript verification. Safety classification: not stated.",
+      "exact_answer_eligible": true
+    },
+    {
+      "id": "SB-SATURN-002",
+      "source_type": "modern_integrative_interpretation",
+      "author": "Siddharth Banerjee",
+      "tradition": "astro_yoga_ayurveda",
+      "authority_level": "practitioner_framework",
+      "media_type": "youtube_talk",
+      "video_title": "Effects of Planet- Horoscope, Sun, Saturn, Ketu & Manglik",
+      "video_url": "https://www.youtube.com/watch?v=Bvm2F8VCJLk",
+      "timestamp_start": "01:08:13",
+      "timestamp_end": "01:18:06",
+      "planet": "Saturn",
+      "dosha": "Vata",
+      "topic": "Saturn deep dive and remedies",
+      "summary": "Provides an extended Saturn discussion involving toxins/energy themes, followed by oil- and yoga-oriented remedies.",
+      "remedy_type": [
+        "oil_practice",
+        "yoga",
+        "lifestyle"
+      ],
+      "safety": "Topical or ingested products and medical detox claims require separate safety evidence.",
+      "verification_status": "published chapters identify topics; specifics require transcript verification",
+      "record_role": "structured_practitioner_note",
+      "rag_eligible": true,
+      "copyright_note": "Original structured summary based on published chapters/descriptions; not a transcript reproduction.",
+      "entities": {
+        "planets": [
+          "Ketu",
+          "Saturn",
+          "Sun"
+        ],
+        "chakras": [],
+        "doshas": [
+          "Vata"
+        ],
+        "mantra_types": [],
+        "remedy_types": [
+          "lifestyle",
+          "oil",
+          "yoga"
+        ]
+      },
+      "retrieval_terms": [
+        "Saturn deep dive and remedies",
+        "astro_yoga_ayurveda",
+        "ketu",
+        "lifestyle",
+        "oil",
+        "saturn",
+        "shani",
+        "solar",
+        "south node",
+        "sun",
+        "surya",
+        "vata",
+        "yoga"
+      ],
+      "explanation_text": "Practitioner perspective from Unknown speaker. Topic: Saturn deep dive and remedies. Provides an extended Saturn discussion involving toxins/energy themes, followed by oil- and yoga-oriented remedies. Source: Effects of Planet- Horoscope, Sun, Saturn, Ketu & Manglik. Timestamp: 01:08:13–01:18:06. Verification: published chapters identify topics; specifics require transcript verification. Safety classification: Topical or ingested products and medical detox claims require separate safety evidence..",
+      "exact_answer_eligible": true
+    },
+    {
+      "id": "SB-JUPITER-002",
+      "source_type": "modern_integrative_interpretation",
+      "author": "Siddharth Banerjee",
+      "tradition": "astro_yoga_ayurveda",
+      "authority_level": "practitioner_framework",
+      "media_type": "youtube_talk",
+      "video_title": "Effects of Planet- Horoscope, Sun, Saturn, Ketu & Manglik",
+      "video_url": "https://www.youtube.com/watch?v=Bvm2F8VCJLk",
+      "timestamp_start": "01:18:06",
+      "timestamp_end": "01:23:15",
+      "planet": "Jupiter",
+      "topic": "Jupiter remedies: turmeric and fasting",
+      "summary": "Presents turmeric and fasting in the context of Jupiter balancing remedies.",
+      "remedy_type": [
+        "dietary_tradition",
+        "fasting"
+      ],
+      "safety": "Fasting can be unsuitable for pregnancy, diabetes, eating disorders, some medications and other conditions; turmeric supplements can interact with medicines. App must require health verification before such recommendations.",
+      "verification_status": "explicit in published chapter title; exact use/dose requires transcript and evidence review",
+      "record_role": "structured_practitioner_note",
+      "rag_eligible": true,
+      "copyright_note": "Original structured summary based on published chapters/descriptions; not a transcript reproduction.",
+      "entities": {
+        "planets": [
+          "Jupiter",
+          "Ketu",
+          "Saturn",
+          "Sun"
+        ],
+        "chakras": [],
+        "doshas": [],
+        "mantra_types": [],
+        "remedy_types": [
+          "dietary",
+          "fasting",
+          "turmeric"
+        ]
+      },
+      "retrieval_terms": [
+        "Jupiter remedies: turmeric and fasting",
+        "astro_yoga_ayurveda",
+        "brihaspati",
+        "dietary",
+        "fasting",
+        "guru",
+        "jupiter",
+        "ketu",
+        "saturn",
+        "shani",
+        "solar",
+        "south node",
+        "sun",
+        "surya",
+        "turmeric"
+      ],
+      "explanation_text": "Practitioner perspective from Unknown speaker. Topic: Jupiter remedies: turmeric and fasting. Presents turmeric and fasting in the context of Jupiter balancing remedies. Source: Effects of Planet- Horoscope, Sun, Saturn, Ketu & Manglik. Timestamp: 01:18:06–01:23:15. Verification: explicit in published chapter title; exact use/dose requires transcript and evidence review. Safety classification: Fasting can be unsuitable for pregnancy, diabetes, eating disorders, some medications and other conditions; turmeric supplements can interact with medicines. App must require health verification before such recommendations..",
+      "exact_answer_eligible": true
+    },
+    {
+      "speaker": "Harshdev Madhav",
+      "publisher": "Jalso Podcasts",
+      "source_type": "modern_integrative_interpretation",
+      "tradition": "mantra_tantra_shakta",
+      "authority_level": "sanskrit_scholar_practitioner_framework",
+      "media_type": "podcast_video",
+      "video_title": "The Mystical Secrets of Tantra, Mantra, and Shri Yantra",
+      "source_url": "https://open.spotify.com/episode/1DhRhjfkELtaFnYgiNhycL",
+      "playlist_url": "https://www.youtube.com/playlist?list=PLM8IsYGdCVdregLvYegEskzaPSVQHtp9D",
+      "id": "HM-JALSO-001",
+      "timestamp_start": "00:03:15",
+      "timestamp_end": "00:08:08",
+      "topic": "Guru's grace",
+      "summary": "Explains the role attributed to Guru Krupa in mantra, tantra and spiritual practice.",
+      "tags": [
+        "guru",
+        "initiation",
+        "practice conditions"
+      ],
+      "safety_level": "guidance_recommended",
+      "verification_status": "published_chapter_metadata; transcript verification recommended",
+      "copyright_note": "Original structured summary; not a transcript reproduction.",
+      "record_role": "structured_practitioner_note",
+      "rag_eligible": true,
+      "entities": {
+        "planets": [
+          "Jupiter"
+        ],
+        "chakras": [],
+        "doshas": [],
+        "mantra_types": [
+          "Diksha",
+          "Shri Yantra"
+        ],
+        "remedy_types": [
+          "mantra"
+        ]
+      },
+      "retrieval_terms": [
+        "Guru's grace",
+        "Harshdev Madhav",
+        "brihaspati",
+        "diksha",
+        "guru",
+        "initiation",
+        "jupiter",
+        "mantra",
+        "mantra_tantra_shakta",
+        "shri yantra",
+        "sri yantra"
+      ],
+      "explanation_text": "Practitioner perspective from Harshdev Madhav. Topic: Guru's grace. Explains the role attributed to Guru Krupa in mantra, tantra and spiritual practice. Source: The Mystical Secrets of Tantra, Mantra, and Shri Yantra. Timestamp: 00:03:15–00:08:08. Verification: published_chapter_metadata; transcript verification recommended. Safety classification: guidance_recommended.",
+      "exact_answer_eligible": true
+    },
+    {
+      "speaker": "Harshdev Madhav",
+      "publisher": "Jalso Podcasts",
+      "source_type": "modern_integrative_interpretation",
+      "tradition": "mantra_tantra_shakta",
+      "authority_level": "sanskrit_scholar_practitioner_framework",
+      "media_type": "podcast_video",
+      "video_title": "The Mystical Secrets of Tantra, Mantra, and Shri Yantra",
+      "source_url": "https://open.spotify.com/episode/1DhRhjfkELtaFnYgiNhycL",
+      "playlist_url": "https://www.youtube.com/playlist?list=PLM8IsYGdCVdregLvYegEskzaPSVQHtp9D",
+      "id": "HM-JALSO-002",
+      "timestamp_start": "00:08:08",
+      "timestamp_end": "00:09:30",
+      "topic": "Finding a true Guru",
+      "summary": "Discusses discernment in seeking a qualified teacher.",
+      "tags": [
+        "teacher selection",
+        "discernment"
+      ],
+      "safety_level": "guidance_recommended",
+      "verification_status": "published_chapter_metadata; transcript verification recommended",
+      "copyright_note": "Original structured summary; not a transcript reproduction.",
+      "record_role": "structured_practitioner_note",
+      "rag_eligible": true,
+      "entities": {
+        "planets": [
+          "Jupiter"
+        ],
+        "chakras": [],
+        "doshas": [],
+        "mantra_types": [
+          "Shri Yantra"
+        ],
+        "remedy_types": [
+          "mantra"
+        ]
+      },
+      "retrieval_terms": [
+        "Finding a true Guru",
+        "Harshdev Madhav",
+        "brihaspati",
+        "guru",
+        "jupiter",
+        "mantra",
+        "mantra_tantra_shakta",
+        "shri yantra",
+        "sri yantra"
+      ],
+      "explanation_text": "Practitioner perspective from Harshdev Madhav. Topic: Finding a true Guru. Discusses discernment in seeking a qualified teacher. Source: The Mystical Secrets of Tantra, Mantra, and Shri Yantra. Timestamp: 00:08:08–00:09:30. Verification: published_chapter_metadata; transcript verification recommended. Safety classification: guidance_recommended.",
+      "exact_answer_eligible": true
+    },
+    {
+      "speaker": "Harshdev Madhav",
+      "publisher": "Jalso Podcasts",
+      "source_type": "modern_integrative_interpretation",
+      "tradition": "mantra_tantra_shakta",
+      "authority_level": "sanskrit_scholar_practitioner_framework",
+      "media_type": "podcast_video",
+      "video_title": "The Mystical Secrets of Tantra, Mantra, and Shri Yantra",
+      "source_url": "https://open.spotify.com/episode/1DhRhjfkELtaFnYgiNhycL",
+      "playlist_url": "https://www.youtube.com/playlist?list=PLM8IsYGdCVdregLvYegEskzaPSVQHtp9D",
+      "id": "HM-JALSO-003",
+      "timestamp_start": "00:09:30",
+      "timestamp_end": "00:15:00",
+      "topic": "What is Tantra?",
+      "summary": "Defines Tantra and distinguishes it from fearful or sensational portrayals.",
+      "tags": [
+        "tantra",
+        "definition"
+      ],
+      "safety_level": "context_required",
+      "verification_status": "published_chapter_metadata; transcript verification recommended",
+      "copyright_note": "Original structured summary; not a transcript reproduction.",
+      "record_role": "structured_practitioner_note",
+      "rag_eligible": true,
+      "entities": {
+        "planets": [],
+        "chakras": [],
+        "doshas": [],
+        "mantra_types": [
+          "Shri Yantra"
+        ],
+        "remedy_types": [
+          "mantra"
+        ]
+      },
+      "retrieval_terms": [
+        "Harshdev Madhav",
+        "What is Tantra?",
+        "mantra",
+        "mantra_tantra_shakta",
+        "shri yantra",
+        "sri yantra"
+      ],
+      "explanation_text": "Practitioner perspective from Harshdev Madhav. Topic: What is Tantra?. Defines Tantra and distinguishes it from fearful or sensational portrayals. Source: The Mystical Secrets of Tantra, Mantra, and Shri Yantra. Timestamp: 00:09:30–00:15:00. Verification: published_chapter_metadata; transcript verification recommended. Safety classification: context_required.",
+      "exact_answer_eligible": true
+    },
+    {
+      "speaker": "Harshdev Madhav",
+      "publisher": "Jalso Podcasts",
+      "source_type": "modern_integrative_interpretation",
+      "tradition": "mantra_tantra_shakta",
+      "authority_level": "sanskrit_scholar_practitioner_framework",
+      "media_type": "podcast_video",
+      "video_title": "The Mystical Secrets of Tantra, Mantra, and Shri Yantra",
+      "source_url": "https://open.spotify.com/episode/1DhRhjfkELtaFnYgiNhycL",
+      "playlist_url": "https://www.youtube.com/playlist?list=PLM8IsYGdCVdregLvYegEskzaPSVQHtp9D",
+      "id": "HM-JALSO-004",
+      "timestamp_start": "00:15:00",
+      "timestamp_end": "00:18:15",
+      "topic": "Who is a Tantric?",
+      "summary": "Discusses the meaning and role of a Tantric practitioner.",
+      "tags": [
+        "tantra",
+        "practitioner"
+      ],
+      "safety_level": "context_required",
+      "verification_status": "published_chapter_metadata; transcript verification recommended",
+      "copyright_note": "Original structured summary; not a transcript reproduction.",
+      "record_role": "structured_practitioner_note",
+      "rag_eligible": true,
+      "entities": {
+        "planets": [],
+        "chakras": [],
+        "doshas": [],
+        "mantra_types": [
+          "Shri Yantra"
+        ],
+        "remedy_types": [
+          "mantra"
+        ]
+      },
+      "retrieval_terms": [
+        "Harshdev Madhav",
+        "Who is a Tantric?",
+        "mantra",
+        "mantra_tantra_shakta",
+        "shri yantra",
+        "sri yantra"
+      ],
+      "explanation_text": "Practitioner perspective from Harshdev Madhav. Topic: Who is a Tantric?. Discusses the meaning and role of a Tantric practitioner. Source: The Mystical Secrets of Tantra, Mantra, and Shri Yantra. Timestamp: 00:15:00–00:18:15. Verification: published_chapter_metadata; transcript verification recommended. Safety classification: context_required.",
+      "exact_answer_eligible": true
+    },
+    {
+      "speaker": "Harshdev Madhav",
+      "publisher": "Jalso Podcasts",
+      "source_type": "modern_integrative_interpretation",
+      "tradition": "mantra_tantra_shakta",
+      "authority_level": "sanskrit_scholar_practitioner_framework",
+      "media_type": "podcast_video",
+      "video_title": "The Mystical Secrets of Tantra, Mantra, and Shri Yantra",
+      "source_url": "https://open.spotify.com/episode/1DhRhjfkELtaFnYgiNhycL",
+      "playlist_url": "https://www.youtube.com/playlist?list=PLM8IsYGdCVdregLvYegEskzaPSVQHtp9D",
+      "id": "HM-JALSO-005",
+      "timestamp_start": "00:18:15",
+      "timestamp_end": "00:20:25",
+      "topic": "Fear of Tantrics",
+      "summary": "Addresses common fear and misunderstanding concerning Tantric practitioners.",
+      "tags": [
+        "tantra",
+        "misconceptions"
+      ],
+      "safety_level": "context_required",
+      "verification_status": "published_chapter_metadata; transcript verification recommended",
+      "copyright_note": "Original structured summary; not a transcript reproduction.",
+      "record_role": "structured_practitioner_note",
+      "rag_eligible": true,
+      "entities": {
+        "planets": [
+          "Sun"
+        ],
+        "chakras": [],
+        "doshas": [],
+        "mantra_types": [
+          "Shri Yantra"
+        ],
+        "remedy_types": [
+          "mantra"
+        ]
+      },
+      "retrieval_terms": [
+        "Fear of Tantrics",
+        "Harshdev Madhav",
+        "mantra",
+        "mantra_tantra_shakta",
+        "shri yantra",
+        "solar",
+        "sri yantra",
+        "sun",
+        "surya"
+      ],
+      "explanation_text": "Practitioner perspective from Harshdev Madhav. Topic: Fear of Tantrics. Addresses common fear and misunderstanding concerning Tantric practitioners. Source: The Mystical Secrets of Tantra, Mantra, and Shri Yantra. Timestamp: 00:18:15–00:20:25. Verification: published_chapter_metadata; transcript verification recommended. Safety classification: context_required.",
+      "exact_answer_eligible": true
+    },
+    {
+      "speaker": "Harshdev Madhav",
+      "publisher": "Jalso Podcasts",
+      "source_type": "modern_integrative_interpretation",
+      "tradition": "mantra_tantra_shakta",
+      "authority_level": "sanskrit_scholar_practitioner_framework",
+      "media_type": "podcast_video",
+      "video_title": "The Mystical Secrets of Tantra, Mantra, and Shri Yantra",
+      "source_url": "https://open.spotify.com/episode/1DhRhjfkELtaFnYgiNhycL",
+      "playlist_url": "https://www.youtube.com/playlist?list=PLM8IsYGdCVdregLvYegEskzaPSVQHtp9D",
+      "id": "HM-JALSO-006",
+      "timestamp_start": "00:20:25",
+      "timestamp_end": "00:22:30",
+      "topic": "Meli Vidya",
+      "summary": "Introduces the term Meli Vidya and its context.",
+      "tags": [
+        "tantra",
+        "melli vidya"
+      ],
+      "safety_level": "specialist_only",
+      "verification_status": "published_chapter_metadata; transcript verification recommended",
+      "copyright_note": "Original structured summary; not a transcript reproduction.",
+      "record_role": "structured_practitioner_note",
+      "rag_eligible": true,
+      "entities": {
+        "planets": [],
+        "chakras": [],
+        "doshas": [],
+        "mantra_types": [
+          "Shri Yantra"
+        ],
+        "remedy_types": [
+          "mantra"
+        ]
+      },
+      "retrieval_terms": [
+        "Harshdev Madhav",
+        "Meli Vidya",
+        "mantra",
+        "mantra_tantra_shakta",
+        "shri yantra",
+        "sri yantra"
+      ],
+      "explanation_text": "Practitioner perspective from Harshdev Madhav. Topic: Meli Vidya. Introduces the term Meli Vidya and its context. Source: The Mystical Secrets of Tantra, Mantra, and Shri Yantra. Timestamp: 00:20:25–00:22:30. Verification: published_chapter_metadata; transcript verification recommended. Safety classification: specialist_only.",
+      "exact_answer_eligible": true
+    },
+    {
+      "speaker": "Harshdev Madhav",
+      "publisher": "Jalso Podcasts",
+      "source_type": "modern_integrative_interpretation",
+      "tradition": "mantra_tantra_shakta",
+      "authority_level": "sanskrit_scholar_practitioner_framework",
+      "media_type": "podcast_video",
+      "video_title": "The Mystical Secrets of Tantra, Mantra, and Shri Yantra",
+      "source_url": "https://open.spotify.com/episode/1DhRhjfkELtaFnYgiNhycL",
+      "playlist_url": "https://www.youtube.com/playlist?list=PLM8IsYGdCVdregLvYegEskzaPSVQHtp9D",
+      "id": "HM-JALSO-007",
+      "timestamp_start": "00:22:30",
+      "timestamp_end": "00:25:30",
+      "topic": "Cremation-ground worship",
+      "summary": "Discusses Shmashan Puja in its ritual context.",
+      "tags": [
+        "shmashan puja",
+        "tantra"
+      ],
+      "safety_level": "specialist_only",
+      "verification_status": "published_chapter_metadata; transcript verification recommended",
+      "copyright_note": "Original structured summary; not a transcript reproduction.",
+      "record_role": "structured_practitioner_note",
+      "rag_eligible": true,
+      "entities": {
+        "planets": [],
+        "chakras": [],
+        "doshas": [],
+        "mantra_types": [
+          "Shri Yantra"
+        ],
+        "remedy_types": [
+          "mantra",
+          "puja"
+        ]
+      },
+      "retrieval_terms": [
+        "Cremation-ground worship",
+        "Harshdev Madhav",
+        "mantra",
+        "mantra_tantra_shakta",
+        "puja",
+        "shri yantra",
+        "sri yantra"
+      ],
+      "explanation_text": "Practitioner perspective from Harshdev Madhav. Topic: Cremation-ground worship. Discusses Shmashan Puja in its ritual context. Source: The Mystical Secrets of Tantra, Mantra, and Shri Yantra. Timestamp: 00:22:30–00:25:30. Verification: published_chapter_metadata; transcript verification recommended. Safety classification: specialist_only.",
+      "exact_answer_eligible": true
+    },
+    {
+      "speaker": "Harshdev Madhav",
+      "publisher": "Jalso Podcasts",
+      "source_type": "modern_integrative_interpretation",
+      "tradition": "mantra_tantra_shakta",
+      "authority_level": "sanskrit_scholar_practitioner_framework",
+      "media_type": "podcast_video",
+      "video_title": "The Mystical Secrets of Tantra, Mantra, and Shri Yantra",
+      "source_url": "https://open.spotify.com/episode/1DhRhjfkELtaFnYgiNhycL",
+      "playlist_url": "https://www.youtube.com/playlist?list=PLM8IsYGdCVdregLvYegEskzaPSVQHtp9D",
+      "id": "HM-JALSO-008",
+      "timestamp_start": "00:25:30",
+      "timestamp_end": "00:27:00",
+      "topic": "Fierce ritual practices",
+      "summary": "Explains the stated purpose of Ugramargiya practices.",
+      "tags": [
+        "ugra",
+        "ritual",
+        "tantra"
+      ],
+      "safety_level": "specialist_only",
+      "verification_status": "published_chapter_metadata; transcript verification recommended",
+      "copyright_note": "Original structured summary; not a transcript reproduction.",
+      "record_role": "structured_practitioner_note",
+      "rag_eligible": true,
+      "entities": {
+        "planets": [],
+        "chakras": [],
+        "doshas": [],
+        "mantra_types": [
+          "Shri Yantra"
+        ],
+        "remedy_types": [
+          "mantra"
+        ]
+      },
+      "retrieval_terms": [
+        "Fierce ritual practices",
+        "Harshdev Madhav",
+        "mantra",
+        "mantra_tantra_shakta",
+        "shri yantra",
+        "sri yantra"
+      ],
+      "explanation_text": "Practitioner perspective from Harshdev Madhav. Topic: Fierce ritual practices. Explains the stated purpose of Ugramargiya practices. Source: The Mystical Secrets of Tantra, Mantra, and Shri Yantra. Timestamp: 00:25:30–00:27:00. Verification: published_chapter_metadata; transcript verification recommended. Safety classification: specialist_only.",
+      "exact_answer_eligible": true
+    },
+    {
+      "speaker": "Harshdev Madhav",
+      "publisher": "Jalso Podcasts",
+      "source_type": "modern_integrative_interpretation",
+      "tradition": "mantra_tantra_shakta",
+      "authority_level": "sanskrit_scholar_practitioner_framework",
+      "media_type": "podcast_video",
+      "video_title": "The Mystical Secrets of Tantra, Mantra, and Shri Yantra",
+      "source_url": "https://open.spotify.com/episode/1DhRhjfkELtaFnYgiNhycL",
+      "playlist_url": "https://www.youtube.com/playlist?list=PLM8IsYGdCVdregLvYegEskzaPSVQHtp9D",
+      "id": "HM-JALSO-009",
+      "timestamp_start": "00:27:00",
+      "timestamp_end": "00:33:13",
+      "topic": "What is a Mantra?",
+      "summary": "Introduces mantra fundamentals and the meaning of mantra as a sacred sound practice.",
+      "tags": [
+        "mantra",
+        "fundamentals"
+      ],
+      "safety_level": "low_risk_general_only",
+      "verification_status": "published_chapter_metadata; transcript verification recommended",
+      "copyright_note": "Original structured summary; not a transcript reproduction.",
+      "record_role": "structured_practitioner_note",
+      "rag_eligible": true,
+      "entities": {
+        "planets": [],
+        "chakras": [],
+        "doshas": [],
+        "mantra_types": [
+          "Shri Yantra"
+        ],
+        "remedy_types": [
+          "mantra"
+        ]
+      },
+      "retrieval_terms": [
+        "Harshdev Madhav",
+        "What is a Mantra?",
+        "mantra",
+        "mantra_tantra_shakta",
+        "shri yantra",
+        "sri yantra"
+      ],
+      "explanation_text": "Practitioner perspective from Harshdev Madhav. Topic: What is a Mantra?. Introduces mantra fundamentals and the meaning of mantra as a sacred sound practice. Source: The Mystical Secrets of Tantra, Mantra, and Shri Yantra. Timestamp: 00:27:00–00:33:13. Verification: published_chapter_metadata; transcript verification recommended. Safety classification: low_risk_general_only.",
+      "exact_answer_eligible": true
+    },
+    {
+      "speaker": "Harshdev Madhav",
+      "publisher": "Jalso Podcasts",
+      "source_type": "modern_integrative_interpretation",
+      "tradition": "mantra_tantra_shakta",
+      "authority_level": "sanskrit_scholar_practitioner_framework",
+      "media_type": "podcast_video",
+      "video_title": "The Mystical Secrets of Tantra, Mantra, and Shri Yantra",
+      "source_url": "https://open.spotify.com/episode/1DhRhjfkELtaFnYgiNhycL",
+      "playlist_url": "https://www.youtube.com/playlist?list=PLM8IsYGdCVdregLvYegEskzaPSVQHtp9D",
+      "id": "HM-JALSO-010",
+      "timestamp_start": "00:33:13",
+      "timestamp_end": "00:38:40",
+      "topic": "Mantra Japa and types of Mantra",
+      "summary": "Explains mantra repetition and distinguishes types of mantra.",
+      "tags": [
+        "mantra japa",
+        "mantra types"
+      ],
+      "safety_level": "depends_on_mantra_type",
+      "verification_status": "published_chapter_metadata; transcript verification recommended",
+      "copyright_note": "Original structured summary; not a transcript reproduction.",
+      "record_role": "structured_practitioner_note",
+      "rag_eligible": true,
+      "entities": {
+        "planets": [],
+        "chakras": [],
+        "doshas": [],
+        "mantra_types": [
+          "Japa",
+          "Shri Yantra"
+        ],
+        "remedy_types": [
+          "mantra"
+        ]
+      },
+      "retrieval_terms": [
+        "Harshdev Madhav",
+        "Mantra Japa and types of Mantra",
+        "chanting",
+        "japa",
+        "mantra",
+        "mantra_tantra_shakta",
+        "repetition",
+        "shri yantra",
+        "sri yantra"
+      ],
+      "explanation_text": "Practitioner perspective from Harshdev Madhav. Topic: Mantra Japa and types of Mantra. Explains mantra repetition and distinguishes types of mantra. Source: The Mystical Secrets of Tantra, Mantra, and Shri Yantra. Timestamp: 00:33:13–00:38:40. Verification: published_chapter_metadata; transcript verification recommended. Safety classification: depends_on_mantra_type.",
+      "exact_answer_eligible": true
+    },
+    {
+      "speaker": "Harshdev Madhav",
+      "publisher": "Jalso Podcasts",
+      "source_type": "modern_integrative_interpretation",
+      "tradition": "mantra_tantra_shakta",
+      "authority_level": "sanskrit_scholar_practitioner_framework",
+      "media_type": "podcast_video",
+      "video_title": "The Mystical Secrets of Tantra, Mantra, and Shri Yantra",
+      "source_url": "https://open.spotify.com/episode/1DhRhjfkELtaFnYgiNhycL",
+      "playlist_url": "https://www.youtube.com/playlist?list=PLM8IsYGdCVdregLvYegEskzaPSVQHtp9D",
+      "id": "HM-JALSO-011",
+      "timestamp_start": "00:38:40",
+      "timestamp_end": "00:40:35",
+      "topic": "Mantra as a form of deity",
+      "summary": "Discusses the theological relationship between mantra and deity.",
+      "tags": [
+        "mantra",
+        "devata",
+        "theology"
+      ],
+      "safety_level": "tradition_specific",
+      "verification_status": "published_chapter_metadata; transcript verification recommended",
+      "copyright_note": "Original structured summary; not a transcript reproduction.",
+      "record_role": "structured_practitioner_note",
+      "rag_eligible": true,
+      "entities": {
+        "planets": [],
+        "chakras": [],
+        "doshas": [
+          "Vata"
+        ],
+        "mantra_types": [
+          "Shri Yantra"
+        ],
+        "remedy_types": [
+          "mantra"
+        ]
+      },
+      "retrieval_terms": [
+        "Harshdev Madhav",
+        "Mantra as a form of deity",
+        "mantra",
+        "mantra_tantra_shakta",
+        "shri yantra",
+        "sri yantra",
+        "vata"
+      ],
+      "explanation_text": "Practitioner perspective from Harshdev Madhav. Topic: Mantra as a form of deity. Discusses the theological relationship between mantra and deity. Source: The Mystical Secrets of Tantra, Mantra, and Shri Yantra. Timestamp: 00:38:40–00:40:35. Verification: published_chapter_metadata; transcript verification recommended. Safety classification: tradition_specific.",
+      "exact_answer_eligible": true
+    },
+    {
+      "speaker": "Harshdev Madhav",
+      "publisher": "Jalso Podcasts",
+      "source_type": "modern_integrative_interpretation",
+      "tradition": "mantra_tantra_shakta",
+      "authority_level": "sanskrit_scholar_practitioner_framework",
+      "media_type": "podcast_video",
+      "video_title": "The Mystical Secrets of Tantra, Mantra, and Shri Yantra",
+      "source_url": "https://open.spotify.com/episode/1DhRhjfkELtaFnYgiNhycL",
+      "playlist_url": "https://www.youtube.com/playlist?list=PLM8IsYGdCVdregLvYegEskzaPSVQHtp9D",
+      "id": "HM-JALSO-012",
+      "timestamp_start": "00:40:35",
+      "timestamp_end": "00:44:50",
+      "topic": "Four levels of speech",
+      "summary": "Discusses the four levels of Vani/speech in the mantra tradition.",
+      "tags": [
+        "para",
+        "pashyanti",
+        "madhyama",
+        "vaikhari",
+        "vani"
+      ],
+      "safety_level": "traditional_interpretation",
+      "verification_status": "published_chapter_metadata; transcript verification recommended",
+      "copyright_note": "Original structured summary; not a transcript reproduction.",
+      "record_role": "structured_practitioner_note",
+      "rag_eligible": true,
+      "entities": {
+        "planets": [],
+        "chakras": [],
+        "doshas": [],
+        "mantra_types": [
+          "Shri Yantra"
+        ],
+        "remedy_types": [
+          "mantra"
+        ]
+      },
+      "retrieval_terms": [
+        "Four levels of speech",
+        "Harshdev Madhav",
+        "mantra",
+        "mantra_tantra_shakta",
+        "shri yantra",
+        "sri yantra"
+      ],
+      "explanation_text": "Practitioner perspective from Harshdev Madhav. Topic: Four levels of speech. Discusses the four levels of Vani/speech in the mantra tradition. Source: The Mystical Secrets of Tantra, Mantra, and Shri Yantra. Timestamp: 00:40:35–00:44:50. Verification: published_chapter_metadata; transcript verification recommended. Safety classification: traditional_interpretation.",
+      "exact_answer_eligible": true
+    },
+    {
+      "speaker": "Harshdev Madhav",
+      "publisher": "Jalso Podcasts",
+      "source_type": "modern_integrative_interpretation",
+      "tradition": "mantra_tantra_shakta",
+      "authority_level": "sanskrit_scholar_practitioner_framework",
+      "media_type": "podcast_video",
+      "video_title": "The Mystical Secrets of Tantra, Mantra, and Shri Yantra",
+      "source_url": "https://open.spotify.com/episode/1DhRhjfkELtaFnYgiNhycL",
+      "playlist_url": "https://www.youtube.com/playlist?list=PLM8IsYGdCVdregLvYegEskzaPSVQHtp9D",
+      "id": "HM-JALSO-013",
+      "timestamp_start": "00:44:50",
+      "timestamp_end": "00:48:00",
+      "topic": "Graha Mantras",
+      "summary": "Discusses mantras associated with planets and their place in remedial practice.",
+      "tags": [
+        "graha mantra",
+        "navagraha",
+        "jyotish remedy"
+      ],
+      "safety_level": "verification_and_guidance_recommended",
+      "verification_status": "published_chapter_metadata; transcript verification recommended",
+      "copyright_note": "Original structured summary; not a transcript reproduction.",
+      "record_role": "structured_practitioner_note",
+      "rag_eligible": true,
+      "entities": {
+        "planets": [],
+        "chakras": [],
+        "doshas": [],
+        "mantra_types": [
+          "Graha mantra",
+          "Shri Yantra"
+        ],
+        "remedy_types": [
+          "mantra"
+        ]
+      },
+      "retrieval_terms": [
+        "Graha Mantras",
+        "Harshdev Madhav",
+        "graha mantra",
+        "mantra",
+        "mantra_tantra_shakta",
+        "navagraha",
+        "planetary mantra",
+        "shri yantra",
+        "sri yantra"
+      ],
+      "explanation_text": "Practitioner perspective from Harshdev Madhav. Topic: Graha Mantras. Discusses mantras associated with planets and their place in remedial practice. Source: The Mystical Secrets of Tantra, Mantra, and Shri Yantra. Timestamp: 00:44:50–00:48:00. Verification: published_chapter_metadata; transcript verification recommended. Safety classification: verification_and_guidance_recommended.",
+      "exact_answer_eligible": true
+    },
+    {
+      "speaker": "Harshdev Madhav",
+      "publisher": "Jalso Podcasts",
+      "source_type": "modern_integrative_interpretation",
+      "tradition": "mantra_tantra_shakta",
+      "authority_level": "sanskrit_scholar_practitioner_framework",
+      "media_type": "podcast_video",
+      "video_title": "The Mystical Secrets of Tantra, Mantra, and Shri Yantra",
+      "source_url": "https://open.spotify.com/episode/1DhRhjfkELtaFnYgiNhycL",
+      "playlist_url": "https://www.youtube.com/playlist?list=PLM8IsYGdCVdregLvYegEskzaPSVQHtp9D",
+      "id": "HM-JALSO-014",
+      "timestamp_start": "00:48:00",
+      "timestamp_end": "00:49:50",
+      "topic": "Is Mantra Diksha essential?",
+      "summary": "Discusses when initiation may be required for mantra practice.",
+      "tags": [
+        "diksha",
+        "initiation",
+        "mantra"
+      ],
+      "safety_level": "guidance_recommended",
+      "verification_status": "published_chapter_metadata; transcript verification recommended",
+      "copyright_note": "Original structured summary; not a transcript reproduction.",
+      "record_role": "structured_practitioner_note",
+      "rag_eligible": true,
+      "entities": {
+        "planets": [],
+        "chakras": [],
+        "doshas": [],
+        "mantra_types": [
+          "Diksha",
+          "Shri Yantra"
+        ],
+        "remedy_types": [
+          "mantra"
+        ]
+      },
+      "retrieval_terms": [
+        "Harshdev Madhav",
+        "Is Mantra Diksha essential?",
+        "diksha",
+        "initiation",
+        "mantra",
+        "mantra_tantra_shakta",
+        "shri yantra",
+        "sri yantra"
+      ],
+      "explanation_text": "Practitioner perspective from Harshdev Madhav. Topic: Is Mantra Diksha essential?. Discusses when initiation may be required for mantra practice. Source: The Mystical Secrets of Tantra, Mantra, and Shri Yantra. Timestamp: 00:48:00–00:49:50. Verification: published_chapter_metadata; transcript verification recommended. Safety classification: guidance_recommended.",
+      "exact_answer_eligible": true
+    },
+    {
+      "speaker": "Harshdev Madhav",
+      "publisher": "Jalso Podcasts",
+      "source_type": "modern_integrative_interpretation",
+      "tradition": "mantra_tantra_shakta",
+      "authority_level": "sanskrit_scholar_practitioner_framework",
+      "media_type": "podcast_video",
+      "video_title": "The Mystical Secrets of Tantra, Mantra, and Shri Yantra",
+      "source_url": "https://open.spotify.com/episode/1DhRhjfkELtaFnYgiNhycL",
+      "playlist_url": "https://www.youtube.com/playlist?list=PLM8IsYGdCVdregLvYegEskzaPSVQHtp9D",
+      "id": "HM-JALSO-015",
+      "timestamp_start": "00:49:50",
+      "timestamp_end": "00:52:00",
+      "topic": "Gender and mantra chanting",
+      "summary": "Discusses whether mantra practice differs by gender within the speaker's framework.",
+      "tags": [
+        "mantra eligibility",
+        "practice conditions"
+      ],
+      "safety_level": "tradition_specific",
+      "verification_status": "published_chapter_metadata; transcript verification recommended",
+      "copyright_note": "Original structured summary; not a transcript reproduction.",
+      "record_role": "structured_practitioner_note",
+      "rag_eligible": true,
+      "entities": {
+        "planets": [],
+        "chakras": [],
+        "doshas": [],
+        "mantra_types": [
+          "Japa",
+          "Shri Yantra"
+        ],
+        "remedy_types": [
+          "mantra"
+        ]
+      },
+      "retrieval_terms": [
+        "Gender and mantra chanting",
+        "Harshdev Madhav",
+        "chanting",
+        "japa",
+        "mantra",
+        "mantra_tantra_shakta",
+        "repetition",
+        "shri yantra",
+        "sri yantra"
+      ],
+      "explanation_text": "Practitioner perspective from Harshdev Madhav. Topic: Gender and mantra chanting. Discusses whether mantra practice differs by gender within the speaker's framework. Source: The Mystical Secrets of Tantra, Mantra, and Shri Yantra. Timestamp: 00:49:50–00:52:00. Verification: published_chapter_metadata; transcript verification recommended. Safety classification: tradition_specific.",
+      "exact_answer_eligible": true
+    },
+    {
+      "speaker": "Harshdev Madhav",
+      "publisher": "Jalso Podcasts",
+      "source_type": "modern_integrative_interpretation",
+      "tradition": "mantra_tantra_shakta",
+      "authority_level": "sanskrit_scholar_practitioner_framework",
+      "media_type": "podcast_video",
+      "video_title": "The Mystical Secrets of Tantra, Mantra, and Shri Yantra",
+      "source_url": "https://open.spotify.com/episode/1DhRhjfkELtaFnYgiNhycL",
+      "playlist_url": "https://www.youtube.com/playlist?list=PLM8IsYGdCVdregLvYegEskzaPSVQHtp9D",
+      "id": "HM-JALSO-016",
+      "timestamp_start": "00:52:00",
+      "timestamp_end": "00:55:26",
+      "topic": "Tantra in other religions",
+      "summary": "Discusses Tantra-like ideas across religious traditions.",
+      "tags": [
+        "comparative religion",
+        "tantra"
+      ],
+      "safety_level": "interpretive",
+      "verification_status": "published_chapter_metadata; transcript verification recommended",
+      "copyright_note": "Original structured summary; not a transcript reproduction.",
+      "record_role": "structured_practitioner_note",
+      "rag_eligible": true,
+      "entities": {
+        "planets": [],
+        "chakras": [],
+        "doshas": [],
+        "mantra_types": [
+          "Shri Yantra"
+        ],
+        "remedy_types": [
+          "mantra"
+        ]
+      },
+      "retrieval_terms": [
+        "Harshdev Madhav",
+        "Tantra in other religions",
+        "mantra",
+        "mantra_tantra_shakta",
+        "shri yantra",
+        "sri yantra"
+      ],
+      "explanation_text": "Practitioner perspective from Harshdev Madhav. Topic: Tantra in other religions. Discusses Tantra-like ideas across religious traditions. Source: The Mystical Secrets of Tantra, Mantra, and Shri Yantra. Timestamp: 00:52:00–00:55:26. Verification: published_chapter_metadata; transcript verification recommended. Safety classification: interpretive.",
+      "exact_answer_eligible": true
+    },
+    {
+      "speaker": "Harshdev Madhav",
+      "publisher": "Jalso Podcasts",
+      "source_type": "modern_integrative_interpretation",
+      "tradition": "mantra_tantra_shakta",
+      "authority_level": "sanskrit_scholar_practitioner_framework",
+      "media_type": "podcast_video",
+      "video_title": "The Mystical Secrets of Tantra, Mantra, and Shri Yantra",
+      "source_url": "https://open.spotify.com/episode/1DhRhjfkELtaFnYgiNhycL",
+      "playlist_url": "https://www.youtube.com/playlist?list=PLM8IsYGdCVdregLvYegEskzaPSVQHtp9D",
+      "id": "HM-JALSO-017",
+      "timestamp_start": "00:55:26",
+      "timestamp_end": "01:02:00",
+      "topic": "Shakti tradition and Mahavidyas",
+      "summary": "Introduces Shakta tradition and the Mahavidyas.",
+      "tags": [
+        "shakti",
+        "mahavidya",
+        "tantra"
+      ],
+      "safety_level": "specialist_guidance_recommended",
+      "verification_status": "published_chapter_metadata; transcript verification recommended",
+      "copyright_note": "Original structured summary; not a transcript reproduction.",
+      "record_role": "structured_practitioner_note",
+      "rag_eligible": true,
+      "entities": {
+        "planets": [],
+        "chakras": [],
+        "doshas": [],
+        "mantra_types": [
+          "Shri Yantra"
+        ],
+        "remedy_types": [
+          "mantra"
+        ]
+      },
+      "retrieval_terms": [
+        "Harshdev Madhav",
+        "Shakti tradition and Mahavidyas",
+        "mantra",
+        "mantra_tantra_shakta",
+        "shri yantra",
+        "sri yantra"
+      ],
+      "explanation_text": "Practitioner perspective from Harshdev Madhav. Topic: Shakti tradition and Mahavidyas. Introduces Shakta tradition and the Mahavidyas. Source: The Mystical Secrets of Tantra, Mantra, and Shri Yantra. Timestamp: 00:55:26–01:02:00. Verification: published_chapter_metadata; transcript verification recommended. Safety classification: specialist_guidance_recommended.",
+      "exact_answer_eligible": true
+    },
+    {
+      "speaker": "Harshdev Madhav",
+      "publisher": "Jalso Podcasts",
+      "source_type": "modern_integrative_interpretation",
+      "tradition": "mantra_tantra_shakta",
+      "authority_level": "sanskrit_scholar_practitioner_framework",
+      "media_type": "podcast_video",
+      "video_title": "The Mystical Secrets of Tantra, Mantra, and Shri Yantra",
+      "source_url": "https://open.spotify.com/episode/1DhRhjfkELtaFnYgiNhycL",
+      "playlist_url": "https://www.youtube.com/playlist?list=PLM8IsYGdCVdregLvYegEskzaPSVQHtp9D",
+      "id": "HM-JALSO-018",
+      "timestamp_start": "01:02:00",
+      "timestamp_end": "01:10:46",
+      "topic": "Shri Suktam",
+      "summary": "Discusses the meaning and practice context of Shri Suktam.",
+      "tags": [
+        "Shri Suktam",
+        "Lakshmi",
+        "mantra",
+        "stotra"
+      ],
+      "safety_level": "tradition_specific",
+      "verification_status": "published_chapter_metadata; transcript verification recommended",
+      "copyright_note": "Original structured summary; not a transcript reproduction.",
+      "record_role": "structured_practitioner_note",
+      "rag_eligible": true,
+      "entities": {
+        "planets": [],
+        "chakras": [],
+        "doshas": [],
+        "mantra_types": [
+          "Shri Suktam",
+          "Shri Yantra",
+          "Stotra"
+        ],
+        "remedy_types": [
+          "mantra"
+        ]
+      },
+      "retrieval_terms": [
+        "Harshdev Madhav",
+        "Shri Suktam",
+        "mantra",
+        "mantra_tantra_shakta",
+        "shri suktam",
+        "shri yantra",
+        "sri suktam",
+        "sri yantra",
+        "stotra",
+        "stotram"
+      ],
+      "explanation_text": "Practitioner perspective from Harshdev Madhav. Topic: Shri Suktam. Discusses the meaning and practice context of Shri Suktam. Source: The Mystical Secrets of Tantra, Mantra, and Shri Yantra. Timestamp: 01:02:00–01:10:46. Verification: published_chapter_metadata; transcript verification recommended. Safety classification: tradition_specific.",
+      "exact_answer_eligible": true
+    },
+    {
+      "speaker": "Harshdev Madhav",
+      "publisher": "Jalso Podcasts",
+      "source_type": "modern_integrative_interpretation",
+      "tradition": "mantra_tantra_shakta",
+      "authority_level": "sanskrit_scholar_practitioner_framework",
+      "media_type": "podcast_video",
+      "video_title": "The Mystical Secrets of Tantra, Mantra, and Shri Yantra",
+      "source_url": "https://open.spotify.com/episode/1DhRhjfkELtaFnYgiNhycL",
+      "playlist_url": "https://www.youtube.com/playlist?list=PLM8IsYGdCVdregLvYegEskzaPSVQHtp9D",
+      "id": "HM-JALSO-019",
+      "timestamp_start": "01:10:46",
+      "timestamp_end": "01:13:00",
+      "topic": "Shri Suktam and Shri Yantra",
+      "summary": "Explains the relationship presented between Shri Suktam recitation and Shri Yantra worship.",
+      "tags": [
+        "Shri Suktam",
+        "Shri Yantra"
+      ],
+      "safety_level": "guidance_recommended",
+      "verification_status": "published_chapter_metadata; transcript verification recommended",
+      "copyright_note": "Original structured summary; not a transcript reproduction.",
+      "record_role": "structured_practitioner_note",
+      "rag_eligible": true,
+      "entities": {
+        "planets": [],
+        "chakras": [],
+        "doshas": [],
+        "mantra_types": [
+          "Shri Suktam",
+          "Shri Yantra"
+        ],
+        "remedy_types": [
+          "mantra"
+        ]
+      },
+      "retrieval_terms": [
+        "Harshdev Madhav",
+        "Shri Suktam and Shri Yantra",
+        "mantra",
+        "mantra_tantra_shakta",
+        "shri suktam",
+        "shri yantra",
+        "sri suktam",
+        "sri yantra"
+      ],
+      "explanation_text": "Practitioner perspective from Harshdev Madhav. Topic: Shri Suktam and Shri Yantra. Explains the relationship presented between Shri Suktam recitation and Shri Yantra worship. Source: The Mystical Secrets of Tantra, Mantra, and Shri Yantra. Timestamp: 01:10:46–01:13:00. Verification: published_chapter_metadata; transcript verification recommended. Safety classification: guidance_recommended.",
+      "exact_answer_eligible": true
+    },
+    {
+      "speaker": "Harshdev Madhav",
+      "publisher": "Jalso Podcasts",
+      "source_type": "modern_integrative_interpretation",
+      "tradition": "mantra_tantra_shakta",
+      "authority_level": "sanskrit_scholar_practitioner_framework",
+      "media_type": "podcast_video",
+      "video_title": "The Mystical Secrets of Tantra, Mantra, and Shri Yantra",
+      "source_url": "https://open.spotify.com/episode/1DhRhjfkELtaFnYgiNhycL",
+      "playlist_url": "https://www.youtube.com/playlist?list=PLM8IsYGdCVdregLvYegEskzaPSVQHtp9D",
+      "id": "HM-JALSO-020",
+      "timestamp_start": "01:13:00",
+      "timestamp_end": "01:14:46",
+      "topic": "Guru requirement for daily Shri Suktam",
+      "summary": "Discusses whether daily Shri Suktam recitation requires a Guru.",
+      "tags": [
+        "Shri Suktam",
+        "guru",
+        "eligibility"
+      ],
+      "safety_level": "guidance_recommended",
+      "verification_status": "published_chapter_metadata; transcript verification recommended",
+      "copyright_note": "Original structured summary; not a transcript reproduction.",
+      "record_role": "structured_practitioner_note",
+      "rag_eligible": true,
+      "entities": {
+        "planets": [
+          "Jupiter"
+        ],
+        "chakras": [],
+        "doshas": [],
+        "mantra_types": [
+          "Shri Suktam",
+          "Shri Yantra"
+        ],
+        "remedy_types": [
+          "mantra"
+        ]
+      },
+      "retrieval_terms": [
+        "Guru requirement for daily Shri Suktam",
+        "Harshdev Madhav",
+        "brihaspati",
+        "guru",
+        "jupiter",
+        "mantra",
+        "mantra_tantra_shakta",
+        "shri suktam",
+        "shri yantra",
+        "sri suktam",
+        "sri yantra"
+      ],
+      "explanation_text": "Practitioner perspective from Harshdev Madhav. Topic: Guru requirement for daily Shri Suktam. Discusses whether daily Shri Suktam recitation requires a Guru. Source: The Mystical Secrets of Tantra, Mantra, and Shri Yantra. Timestamp: 01:13:00–01:14:46. Verification: published_chapter_metadata; transcript verification recommended. Safety classification: guidance_recommended.",
+      "exact_answer_eligible": true
+    },
+    {
+      "speaker": "Harshdev Madhav",
+      "publisher": "Jalso Podcasts",
+      "source_type": "modern_integrative_interpretation",
+      "tradition": "mantra_tantra_shakta",
+      "authority_level": "sanskrit_scholar_practitioner_framework",
+      "media_type": "podcast_video",
+      "video_title": "The Mystical Secrets of Tantra, Mantra, and Shri Yantra",
+      "source_url": "https://open.spotify.com/episode/1DhRhjfkELtaFnYgiNhycL",
+      "playlist_url": "https://www.youtube.com/playlist?list=PLM8IsYGdCVdregLvYegEskzaPSVQHtp9D",
+      "id": "HM-JALSO-021",
+      "timestamp_start": "01:14:46",
+      "timestamp_end": "01:18:18",
+      "topic": "What is Shri Yantra?",
+      "summary": "Introduces Shri Yantra and its ritual meaning.",
+      "tags": [
+        "Shri Yantra",
+        "Sri Vidya"
+      ],
+      "safety_level": "tradition_specific",
+      "verification_status": "published_chapter_metadata; transcript verification recommended",
+      "copyright_note": "Original structured summary; not a transcript reproduction.",
+      "record_role": "structured_practitioner_note",
+      "rag_eligible": true,
+      "entities": {
+        "planets": [],
+        "chakras": [],
+        "doshas": [],
+        "mantra_types": [
+          "Shri Yantra"
+        ],
+        "remedy_types": [
+          "mantra"
+        ]
+      },
+      "retrieval_terms": [
+        "Harshdev Madhav",
+        "What is Shri Yantra?",
+        "mantra",
+        "mantra_tantra_shakta",
+        "shri yantra",
+        "sri yantra"
+      ],
+      "explanation_text": "Practitioner perspective from Harshdev Madhav. Topic: What is Shri Yantra?. Introduces Shri Yantra and its ritual meaning. Source: The Mystical Secrets of Tantra, Mantra, and Shri Yantra. Timestamp: 01:14:46–01:18:18. Verification: published_chapter_metadata; transcript verification recommended. Safety classification: tradition_specific.",
+      "exact_answer_eligible": true
+    },
+    {
+      "speaker": "Harshdev Madhav",
+      "publisher": "Jalso Podcasts",
+      "source_type": "modern_integrative_interpretation",
+      "tradition": "mantra_tantra_shakta",
+      "authority_level": "sanskrit_scholar_practitioner_framework",
+      "media_type": "podcast_video",
+      "video_title": "The Mystical Secrets of Tantra, Mantra, and Shri Yantra",
+      "source_url": "https://open.spotify.com/episode/1DhRhjfkELtaFnYgiNhycL",
+      "playlist_url": "https://www.youtube.com/playlist?list=PLM8IsYGdCVdregLvYegEskzaPSVQHtp9D",
+      "id": "HM-JALSO-022",
+      "timestamp_start": "01:18:18",
+      "timestamp_end": "01:22:23",
+      "topic": "Claims concerning Shri Yantra",
+      "summary": "Discusses extraordinary claims and spiritual significance attributed to Shri Yantra.",
+      "tags": [
+        "Shri Yantra",
+        "claims"
+      ],
+      "safety_level": "traditional_claim_not_scientifically_established",
+      "verification_status": "published_chapter_metadata; transcript verification recommended",
+      "copyright_note": "Original structured summary; not a transcript reproduction.",
+      "record_role": "structured_practitioner_note",
+      "rag_eligible": true,
+      "entities": {
+        "planets": [],
+        "chakras": [],
+        "doshas": [],
+        "mantra_types": [
+          "Shri Yantra"
+        ],
+        "remedy_types": [
+          "mantra"
+        ]
+      },
+      "retrieval_terms": [
+        "Claims concerning Shri Yantra",
+        "Harshdev Madhav",
+        "mantra",
+        "mantra_tantra_shakta",
+        "shri yantra",
+        "sri yantra"
+      ],
+      "explanation_text": "Practitioner perspective from Harshdev Madhav. Topic: Claims concerning Shri Yantra. Discusses extraordinary claims and spiritual significance attributed to Shri Yantra. Source: The Mystical Secrets of Tantra, Mantra, and Shri Yantra. Timestamp: 01:18:18–01:22:23. Verification: published_chapter_metadata; transcript verification recommended. Safety classification: traditional_claim_not_scientifically_established.",
+      "exact_answer_eligible": true
+    },
+    {
+      "id": "VL-001",
+      "speaker": "Vasant Lad",
+      "source_type": "modern_integrative_interpretation",
+      "tradition": "ayurveda_jyotish",
+      "authority_level": "senior_practitioner",
+      "media_type": "youtube_talk",
+      "video_title": "Why Astrology Is Important In Ayurveda",
+      "source_url": "https://www.youtube.com/watch?v=vs8sBps5D8k",
+      "source_locator": "",
+      "topics": [
+        "Jyotish",
+        "Ayurveda",
+        "planetary positions",
+        "health context"
+      ],
+      "priority": 1,
+      "verification_status": "description_verified_transcript_needed",
+      "record_role": "discovery_catalogue_only",
+      "rag_eligible": false,
+      "reason_not_rag_eligible": "Detailed transcript-derived or timestamp-verified summary not yet created.",
+      "entities": {
+        "planets": [],
+        "chakras": [],
+        "doshas": [],
+        "mantra_types": [],
+        "remedy_types": []
+      },
+      "retrieval_terms": [
+        "Vasant Lad",
+        "ayurveda_jyotish"
+      ],
+      "explanation_text": "Practitioner perspective from Vasant Lad. Topic: General teaching. No detailed explanation has yet been verified. Source: Why Astrology Is Important In Ayurveda. Verification: description_verified_transcript_needed. Safety classification: not stated.",
+      "exact_answer_eligible": false
+    },
+    {
+      "id": "VL-002",
+      "speaker": "Vasant Lad",
+      "source_type": "modern_integrative_interpretation",
+      "tradition": "ayurveda_jyotish",
+      "authority_level": "senior_practitioner",
+      "media_type": "youtube_talk",
+      "video_title": "Soma - An Interview With Dr. Vasant Lad",
+      "source_url": "",
+      "source_locator": "Vasant Lad Ayurveda playlist; 36:40 Soma interview",
+      "topics": [
+        "Soma",
+        "Ayurveda",
+        "Jyotish",
+        "integration"
+      ],
+      "priority": 1,
+      "verification_status": "catalogued_transcript_needed",
+      "record_role": "discovery_catalogue_only",
+      "rag_eligible": false,
+      "reason_not_rag_eligible": "Detailed transcript-derived or timestamp-verified summary not yet created.",
+      "entities": {
+        "planets": [],
+        "chakras": [],
+        "doshas": [],
+        "mantra_types": [],
+        "remedy_types": []
+      },
+      "retrieval_terms": [
+        "Vasant Lad",
+        "ayurveda_jyotish"
+      ],
+      "explanation_text": "Practitioner perspective from Vasant Lad. Topic: General teaching. No detailed explanation has yet been verified. Source: Soma - An Interview With Dr. Vasant Lad. Verification: catalogued_transcript_needed. Safety classification: not stated.",
+      "exact_answer_eligible": false
+    },
+    {
+      "id": "VL-003",
+      "speaker": "Vasant Lad",
+      "source_type": "modern_integrative_interpretation",
+      "tradition": "ayurveda_jyotish",
+      "authority_level": "senior_practitioner",
+      "media_type": "youtube_talk",
+      "video_title": "Part 1 - Interview of Dr. Vasant Lad",
+      "source_url": "",
+      "source_locator": "Vasant Lad Ayurveda playlist; 46:06 interview",
+      "topics": [
+        "Ayurveda",
+        "Jyotish",
+        "classical practice"
+      ],
+      "priority": 2,
+      "verification_status": "catalogued_transcript_needed",
+      "record_role": "discovery_catalogue_only",
+      "rag_eligible": false,
+      "reason_not_rag_eligible": "Detailed transcript-derived or timestamp-verified summary not yet created.",
+      "entities": {
+        "planets": [],
+        "chakras": [],
+        "doshas": [],
+        "mantra_types": [],
+        "remedy_types": []
+      },
+      "retrieval_terms": [
+        "Vasant Lad",
+        "ayurveda_jyotish"
+      ],
+      "explanation_text": "Practitioner perspective from Vasant Lad. Topic: General teaching. No detailed explanation has yet been verified. Source: Part 1 - Interview of Dr. Vasant Lad. Verification: catalogued_transcript_needed. Safety classification: not stated.",
+      "exact_answer_eligible": false
+    },
+    {
+      "id": "DF-001",
+      "speaker": "David Frawley",
+      "source_type": "modern_integrative_interpretation",
+      "tradition": "jyotish_ayurveda_yoga_mantra",
+      "authority_level": "established_author_teacher",
+      "media_type": "youtube_talk",
+      "video_title": "Dr. David Frawley and Ksanati: An Elaboration on Jyotish and Ayurveda Integration",
+      "source_url": "https://www.youtube.com/watch?v=2OntG0NaCbU",
+      "source_locator": "",
+      "topics": [
+        "Jyotish",
+        "Ayurveda",
+        "medical Jyotish",
+        "integration"
+      ],
+      "priority": 1,
+      "verification_status": "description_verified_transcript_needed",
+      "record_role": "discovery_catalogue_only",
+      "rag_eligible": false,
+      "reason_not_rag_eligible": "Detailed transcript-derived or timestamp-verified summary not yet created.",
+      "entities": {
+        "planets": [],
+        "chakras": [],
+        "doshas": [],
+        "mantra_types": [],
+        "remedy_types": []
+      },
+      "retrieval_terms": [
+        "David Frawley",
+        "jyotish_ayurveda_yoga_mantra"
+      ],
+      "explanation_text": "Practitioner perspective from David Frawley. Topic: General teaching. No detailed explanation has yet been verified. Source: Dr. David Frawley and Ksanati: An Elaboration on Jyotish and Ayurveda Integration. Verification: description_verified_transcript_needed. Safety classification: not stated.",
+      "exact_answer_eligible": false
+    },
+    {
+      "id": "DF-002",
+      "speaker": "David Frawley",
+      "source_type": "modern_integrative_interpretation",
+      "tradition": "jyotish_ayurveda_yoga_mantra",
+      "authority_level": "established_author_teacher",
+      "media_type": "youtube_talk",
+      "video_title": "Introduction to Secrets of Mantra Yoga",
+      "source_url": "https://www.youtube.com/watch?v=ASuAgxmcogI",
+      "source_locator": "",
+      "topics": [
+        "Mantra Yoga",
+        "mantra sadhana",
+        "Yoga",
+        "meaningful living"
+      ],
+      "priority": 1,
+      "verification_status": "description_verified_transcript_needed",
+      "record_role": "discovery_catalogue_only",
+      "rag_eligible": false,
+      "reason_not_rag_eligible": "Detailed transcript-derived or timestamp-verified summary not yet created.",
+      "entities": {
+        "planets": [],
+        "chakras": [],
+        "doshas": [],
+        "mantra_types": [],
+        "remedy_types": [
+          "mantra",
+          "yoga"
+        ]
+      },
+      "retrieval_terms": [
+        "David Frawley",
+        "jyotish_ayurveda_yoga_mantra",
+        "mantra",
+        "yoga"
+      ],
+      "explanation_text": "Practitioner perspective from David Frawley. Topic: General teaching. No detailed explanation has yet been verified. Source: Introduction to Secrets of Mantra Yoga. Verification: description_verified_transcript_needed. Safety classification: not stated.",
+      "exact_answer_eligible": false
+    },
+    {
+      "id": "DF-003",
+      "speaker": "David Frawley",
+      "source_type": "modern_integrative_interpretation",
+      "tradition": "jyotish_ayurveda_yoga_mantra",
+      "authority_level": "established_author_teacher",
+      "media_type": "youtube_talk",
+      "video_title": "Dr. David Frawley Teaches the Paramjyoti Mantra with Practice and Meditation",
+      "source_url": "https://www.youtube.com/watch?v=sgGKdFuG3TA",
+      "source_locator": "",
+      "topics": [
+        "Mantra",
+        "meditation",
+        "practice"
+      ],
+      "priority": 2,
+      "verification_status": "description_verified_transcript_needed",
+      "record_role": "discovery_catalogue_only",
+      "rag_eligible": false,
+      "reason_not_rag_eligible": "Detailed transcript-derived or timestamp-verified summary not yet created.",
+      "entities": {
+        "planets": [],
+        "chakras": [],
+        "doshas": [],
+        "mantra_types": [],
+        "remedy_types": [
+          "mantra",
+          "meditation"
+        ]
+      },
+      "retrieval_terms": [
+        "David Frawley",
+        "jyotish_ayurveda_yoga_mantra",
+        "mantra",
+        "meditation"
+      ],
+      "explanation_text": "Practitioner perspective from David Frawley. Topic: General teaching. No detailed explanation has yet been verified. Source: Dr. David Frawley Teaches the Paramjyoti Mantra with Practice and Meditation. Verification: description_verified_transcript_needed. Safety classification: not stated.",
+      "exact_answer_eligible": false
+    },
+    {
+      "id": "DF-004",
+      "speaker": "David Frawley",
+      "source_type": "modern_integrative_interpretation",
+      "tradition": "jyotish_ayurveda_yoga_mantra",
+      "authority_level": "established_author_teacher",
+      "media_type": "youtube_talk",
+      "video_title": "Ayurveda to Navigate Between Technological Advancements & Holistic Well-Being",
+      "source_url": "https://www.youtube.com/watch?v=Zy_UOwWuz8M",
+      "source_locator": "",
+      "topics": [
+        "Ayurveda",
+        "Ojas",
+        "psychological immunity",
+        "modern life"
+      ],
+      "priority": 2,
+      "verification_status": "description_verified_transcript_needed",
+      "record_role": "discovery_catalogue_only",
+      "rag_eligible": false,
+      "reason_not_rag_eligible": "Detailed transcript-derived or timestamp-verified summary not yet created.",
+      "entities": {
+        "planets": [],
+        "chakras": [],
+        "doshas": [],
+        "mantra_types": [],
+        "remedy_types": []
+      },
+      "retrieval_terms": [
+        "David Frawley",
+        "jyotish_ayurveda_yoga_mantra"
+      ],
+      "explanation_text": "Practitioner perspective from David Frawley. Topic: General teaching. No detailed explanation has yet been verified. Source: Ayurveda to Navigate Between Technological Advancements & Holistic Well-Being. Verification: description_verified_transcript_needed. Safety classification: not stated.",
+      "exact_answer_eligible": false
+    },
+    {
+      "id": "RS-001",
+      "speaker": "Robert Svoboda",
+      "source_type": "modern_integrative_interpretation",
+      "tradition": "ayurveda_jyotish_tantra",
+      "authority_level": "established_author_practitioner",
+      "media_type": "youtube_talk",
+      "video_title": "Dr. Robert Svoboda on Ayurveda, Tantra, & Jyotish",
+      "source_url": "https://www.youtube.com/watch?v=ILEpRpnewRQ",
+      "source_locator": "",
+      "topics": [
+        "Ayurveda",
+        "Tantra",
+        "Jyotish"
+      ],
+      "priority": 1,
+      "verification_status": "description_verified_transcript_needed",
+      "record_role": "discovery_catalogue_only",
+      "rag_eligible": false,
+      "reason_not_rag_eligible": "Detailed transcript-derived or timestamp-verified summary not yet created.",
+      "entities": {
+        "planets": [],
+        "chakras": [],
+        "doshas": [],
+        "mantra_types": [],
+        "remedy_types": []
+      },
+      "retrieval_terms": [
+        "Robert Svoboda",
+        "ayurveda_jyotish_tantra"
+      ],
+      "explanation_text": "Practitioner perspective from Robert Svoboda. Topic: General teaching. No detailed explanation has yet been verified. Source: Dr. Robert Svoboda on Ayurveda, Tantra, & Jyotish. Verification: description_verified_transcript_needed. Safety classification: not stated.",
+      "exact_answer_eligible": false
+    },
+    {
+      "id": "RS-002",
+      "speaker": "Robert Svoboda",
+      "source_type": "modern_integrative_interpretation",
+      "tradition": "ayurveda_jyotish_tantra",
+      "authority_level": "established_author_practitioner",
+      "media_type": "youtube_talk",
+      "video_title": "Ayurveda & the Microbiome: Gut - Brain Axis Preview",
+      "source_url": "",
+      "source_locator": "Robert Svoboda curated teaching playlist; 33:04",
+      "topics": [
+        "Ayurveda",
+        "gut-brain axis",
+        "modern health context"
+      ],
+      "priority": 2,
+      "verification_status": "catalogued_transcript_needed",
+      "record_role": "discovery_catalogue_only",
+      "rag_eligible": false,
+      "reason_not_rag_eligible": "Detailed transcript-derived or timestamp-verified summary not yet created.",
+      "entities": {
+        "planets": [],
+        "chakras": [],
+        "doshas": [],
+        "mantra_types": [],
+        "remedy_types": []
+      },
+      "retrieval_terms": [
+        "Robert Svoboda",
+        "ayurveda_jyotish_tantra"
+      ],
+      "explanation_text": "Practitioner perspective from Robert Svoboda. Topic: General teaching. No detailed explanation has yet been verified. Source: Ayurveda & the Microbiome: Gut - Brain Axis Preview. Verification: catalogued_transcript_needed. Safety classification: not stated.",
+      "exact_answer_eligible": false
+    },
+    {
+      "id": "RS-003",
+      "speaker": "Robert Svoboda",
+      "source_type": "modern_integrative_interpretation",
+      "tradition": "ayurveda_jyotish_tantra",
+      "authority_level": "established_author_practitioner",
+      "media_type": "youtube_talk",
+      "video_title": "Intro to Practicing Reality: The Senses",
+      "source_url": "",
+      "source_locator": "Robert Svoboda curated teaching playlist; 30:32",
+      "topics": [
+        "senses",
+        "practice",
+        "awareness"
+      ],
+      "priority": 3,
+      "verification_status": "catalogued_transcript_needed",
+      "record_role": "discovery_catalogue_only",
+      "rag_eligible": false,
+      "reason_not_rag_eligible": "Detailed transcript-derived or timestamp-verified summary not yet created.",
+      "entities": {
+        "planets": [],
+        "chakras": [],
+        "doshas": [],
+        "mantra_types": [],
+        "remedy_types": []
+      },
+      "retrieval_terms": [
+        "Robert Svoboda",
+        "ayurveda_jyotish_tantra"
+      ],
+      "explanation_text": "Practitioner perspective from Robert Svoboda. Topic: General teaching. No detailed explanation has yet been verified. Source: Intro to Practicing Reality: The Senses. Verification: catalogued_transcript_needed. Safety classification: not stated.",
+      "exact_answer_eligible": false
+    },
+    {
+      "id": "KS-001",
+      "speaker": "Komilla Sutton",
+      "source_type": "modern_jyotish_interpretation",
+      "tradition": "vedic_astrology_mantra",
+      "authority_level": "established_teacher",
+      "media_type": "youtube_talk",
+      "video_title": "2024 Planets & Remedies",
+      "source_url": "https://www.youtube.com/watch?v=SKERDLGPOYQ",
+      "source_locator": "",
+      "topics": [
+        "planets",
+        "practical remedies",
+        "yogic remedies",
+        "spiritual remedies"
+      ],
+      "priority": 1,
+      "verification_status": "description_verified_transcript_needed",
+      "record_role": "discovery_catalogue_only",
+      "rag_eligible": false,
+      "reason_not_rag_eligible": "Detailed transcript-derived or timestamp-verified summary not yet created.",
+      "entities": {
+        "planets": [],
+        "chakras": [],
+        "doshas": [],
+        "mantra_types": [],
+        "remedy_types": []
+      },
+      "retrieval_terms": [
+        "Komilla Sutton",
+        "vedic_astrology_mantra"
+      ],
+      "explanation_text": "Practitioner perspective from Komilla Sutton. Topic: General teaching. No detailed explanation has yet been verified. Source: 2024 Planets & Remedies. Verification: description_verified_transcript_needed. Safety classification: not stated.",
+      "exact_answer_eligible": false
+    },
+    {
+      "id": "KS-002",
+      "speaker": "Komilla Sutton",
+      "source_type": "modern_jyotish_interpretation",
+      "tradition": "vedic_astrology_mantra",
+      "authority_level": "established_teacher",
+      "media_type": "youtube_talk",
+      "video_title": "Gayatri Mantra For Vedic Astrologers",
+      "source_url": "https://www.youtube.com/watch?v=zlPTgsATIK0",
+      "source_locator": "",
+      "topics": [
+        "Gayatri",
+        "mantra",
+        "Vedic astrology",
+        "Navagraha"
+      ],
+      "priority": 1,
+      "verification_status": "description_verified_transcript_needed",
+      "record_role": "discovery_catalogue_only",
+      "rag_eligible": false,
+      "reason_not_rag_eligible": "Detailed transcript-derived or timestamp-verified summary not yet created.",
+      "entities": {
+        "planets": [],
+        "chakras": [],
+        "doshas": [],
+        "mantra_types": [
+          "Gayatri"
+        ],
+        "remedy_types": [
+          "mantra"
+        ]
+      },
+      "retrieval_terms": [
+        "Komilla Sutton",
+        "gayatri",
+        "mantra",
+        "vedic_astrology_mantra"
+      ],
+      "explanation_text": "Practitioner perspective from Komilla Sutton. Topic: General teaching. No detailed explanation has yet been verified. Source: Gayatri Mantra For Vedic Astrologers. Verification: description_verified_transcript_needed. Safety classification: not stated.",
+      "exact_answer_eligible": false
+    },
+    {
+      "id": "KS-003",
+      "speaker": "Komilla Sutton",
+      "source_type": "modern_jyotish_interpretation",
+      "tradition": "vedic_astrology_mantra",
+      "authority_level": "established_teacher",
+      "media_type": "youtube_talk",
+      "video_title": "Mars Gayatri Mantra",
+      "source_url": "https://www.youtube.com/watch?v=QMG_herTVm8",
+      "source_locator": "",
+      "topics": [
+        "Mars",
+        "Gayatri",
+        "mantra",
+        "planetary understanding"
+      ],
+      "priority": 1,
+      "verification_status": "description_verified_transcript_needed",
+      "record_role": "discovery_catalogue_only",
+      "rag_eligible": false,
+      "reason_not_rag_eligible": "Detailed transcript-derived or timestamp-verified summary not yet created.",
+      "entities": {
+        "planets": [
+          "Mars"
+        ],
+        "chakras": [],
+        "doshas": [],
+        "mantra_types": [
+          "Gayatri"
+        ],
+        "remedy_types": [
+          "mantra"
+        ]
+      },
+      "retrieval_terms": [
+        "Komilla Sutton",
+        "gayatri",
+        "kuja",
+        "mangal",
+        "mantra",
+        "mars",
+        "vedic_astrology_mantra"
+      ],
+      "explanation_text": "Practitioner perspective from Komilla Sutton. Topic: General teaching. No detailed explanation has yet been verified. Source: Mars Gayatri Mantra. Verification: description_verified_transcript_needed. Safety classification: not stated.",
+      "exact_answer_eligible": false
+    },
+    {
+      "id": "KS-004",
+      "speaker": "Komilla Sutton",
+      "source_type": "modern_jyotish_interpretation",
+      "tradition": "vedic_astrology_mantra",
+      "authority_level": "established_teacher",
+      "media_type": "youtube_talk",
+      "video_title": "Retrograde Planets Masterclass",
+      "source_url": "https://www.youtube.com/watch?v=AodlXrq_3KU",
+      "source_locator": "",
+      "topics": [
+        "retrograde planets",
+        "interpretation",
+        "remedies"
+      ],
+      "priority": 2,
+      "verification_status": "description_verified_transcript_needed",
+      "record_role": "discovery_catalogue_only",
+      "rag_eligible": false,
+      "reason_not_rag_eligible": "Detailed transcript-derived or timestamp-verified summary not yet created.",
+      "entities": {
+        "planets": [],
+        "chakras": [],
+        "doshas": [],
+        "mantra_types": [],
+        "remedy_types": []
+      },
+      "retrieval_terms": [
+        "Komilla Sutton",
+        "vedic_astrology_mantra"
+      ],
+      "explanation_text": "Practitioner perspective from Komilla Sutton. Topic: General teaching. No detailed explanation has yet been verified. Source: Retrograde Planets Masterclass. Verification: description_verified_transcript_needed. Safety classification: not stated.",
+      "exact_answer_eligible": false
+    },
+    {
+      "id": "VL-AYU-001",
+      "speaker": "Vasant Lad",
+      "source_type": "modern_integrative_interpretation",
+      "tradition": "ayurveda",
+      "authority_level": "senior_practitioner",
+      "record_role": "structured_practitioner_note",
+      "rag_eligible": true,
+      "copyright_note": "Original structured summary from public source metadata/transcript evidence; not a transcript reproduction.",
+      "video_title": "The Foundation of Ayurveda: A Masterclass with Dr. Vasant Lad",
+      "source_url": "https://www.youtube.com/watch?v=2sbQFdD65-0",
+      "timestamp_start": "00:00",
+      "timestamp_end": "03:03",
+      "topic": "Ayurveda as the science of life",
+      "summary": "Defines Ayurveda as a system for understanding life and balance rather than merely a set of quick remedies.",
+      "tags": [
+        "Ayurveda",
+        "foundations",
+        "balance"
+      ],
+      "verification_status": "published chapter metadata",
+      "safety_level": "educational",
+      "entities": {
+        "planets": [],
+        "chakras": [],
+        "doshas": [],
+        "mantra_types": [],
+        "remedy_types": []
+      },
+      "retrieval_terms": [
+        "Ayurveda as the science of life",
+        "Vasant Lad",
+        "ayurveda"
+      ],
+      "explanation_text": "Practitioner perspective from Vasant Lad. Topic: Ayurveda as the science of life. Defines Ayurveda as a system for understanding life and balance rather than merely a set of quick remedies. Source: The Foundation of Ayurveda: A Masterclass with Dr. Vasant Lad. Timestamp: 00:00–03:03. Verification: published chapter metadata. Safety classification: educational.",
+      "exact_answer_eligible": true
+    },
+    {
+      "id": "VL-AYU-002",
+      "speaker": "Vasant Lad",
+      "source_type": "modern_integrative_interpretation",
+      "tradition": "ayurveda",
+      "authority_level": "senior_practitioner",
+      "record_role": "structured_practitioner_note",
+      "rag_eligible": true,
+      "copyright_note": "Original structured summary from public source metadata/transcript evidence; not a transcript reproduction.",
+      "video_title": "The Foundation of Ayurveda: A Masterclass with Dr. Vasant Lad",
+      "source_url": "https://www.youtube.com/watch?v=2sbQFdD65-0",
+      "timestamp_start": "03:03",
+      "timestamp_end": "04:07",
+      "topic": "Tri-Dosha framework",
+      "summary": "Introduces the Vata-Pitta-Kapha framework as a foundational Ayurvedic model.",
+      "tags": [
+        "Vata",
+        "Pitta",
+        "Kapha",
+        "dosha"
+      ],
+      "verification_status": "published chapter metadata",
+      "safety_level": "traditional framework_not_medical_diagnosis",
+      "entities": {
+        "planets": [],
+        "chakras": [],
+        "doshas": [
+          "Kapha",
+          "Pitta",
+          "Vata"
+        ],
+        "mantra_types": [],
+        "remedy_types": []
+      },
+      "retrieval_terms": [
+        "Tri-Dosha framework",
+        "Vasant Lad",
+        "ayurveda",
+        "kapha",
+        "pitta",
+        "vata"
+      ],
+      "explanation_text": "Practitioner perspective from Vasant Lad. Topic: Tri-Dosha framework. Introduces the Vata-Pitta-Kapha framework as a foundational Ayurvedic model. Source: The Foundation of Ayurveda: A Masterclass with Dr. Vasant Lad. Timestamp: 03:03–04:07. Verification: published chapter metadata. Safety classification: traditional framework_not_medical_diagnosis.",
+      "exact_answer_eligible": true
+    },
+    {
+      "id": "VL-AYU-003",
+      "speaker": "Vasant Lad",
+      "source_type": "modern_integrative_interpretation",
+      "tradition": "ayurveda",
+      "authority_level": "senior_practitioner",
+      "record_role": "structured_practitioner_note",
+      "rag_eligible": true,
+      "copyright_note": "Original structured summary from public source metadata/transcript evidence; not a transcript reproduction.",
+      "video_title": "The Foundation of Ayurveda: A Masterclass with Dr. Vasant Lad",
+      "source_url": "https://www.youtube.com/watch?v=2sbQFdD65-0",
+      "timestamp_start": "04:07",
+      "timestamp_end": "05:39",
+      "topic": "Prakriti versus Vikriti",
+      "summary": "Distinguishes baseline constitution (Prakriti) from current imbalance/presentation (Vikriti), an important guardrail against inferring current health solely from birth-pattern symbolism.",
+      "tags": [
+        "Prakriti",
+        "Vikriti",
+        "constitution",
+        "imbalance"
+      ],
+      "verification_status": "published chapter metadata",
+      "safety_level": "traditional framework_not_medical_diagnosis",
+      "entities": {
+        "planets": [],
+        "chakras": [],
+        "doshas": [],
+        "mantra_types": [],
+        "remedy_types": []
+      },
+      "retrieval_terms": [
+        "Prakriti versus Vikriti",
+        "Vasant Lad",
+        "ayurveda"
+      ],
+      "explanation_text": "Practitioner perspective from Vasant Lad. Topic: Prakriti versus Vikriti. Distinguishes baseline constitution (Prakriti) from current imbalance/presentation (Vikriti), an important guardrail against inferring current health solely from birth-pattern symbolism. Source: The Foundation of Ayurveda: A Masterclass with Dr. Vasant Lad. Timestamp: 04:07–05:39. Verification: published chapter metadata. Safety classification: traditional framework_not_medical_diagnosis.",
+      "exact_answer_eligible": true
+    },
+    {
+      "id": "VL-JYO-001",
+      "speaker": "Vasant Lad",
+      "source_type": "modern_integrative_interpretation",
+      "tradition": "ayurveda_jyotish",
+      "authority_level": "senior_practitioner",
+      "record_role": "structured_practitioner_note",
+      "rag_eligible": true,
+      "copyright_note": "Original structured summary from public source metadata/transcript evidence; not a transcript reproduction.",
+      "video_title": "Why Astrology Is Important In Ayurveda",
+      "source_url": "https://www.youtube.com/watch?v=vs8sBps5D8k",
+      "topic": "Jyotish relevance to Ayurveda",
+      "summary": "Presents Jyotish and planetary positions as relevant within an Ayurvedic interpretive framework. Use as practitioner context, not as proof that planets medically cause disease.",
+      "tags": [
+        "Jyotish",
+        "Ayurveda",
+        "planetary positions",
+        "health context"
+      ],
+      "verification_status": "public video description",
+      "safety_level": "interpretive_not_medical_causation",
+      "entities": {
+        "planets": [],
+        "chakras": [],
+        "doshas": [],
+        "mantra_types": [],
+        "remedy_types": []
+      },
+      "retrieval_terms": [
+        "Jyotish relevance to Ayurveda",
+        "Vasant Lad",
+        "ayurveda_jyotish"
+      ],
+      "explanation_text": "Practitioner perspective from Vasant Lad. Topic: Jyotish relevance to Ayurveda. Presents Jyotish and planetary positions as relevant within an Ayurvedic interpretive framework. Use as practitioner context, not as proof that planets medically cause disease. Source: Why Astrology Is Important In Ayurveda. Verification: public video description. Safety classification: interpretive_not_medical_causation.",
+      "exact_answer_eligible": true
+    },
+    {
+      "id": "DF-JA-001",
+      "speaker": "David Frawley",
+      "source_type": "modern_integrative_interpretation",
+      "tradition": "jyotish_ayurveda",
+      "authority_level": "established_author_teacher",
+      "record_role": "structured_practitioner_note",
+      "rag_eligible": true,
+      "copyright_note": "Original structured summary from public source metadata/transcript evidence; not a transcript reproduction.",
+      "video_title": "Dr. David Frawley and Ksanati: An Elaboration on Jyotish and Ayurveda Integration",
+      "source_url": "https://www.youtube.com/watch?v=2OntG0NaCbU",
+      "topic": "Integration of Jyotish and Ayurveda",
+      "summary": "Frames Ayurveda and Jyotish as complementary Vedic disciplines and discusses how Ayurvedic practitioners may use Jyotish context and astrologers may use Ayurvedic concepts. Treat this as an integrative practitioner methodology.",
+      "tags": [
+        "Jyotish",
+        "Ayurveda",
+        "medical Jyotish",
+        "integration"
+      ],
+      "verification_status": "public video description",
+      "safety_level": "professional_context_recommended",
+      "entities": {
+        "planets": [],
+        "chakras": [],
+        "doshas": [],
+        "mantra_types": [],
+        "remedy_types": []
+      },
+      "retrieval_terms": [
+        "David Frawley",
+        "Integration of Jyotish and Ayurveda",
+        "jyotish_ayurveda"
+      ],
+      "explanation_text": "Practitioner perspective from David Frawley. Topic: Integration of Jyotish and Ayurveda. Frames Ayurveda and Jyotish as complementary Vedic disciplines and discusses how Ayurvedic practitioners may use Jyotish context and astrologers may use Ayurvedic concepts. Treat this as an integrative practitioner methodology. Source: Dr. David Frawley and Ksanati: An Elaboration on Jyotish and Ayurveda Integration. Verification: public video description. Safety classification: professional_context_recommended.",
+      "exact_answer_eligible": true
+    },
+    {
+      "id": "DF-YA-001",
+      "speaker": "David Frawley",
+      "source_type": "modern_integrative_interpretation",
+      "tradition": "yoga_ayurveda",
+      "authority_level": "established_author_teacher",
+      "record_role": "structured_practitioner_note",
+      "rag_eligible": true,
+      "copyright_note": "Original structured summary from public source metadata/transcript evidence; not a transcript reproduction.",
+      "video_title": "David Frawley - Ayurveda and Yoga",
+      "source_url": "https://www.youtube.com/watch?v=Kt4ZjycittI",
+      "topic": "Ayurveda and Yoga",
+      "summary": "Describes Ayurveda and Yoga as complementary ways of working with the healing powers of nature, supporting an integrated lifestyle/practice layer rather than an automatic medical treatment engine.",
+      "tags": [
+        "Ayurveda",
+        "Yoga",
+        "nature",
+        "wellness"
+      ],
+      "verification_status": "public video description",
+      "safety_level": "wellness_context",
+      "entities": {
+        "planets": [],
+        "chakras": [],
+        "doshas": [],
+        "mantra_types": [],
+        "remedy_types": [
+          "lifestyle",
+          "yoga"
+        ]
+      },
+      "retrieval_terms": [
+        "Ayurveda and Yoga",
+        "David Frawley",
+        "lifestyle",
+        "yoga",
+        "yoga_ayurveda"
+      ],
+      "explanation_text": "Practitioner perspective from David Frawley. Topic: Ayurveda and Yoga. Describes Ayurveda and Yoga as complementary ways of working with the healing powers of nature, supporting an integrated lifestyle/practice layer rather than an automatic medical treatment engine. Source: David Frawley - Ayurveda and Yoga. Verification: public video description. Safety classification: wellness_context.",
+      "exact_answer_eligible": true
+    },
+    {
+      "id": "DF-MIND-001",
+      "speaker": "David Frawley",
+      "source_type": "modern_integrative_interpretation",
+      "tradition": "yoga_ayurveda",
+      "authority_level": "established_author_teacher",
+      "record_role": "structured_practitioner_note",
+      "rag_eligible": true,
+      "copyright_note": "Original structured summary from public source metadata/transcript evidence; not a transcript reproduction.",
+      "video_title": "Science Through Scriptures - Yoga and Ayurveda",
+      "source_url": "https://www.youtube.com/watch?v=0h_ZZG1gG5c",
+      "topic": "Mind, Prana and consciousness",
+      "summary": "Highlights distinctions among mind, brain and consciousness, the central role of Prana and the importance of one-pointed attention within an integrated Yoga-Ayurveda worldview.",
+      "tags": [
+        "Prana",
+        "mind",
+        "consciousness",
+        "ekagrata"
+      ],
+      "verification_status": "public video description",
+      "safety_level": "philosophical_wellness",
+      "entities": {
+        "planets": [],
+        "chakras": [],
+        "doshas": [],
+        "mantra_types": [],
+        "remedy_types": [
+          "yoga"
+        ]
+      },
+      "retrieval_terms": [
+        "David Frawley",
+        "Mind, Prana and consciousness",
+        "yoga",
+        "yoga_ayurveda"
+      ],
+      "explanation_text": "Practitioner perspective from David Frawley. Topic: Mind, Prana and consciousness. Highlights distinctions among mind, brain and consciousness, the central role of Prana and the importance of one-pointed attention within an integrated Yoga-Ayurveda worldview. Source: Science Through Scriptures - Yoga and Ayurveda. Verification: public video description. Safety classification: philosophical_wellness.",
+      "exact_answer_eligible": true
+    },
+    {
+      "id": "RS-AJT-001",
+      "speaker": "Robert Svoboda",
+      "source_type": "modern_integrative_interpretation",
+      "tradition": "ayurveda_jyotish_tantra",
+      "authority_level": "established_author_practitioner",
+      "record_role": "structured_practitioner_note",
+      "rag_eligible": true,
+      "copyright_note": "Original structured summary from public source metadata/transcript evidence; not a transcript reproduction.",
+      "video_title": "Dr. Robert Svoboda on Ayurveda, Tantra, & Jyotish",
+      "source_url": "https://www.youtube.com/watch?v=ILEpRpnewRQ",
+      "topic": "Ayurveda, Tantra and Jyotish",
+      "summary": "Discusses the relationship among Ayurveda, Tantra and Jyotish from a practitioner steeped in all three traditions. Use for cultural and integrative context, with detailed claims requiring timestamp-level transcript expansion.",
+      "tags": [
+        "Ayurveda",
+        "Tantra",
+        "Jyotish"
+      ],
+      "verification_status": "public video description",
+      "safety_level": "contextual",
+      "entities": {
+        "planets": [],
+        "chakras": [],
+        "doshas": [],
+        "mantra_types": [],
+        "remedy_types": []
+      },
+      "retrieval_terms": [
+        "Ayurveda, Tantra and Jyotish",
+        "Robert Svoboda",
+        "ayurveda_jyotish_tantra"
+      ],
+      "explanation_text": "Practitioner perspective from Robert Svoboda. Topic: Ayurveda, Tantra and Jyotish. Discusses the relationship among Ayurveda, Tantra and Jyotish from a practitioner steeped in all three traditions. Use for cultural and integrative context, with detailed claims requiring timestamp-level transcript expansion. Source: Dr. Robert Svoboda on Ayurveda, Tantra, & Jyotish. Verification: public video description. Safety classification: contextual.",
+      "exact_answer_eligible": true
+    },
+    {
+      "id": "RS-DEV-001",
+      "speaker": "Robert Svoboda",
+      "source_type": "modern_integrative_interpretation",
+      "tradition": "ayurveda_tantra",
+      "authority_level": "established_author_practitioner",
+      "record_role": "structured_practitioner_note",
+      "rag_eligible": true,
+      "copyright_note": "Original structured summary from public source metadata/transcript evidence; not a transcript reproduction.",
+      "video_title": "Dr. Robert Svoboda Explores the Mystical Connection Between Devatas, Tantra, and Ayurveda",
+      "source_url": "https://www.youtube.com/watch?v=7r4J5vLbkvU",
+      "topic": "Devatas, microcosm and macrocosm",
+      "summary": "Explains a traditional view in which Devatas are treated as bridges between individual and cosmic patterns, connecting subtle-energy and spiritual-practice language with Ayurveda/Tantra. This is a metaphysical practitioner framework, not scientific causation.",
+      "tags": [
+        "Devata",
+        "Tantra",
+        "Ayurveda",
+        "microcosm",
+        "macrocosm"
+      ],
+      "verification_status": "public video description",
+      "safety_level": "metaphysical_interpretation",
+      "entities": {
+        "planets": [],
+        "chakras": [],
+        "doshas": [
+          "Vata"
+        ],
+        "mantra_types": [],
+        "remedy_types": []
+      },
+      "retrieval_terms": [
+        "Devatas, microcosm and macrocosm",
+        "Robert Svoboda",
+        "ayurveda_tantra",
+        "vata"
+      ],
+      "explanation_text": "Practitioner perspective from Robert Svoboda. Topic: Devatas, microcosm and macrocosm. Explains a traditional view in which Devatas are treated as bridges between individual and cosmic patterns, connecting subtle-energy and spiritual-practice language with Ayurveda/Tantra. This is a metaphysical practitioner framework, not scientific causation. Source: Dr. Robert Svoboda Explores the Mystical Connection Between Devatas, Tantra, and Ayurveda. Verification: public video description. Safety classification: metaphysical_interpretation.",
+      "exact_answer_eligible": true
+    },
+    {
+      "id": "KS-PLANETS-001",
+      "speaker": "Komilla Sutton",
+      "source_type": "modern_jyotish_interpretation",
+      "tradition": "vedic_astrology",
+      "authority_level": "established_teacher",
+      "record_role": "structured_practitioner_note",
+      "rag_eligible": true,
+      "copyright_note": "Original structured summary from public source metadata; not a transcript reproduction.",
+      "video_title": "Nine Planets of Vedic Astrology with Komilla Sutton",
+      "source_url": "https://www.youtube.com/watch?v=3AKkpf0clew",
+      "topic": "Nine planets of Vedic astrology",
+      "summary": "Provides an overview of the Navagraha framework in Jyotish. Use as practitioner-level interpretive context alongside classical texts.",
+      "tags": [
+        "Navagraha",
+        "planets",
+        "Jyotish"
+      ],
+      "verification_status": "public video description",
+      "safety_level": "educational",
+      "entities": {
+        "planets": [],
+        "chakras": [],
+        "doshas": [],
+        "mantra_types": [
+          "Graha mantra"
+        ],
+        "remedy_types": []
+      },
+      "retrieval_terms": [
+        "Komilla Sutton",
+        "Nine planets of Vedic astrology",
+        "graha mantra",
+        "navagraha",
+        "planetary mantra",
+        "vedic_astrology"
+      ],
+      "explanation_text": "Practitioner perspective from Komilla Sutton. Topic: Nine planets of Vedic astrology. Provides an overview of the Navagraha framework in Jyotish. Use as practitioner-level interpretive context alongside classical texts. Source: Nine Planets of Vedic Astrology with Komilla Sutton. Verification: public video description. Safety classification: educational.",
+      "exact_answer_eligible": true
+    },
+    {
+      "id": "KS-REMEDY-001",
+      "speaker": "Komilla Sutton",
+      "source_type": "modern_jyotish_interpretation",
+      "tradition": "vedic_astrology_remedies",
+      "authority_level": "established_teacher",
+      "record_role": "structured_practitioner_note",
+      "rag_eligible": true,
+      "copyright_note": "Original structured summary from public source metadata; not a transcript reproduction.",
+      "video_title": "2024 Planets & Remedies: Komilla Sutton",
+      "source_url": "https://www.youtube.com/watch?v=SKERDLGPOYQ",
+      "topic": "Planetary remedies",
+      "summary": "Explores practical, yogic and spiritual remedies for responding to planetary challenges. Exact remedy-to-planet details must be expanded from timestamps/transcript before specific prescription.",
+      "tags": [
+        "planets",
+        "remedies",
+        "yogic remedy",
+        "spiritual remedy"
+      ],
+      "verification_status": "public video description",
+      "safety_level": "remedy_specifics_need_verification",
+      "entities": {
+        "planets": [],
+        "chakras": [],
+        "doshas": [],
+        "mantra_types": [],
+        "remedy_types": []
+      },
+      "retrieval_terms": [
+        "Komilla Sutton",
+        "Planetary remedies",
+        "vedic_astrology_remedies"
+      ],
+      "explanation_text": "Practitioner perspective from Komilla Sutton. Topic: Planetary remedies. Explores practical, yogic and spiritual remedies for responding to planetary challenges. Exact remedy-to-planet details must be expanded from timestamps/transcript before specific prescription. Source: 2024 Planets & Remedies: Komilla Sutton. Verification: public video description. Safety classification: remedy_specifics_need_verification.",
+      "exact_answer_eligible": true
+    }
+  ],
+  "retrieval_contract": {
+    "answer_only_from_exact_answer_eligible_records": true,
+    "required_user_visible_fields": [
+      "speaker",
+      "video_title",
+      "source_url",
+      "timestamp_start",
+      "verification_status",
+      "safety_level"
+    ],
+    "no_match_response": "No sufficiently detailed verified practitioner record was found for this exact relationship.",
+    "authority_label": "Practitioner interpretation, separate from classical texts and modern clinical evidence."
+  },
+  "coverage": {
+    "planets": {
+      "Sun": {
+        "record_count": 17,
+        "record_ids": [
+          "SB-CHAKRA-004",
+          "SB-PLANET-001",
+          "SB-PLANET-002",
+          "SB-PLANET-003",
+          "SB-SUN-001",
+          "SB-SUN-002",
+          "SB-MOON-001",
+          "SB-MARS-001",
+          "SB-RAHU-KETU-001",
+          "SB-VENUS-001",
+          "SB-JUPITER-001",
+          "SB-SATURN-001",
+          "SB-MERCURY-001",
+          "SB-VENUS-002",
+          "SB-SATURN-002",
+          "SB-JUPITER-002",
+          "HM-JALSO-005"
+        ],
+        "status": "covered"
+      },
+      "Moon": {
+        "record_count": 1,
+        "record_ids": [
+          "SB-MOON-001"
+        ],
+        "status": "covered"
+      },
+      "Mars": {
+        "record_count": 2,
+        "record_ids": [
+          "SB-CHAKRA-002",
+          "SB-MARS-001"
+        ],
+        "status": "covered"
+      },
+      "Mercury": {
+        "record_count": 1,
+        "record_ids": [
+          "SB-MERCURY-001"
+        ],
+        "status": "covered"
+      },
+      "Jupiter": {
+        "record_count": 5,
+        "record_ids": [
+          "SB-JUPITER-001",
+          "SB-JUPITER-002",
+          "HM-JALSO-001",
+          "HM-JALSO-002",
+          "HM-JALSO-020"
+        ],
+        "status": "covered"
+      },
+      "Venus": {
+        "record_count": 2,
+        "record_ids": [
+          "SB-VENUS-001",
+          "SB-VENUS-002"
+        ],
+        "status": "covered"
+      },
+      "Saturn": {
+        "record_count": 15,
+        "record_ids": [
+          "SB-PLANET-001",
+          "SB-PLANET-002",
+          "SB-PLANET-003",
+          "SB-SUN-001",
+          "SB-SUN-002",
+          "SB-MOON-001",
+          "SB-MARS-001",
+          "SB-RAHU-KETU-001",
+          "SB-VENUS-001",
+          "SB-JUPITER-001",
+          "SB-SATURN-001",
+          "SB-MERCURY-001",
+          "SB-VENUS-002",
+          "SB-SATURN-002",
+          "SB-JUPITER-002"
+        ],
+        "status": "covered"
+      },
+      "Rahu": {
+        "record_count": 1,
+        "record_ids": [
+          "SB-RAHU-KETU-001"
+        ],
+        "status": "covered"
+      },
+      "Ketu": {
+        "record_count": 15,
+        "record_ids": [
+          "SB-PLANET-001",
+          "SB-PLANET-002",
+          "SB-PLANET-003",
+          "SB-SUN-001",
+          "SB-SUN-002",
+          "SB-MOON-001",
+          "SB-MARS-001",
+          "SB-RAHU-KETU-001",
+          "SB-VENUS-001",
+          "SB-JUPITER-001",
+          "SB-SATURN-001",
+          "SB-MERCURY-001",
+          "SB-VENUS-002",
+          "SB-SATURN-002",
+          "SB-JUPITER-002"
+        ],
+        "status": "covered"
+      }
+    },
+    "chakras": {
+      "Muladhara": {
+        "record_count": 1,
+        "record_ids": [
+          "SB-CHAKRA-002"
+        ],
+        "status": "covered"
+      },
+      "Svadhisthana": {
+        "record_count": 1,
+        "record_ids": [
+          "SB-CHAKRA-003"
+        ],
+        "status": "covered"
+      },
+      "Manipura": {
+        "record_count": 1,
+        "record_ids": [
+          "SB-CHAKRA-004"
+        ],
+        "status": "covered"
+      },
+      "Anahata": {
+        "record_count": 1,
+        "record_ids": [
+          "SB-CHAKRA-005"
+        ],
+        "status": "covered"
+      },
+      "Vishuddha": {
+        "record_count": 1,
+        "record_ids": [
+          "SB-CHAKRA-006"
+        ],
+        "status": "covered"
+      },
+      "Ajna": {
+        "record_count": 1,
+        "record_ids": [
+          "SB-CHAKRA-007"
+        ],
+        "status": "covered"
+      },
+      "Sahasrara": {
+        "record_count": 0,
+        "record_ids": [],
+        "status": "gap"
+      }
+    },
+    "doshas": {
+      "Vata": {
+        "record_count": 7,
+        "record_ids": [
+          "SB-PLANET-001",
+          "SB-PLANET-002",
+          "SB-SATURN-001",
+          "SB-SATURN-002",
+          "HM-JALSO-011",
+          "VL-AYU-002",
+          "RS-DEV-001"
+        ],
+        "status": "covered"
+      },
+      "Pitta": {
+        "record_count": 5,
+        "record_ids": [
+          "SB-PLANET-002",
+          "SB-SUN-001",
+          "SB-SUN-002",
+          "SB-MARS-001",
+          "VL-AYU-002"
+        ],
+        "status": "covered"
+      },
+      "Kapha": {
+        "record_count": 2,
+        "record_ids": [
+          "SB-PLANET-002",
+          "VL-AYU-002"
+        ],
+        "status": "covered"
+      }
+    },
+    "mantra_types": {
+      "Nama mantra": {
+        "record_count": 0,
+        "record_ids": [],
+        "status": "gap"
+      },
+      "Graha mantra": {
+        "record_count": 2,
+        "record_ids": [
+          "HM-JALSO-013",
+          "KS-PLANETS-001"
+        ],
+        "status": "covered"
+      },
+      "Gayatri": {
+        "record_count": 0,
+        "record_ids": [],
+        "status": "gap"
+      },
+      "Bija mantra": {
+        "record_count": 0,
+        "record_ids": [],
+        "status": "gap"
+      },
+      "Stotra": {
+        "record_count": 1,
+        "record_ids": [
+          "HM-JALSO-018"
+        ],
+        "status": "covered"
+      },
+      "Japa": {
+        "record_count": 2,
+        "record_ids": [
+          "HM-JALSO-010",
+          "HM-JALSO-015"
+        ],
+        "status": "covered"
+      },
+      "Diksha": {
+        "record_count": 2,
+        "record_ids": [
+          "HM-JALSO-001",
+          "HM-JALSO-014"
+        ],
+        "status": "covered"
+      },
+      "Shri Suktam": {
+        "record_count": 3,
+        "record_ids": [
+          "HM-JALSO-018",
+          "HM-JALSO-019",
+          "HM-JALSO-020"
+        ],
+        "status": "covered"
+      },
+      "Shri Yantra": {
+        "record_count": 22,
+        "record_ids": [
+          "HM-JALSO-001",
+          "HM-JALSO-002",
+          "HM-JALSO-003",
+          "HM-JALSO-004",
+          "HM-JALSO-005",
+          "HM-JALSO-006",
+          "HM-JALSO-007",
+          "HM-JALSO-008",
+          "HM-JALSO-009",
+          "HM-JALSO-010",
+          "HM-JALSO-011",
+          "HM-JALSO-012",
+          "HM-JALSO-013",
+          "HM-JALSO-014",
+          "HM-JALSO-015",
+          "HM-JALSO-016",
+          "HM-JALSO-017",
+          "HM-JALSO-018",
+          "HM-JALSO-019",
+          "HM-JALSO-020",
+          "HM-JALSO-021",
+          "HM-JALSO-022"
+        ],
+        "status": "covered"
+      }
+    }
+  }
+}
