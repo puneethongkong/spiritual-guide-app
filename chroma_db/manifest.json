@@ -1,0 +1,60 @@
+{
+  "database_name": "Ancient Wisdom Synthesis",
+  "collection_name": "ancient_wisdom",
+  "embedding_model": "paraphrase-MiniLM-L3-v2",
+  "final_chroma_records": 12246,
+  "ayurveda_records": 2509,
+  "final_validation_status": "PASS",
+  "updated_utc": "2026-11-19T14:29:52.863142+00:00",
+  "charaka_ocr": {
+    "source_file": "Charaka Samhita Text with English Tanslation - P.V. Sharma.pdf",
+    "method": "resumable page-level Tesseract OCR",
+    "batch_size": 40,
+    "ocr_dpi": 220,
+    "total_pages": 916,
+    "pages_with_text": 916,
+    "empty_pages": 0,
+    "coverage_percent": 100.0,
+    "total_characters": 1826573,
+    "mean_characters_per_text_page": 1994.08,
+    "chunks": 2509,
+    "work_folder": "/content/charaka_ocr_work"
+  },
+  "ayurveda_retrieval_tests": [
+    {
+      "query": "Vata Pitta Kapha balance",
+      "status": "PASS",
+      "result_count": 3,
+      "sample_page": 589,
+      "sample_chunk_id": "CHARAKA-P00589-C002"
+    },
+    {
+      "query": "Agni digestion diet",
+      "status": "PASS",
+      "result_count": 3,
+      "sample_page": 237,
+      "sample_chunk_id": "CHARAKA-P00237-C003"
+    },
+    {
+      "query": "daily regimen sleep health",
+      "status": "PASS",
+      "result_count": 3,
+      "sample_page": 524,
+      "sample_chunk_id": "CHARAKA-P00524-C002"
+    },
+    {
+      "query": "mind body balance Ayurveda",
+      "status": "PASS",
+      "result_count": 3,
+      "sample_page": 61,
+      "sample_chunk_id": "CHARAKA-P00061-C003"
+    },
+    {
+      "query": "physician treatment Charaka",
+      "status": "PASS",
+      "result_count": 3,
+      "sample_page": 337,
+      "sample_chunk_id": "CHARAKA-P00337-C001"
+    }
+  ]
+}
