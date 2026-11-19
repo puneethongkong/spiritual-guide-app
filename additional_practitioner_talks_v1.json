@@ -1,0 +1,470 @@
+{
+  "index_name": "Ancient Wisdom Synthesis - Additional Practitioner Talks",
+  "version": "1.0",
+  "created_utc": "2026-11-19T11:40:00Z",
+  "scope_note": "Curated records from publicly discoverable talks and playlists by Sanjay Rath, Vic DiCara, Shubham Alock Singh, Dennis Harness and selected Ernst Wilhelm material. Records summarise explicit titles, descriptions, chapter metadata and playlist coverage. They are not full transcript reproductions.",
+  "usage_policy": {
+    "collection_name": "integrative_talks",
+    "classical_authority": "Practitioner records must remain separate from classical texts in ancient_wisdom.",
+    "attribution_required": true,
+    "full_transcript_republication": false,
+    "exact_answer_rule": "Use detailed records only for claims explicitly supported by the source metadata or later timestamp-verified transcript notes. Otherwise return Needs Verification.",
+    "medical_rule": "Astrological, mantra, gemstone and ritual claims are traditional/practitioner interpretations and must not be presented as medical treatment or scientific causation."
+  },
+  "speakers": [
+    {
+      "speaker": "Sanjay Rath",
+      "tradition": "parashara_jaimini_mantra_shastra",
+      "authority_level": "traditional_jyotish_teacher",
+      "records": [
+        {
+          "id": "SR-001",
+          "title": "Part 1: Atmakaraka, King of Your Chart, Atman Soul and Vedic Cosmology",
+          "url": "https://www.youtube.com/watch?v=f-2t13m-zqY",
+          "topics": ["Atmakaraka", "Chara Karaka", "Atman", "karma", "Vedic cosmology"],
+          "entities": {"planets": [], "concepts": ["Atmakaraka", "Chara Karaka", "Atman", "karma"], "remedy_types": []},
+          "summary": "Introduces Atmakaraka as the principal Chara Karaka and connects the chart's soul significator with karma, rebirth and Vedic cosmology. Useful for explaining why the app calculates Atmakaraka, but detailed planet-specific conclusions require transcript-level notes.",
+          "verification_status": "public description verified",
+          "rag_eligible": true,
+          "exact_answer_eligible": true
+        },
+        {
+          "id": "SR-002",
+          "title": "King Vimshottari",
+          "url": "https://www.youtube.com/@sanjayrathji/featured",
+          "topics": ["Vimshottari Dasha", "advanced Dasha interpretation"],
+          "entities": {"concepts": ["Vimshottari", "Mahadasha", "Dasha"], "remedy_types": []},
+          "summary": "An advanced treatment of Vimshottari Dasha. The speaker explicitly cautions that the presentation is not for novices. Use as advanced practitioner context after the app's deterministic Mahadasha calculation, not as a replacement for that calculation.",
+          "verification_status": "official channel description verified",
+          "rag_eligible": true,
+          "exact_answer_eligible": true
+        },
+        {
+          "id": "SR-003",
+          "title": "Vimshottari Dasa Types - Parts 1 to 4",
+          "url": "https://www.youtube.com/playlist?list=PL9Y1TeN60wUDV4eD52c5HVpBi0Qm8rp-9",
+          "topics": ["Vimshottari Dasha", "Dasha types", "Kevala Vimshottari"],
+          "entities": {"concepts": ["Vimshottari", "Kevala", "Dasha"], "remedy_types": []},
+          "summary": "A multi-part series covering types and applications of Vimshottari Dasha, including Kevala. Suitable for advanced timing interpretation after the app's basic Mahadasha and Antardasha engine is verified.",
+          "verification_status": "playlist titles verified; transcript expansion needed",
+          "rag_eligible": false,
+          "exact_answer_eligible": false
+        },
+        {
+          "id": "SR-004",
+          "title": "Bhavat Bhavam - Identifying Curses, Remedies and Mantra",
+          "url": "https://www.youtube.com/watch?v=QUtBSY040zI",
+          "topics": ["Bhavat Bhavam", "remedies", "mantra", "curses"],
+          "entities": {"concepts": ["Bhavat Bhavam"], "mantra_types": ["mantra"], "remedy_types": ["mantra", "traditional upaya"]},
+          "summary": "Presents Bhavat Bhavam and explicitly connects the topic with identifying difficult patterns and applying remedies/mantra. Any claim involving curses requires great caution and should never be presented as objective fact or used to frighten users.",
+          "verification_status": "public title and description verified",
+          "safety_level": "high_caution_no_fear_based_claims",
+          "rag_eligible": true,
+          "exact_answer_eligible": true
+        },
+        {
+          "id": "SR-005",
+          "title": "Graha Tattva, Characters and Mantra",
+          "url": "https://www.youtube.com/playlist?list=PLgkv1otOkkCuZd1VsnJGxVIXpC4RnIGuV",
+          "topics": ["Graha Tattva", "planetary character", "mantra", "ninth house"],
+          "entities": {"concepts": ["Graha Tattva", "Bhagya"], "mantra_types": ["Graha mantra"], "remedy_types": ["mantra"]},
+          "summary": "Explores planetary principles and character together with mantra and the importance of Bhagya/ninth-house themes. Detailed planet-by-planet mappings require timestamp-level notes before exact recommendations.",
+          "verification_status": "playlist title verified; transcript expansion needed",
+          "rag_eligible": false,
+          "exact_answer_eligible": false
+        },
+        {
+          "id": "SR-006",
+          "title": "Devata of Planets",
+          "url": "https://www.youtube.com/playlist?list=PLgkv1otOkkCuZd1VsnJGxVIXpC4RnIGuV",
+          "topics": ["Graha Devata", "planetary deity", "remedies"],
+          "entities": {"concepts": ["Graha Devata"], "remedy_types": ["worship", "mantra"]},
+          "summary": "Addresses deities associated with planetary forces. Use only after detailed transcript/timestamp verification, especially before recommending a deity, mantra or ritual to a user.",
+          "verification_status": "playlist title verified; transcript expansion needed",
+          "rag_eligible": false,
+          "exact_answer_eligible": false
+        },
+        {
+          "id": "SR-007",
+          "title": "Rudraksha Vidya and Rudraksha Mukhi Series",
+          "url": "https://www.youtube.com/@sanjayrathji/featured",
+          "topics": ["Rudraksha", "Mukhi", "mantra", "spiritual remedies"],
+          "entities": {"concepts": ["Rudraksha", "Mukhi"], "remedy_types": ["Rudraksha", "mantra"]},
+          "summary": "A substantial official-channel series on Rudraksha Vidya and individual Mukhi types. The app should treat Rudraksha selection as specialist traditional guidance and must not infer a bead recommendation from the title alone.",
+          "verification_status": "official playlist verified; transcript expansion needed",
+          "safety_level": "specialist_verification_required",
+          "rag_eligible": false,
+          "exact_answer_eligible": false
+        },
+        {
+          "id": "SR-008",
+          "title": "Panchakshari Vidya Series",
+          "url": "https://www.youtube.com/@sanjayrathji/featured",
+          "topics": ["Panchakshari", "Shiva mantra", "mantra vidya"],
+          "entities": {"mantra_types": ["Panchakshari", "Nama mantra"], "remedy_types": ["mantra", "worship"]},
+          "summary": "An official series devoted to Panchakshari Vidya and introductory material. Detailed practice conditions, pronunciation and initiation requirements require transcript-level verification.",
+          "verification_status": "official channel playlist verified; transcript expansion needed",
+          "safety_level": "guidance_recommended",
+          "rag_eligible": false,
+          "exact_answer_eligible": false
+        },
+        {
+          "id": "SR-009",
+          "title": "Graha Planetary Yuddha and One Remedy",
+          "url": "https://www.youtube.com/playlist?list=PL9Y1TeN60wUDV4eD52c5HVpBi0Qm8rp-9",
+          "topics": ["Graha Yuddha", "planetary war", "remedy"],
+          "entities": {"concepts": ["Graha Yuddha"], "remedy_types": ["traditional upaya"]},
+          "summary": "A short talk on Graha Yuddha and a remedy. Exact remedy details must not be generated until verified from the talk itself.",
+          "verification_status": "playlist title verified; transcript expansion needed",
+          "rag_eligible": false,
+          "exact_answer_eligible": false
+        },
+        {
+          "id": "SR-010",
+          "title": "Kal Sarpa Yoga and Kaal Amrita Yoga - Their Remedy",
+          "url": "https://www.youtube.com/playlist?list=PL9Y1TeN60wUDV4eD52c5HVpBi0Qm8rp-9",
+          "topics": ["Kal Sarpa Yoga", "Kaal Amrita Yoga", "remedy"],
+          "entities": {"concepts": ["Kal Sarpa Yoga", "Kaal Amrita Yoga"], "remedy_types": ["traditional upaya"]},
+          "summary": "Discusses Kal Sarpa and Kaal Amrita configurations and remedial approaches. The app must avoid fear-based diagnosis and should require verified chart rules and source details before mentioning these configurations.",
+          "verification_status": "playlist title verified; transcript expansion needed",
+          "safety_level": "high_caution_no_fear_based_claims",
+          "rag_eligible": false,
+          "exact_answer_eligible": false
+        }
+      ]
+    },
+    {
+      "speaker": "Vic DiCara",
+      "tradition": "classical_indian_astrology_modern_interpretation",
+      "authority_level": "established_teacher",
+      "records": [
+        {
+          "id": "VD-001",
+          "title": "Vedic Mantra for the Sun and Moon",
+          "url": "https://www.youtube.com/playlist?list=PLqnDwobT_2hD8SrurOWpm-CDWz8affCXU",
+          "topics": ["Sun mantra", "Moon mantra", "Vedic mantra"],
+          "entities": {"planets": ["Sun", "Moon"], "mantra_types": ["Vedic mantra"], "remedy_types": ["mantra"]},
+          "summary": "A dedicated session on Vedic mantras associated with the Sun and Moon. Exact mantra text, pronunciation and usage instructions require transcript-level verification before the app presents them.",
+          "verification_status": "playlist title verified; transcript expansion needed",
+          "rag_eligible": false,
+          "exact_answer_eligible": false
+        },
+        {
+          "id": "VD-002",
+          "title": "Vedic Mantra for Mercury and Venus",
+          "url": "https://www.youtube.com/playlist?list=PLqnDwobT_2hD8SrurOWpm-CDWz8affCXU",
+          "topics": ["Mercury mantra", "Venus mantra"],
+          "entities": {"planets": ["Mercury", "Venus"], "mantra_types": ["Vedic mantra"], "remedy_types": ["mantra"]},
+          "summary": "A dedicated session on Vedic mantras associated with Mercury and Venus. Exact recitation details and applicability require verification.",
+          "verification_status": "playlist title verified; transcript expansion needed",
+          "rag_eligible": false,
+          "exact_answer_eligible": false
+        },
+        {
+          "id": "VD-003",
+          "title": "Vedic Mantra for Mars and Jupiter Issues",
+          "url": "https://www.youtube.com/playlist?list=PLqnDwobT_2hD8SrurOWpm-CDWz8affCXU",
+          "topics": ["Mars mantra", "Jupiter mantra", "planetary issues"],
+          "entities": {"planets": ["Mars", "Jupiter"], "mantra_types": ["Vedic mantra"], "remedy_types": ["mantra"]},
+          "summary": "A session on Vedic mantras for Mars and Jupiter-related issues. The phrase 'issues' should not be converted into a diagnosis without chart-specific analysis and exact source notes.",
+          "verification_status": "playlist title verified; transcript expansion needed",
+          "rag_eligible": false,
+          "exact_answer_eligible": false
+        },
+        {
+          "id": "VD-004",
+          "title": "Vedic Mantra for Saturn, Rahu and Ketu",
+          "url": "https://www.youtube.com/playlist?list=PLqnDwobT_2hD8SrurOWpm-CDWz8affCXU",
+          "topics": ["Saturn mantra", "Rahu mantra", "Ketu mantra"],
+          "entities": {"planets": ["Saturn", "Rahu", "Ketu"], "mantra_types": ["Vedic mantra"], "remedy_types": ["mantra"]},
+          "summary": "A session devoted to Vedic mantras for Saturn, Rahu and Ketu. Exact text, pronunciation, eligibility and remedial objective require transcript verification.",
+          "verification_status": "playlist title verified; transcript expansion needed",
+          "safety_level": "guidance_recommended",
+          "rag_eligible": false,
+          "exact_answer_eligible": false
+        },
+        {
+          "id": "VD-005",
+          "title": "Astrological Remedies from Brihat Parashara Hora Shastra - Three-Part Series",
+          "url": "https://www.youtube.com/playlist?list=PLqnDwobT_2hD8SrurOWpm-CDWz8affCXU",
+          "topics": ["BPHS remedies", "astrological remedies", "classical source explanation"],
+          "entities": {"concepts": ["Brihat Parashara Hora Shastra"], "remedy_types": ["classical upaya", "mantra", "worship"]},
+          "summary": "A three-session practitioner explanation of astrological remedies drawn from BPHS. This is highly relevant because the app also indexes BPHS; future records should link each practitioner explanation to the exact classical passage and page.",
+          "verification_status": "playlist titles verified; transcript and classical cross-reference needed",
+          "rag_eligible": true,
+          "exact_answer_eligible": true
+        },
+        {
+          "id": "VD-006",
+          "title": "Planetary Symbolism Series",
+          "url": "https://www.youtube.com/playlist?list=PLv2CLfqFHxpXFmaOEpzIc1PJEtobT_601",
+          "topics": ["Sun", "Moon", "Mars", "Mercury", "Jupiter", "Venus", "Saturn", "Rahu", "Ketu"],
+          "entities": {"planets": ["Sun", "Moon", "Mars", "Mercury", "Jupiter", "Venus", "Saturn", "Rahu", "Ketu"]},
+          "summary": "A collection of talks on key symbolism of the major planets and lunar nodes. Useful for plain-language explanations, but each planet should be expanded into its own timestamped summary before exact-answer use.",
+          "verification_status": "playlist titles verified; individual expansion needed",
+          "rag_eligible": false,
+          "exact_answer_eligible": false
+        },
+        {
+          "id": "VD-007",
+          "title": "Nakshatra Symbolism and Life-Lesson Series",
+          "url": "https://www.youtube.com/playlist?list=PLv2CLfqFHxpXFmaOEpzIc1PJEtobT_601",
+          "topics": ["Svati", "Ardra", "Revati", "Pushya", "Hasta", "Magha", "Vishakha", "Chitra", "Shravana"],
+          "entities": {"nakshatras": ["Svati", "Ardra", "Revati", "Pushya", "Hasta", "Magha", "Vishakha", "Chitra", "Shravana"]},
+          "summary": "A broad series on Nakshatra symbolism and related life lessons. It can complement Dennis Harness, but the app should keep speaker-specific interpretation separate from classical Nakshatra sources.",
+          "verification_status": "playlist titles verified; individual expansion needed",
+          "rag_eligible": false,
+          "exact_answer_eligible": false
+        }
+      ]
+    },
+    {
+      "speaker": "Shubham Alock Singh",
+      "tradition": "vedic_astrology_mantra_tantra_remedies",
+      "authority_level": "practitioner_teacher",
+      "records": [
+        {
+          "id": "SA-001",
+          "title": "Mantra as a Remedy - Part 1",
+          "url": "https://www.youtube.com/watch?v=qZq_1uIQZ7g",
+          "topics": ["mantra remedies", "astrological problems", "Mantra Shastra"],
+          "entities": {"mantra_types": ["mantra"], "remedy_types": ["mantra"]},
+          "summary": "Introduces how mantra may be used as a traditional response to an astrological problem. This is part of a four-video series; exact selection rules and practice instructions require the complete series and transcript-level notes.",
+          "verification_status": "public title and description verified",
+          "rag_eligible": true,
+          "exact_answer_eligible": true
+        },
+        {
+          "id": "SA-002",
+          "title": "Remedies of Planets and Signs in Vedic Astrology",
+          "url": "https://www.youtube.com/watch?v=LbbTapAzjCo",
+          "topics": ["planet remedies", "Rashi remedies", "daily practices"],
+          "entities": {"planets": ["general"], "concepts": ["Rashi"], "remedy_types": ["traditional upaya", "spiritual remedy"]},
+          "summary": "Discusses remedial approaches linked to planets and signs and points toward related teachings on gemstones, spiritual practices and Devi-oriented remedies. Exact planet-by-planet instructions require timestamp verification.",
+          "verification_status": "public title and description verified",
+          "rag_eligible": true,
+          "exact_answer_eligible": true
+        },
+        {
+          "id": "SA-003",
+          "title": "Gemstones, Remedies, Karma, Purana Lakshana and Informal Talk",
+          "url": "https://www.youtube.com/watch?v=IB8zvelulXo",
+          "topics": ["gemstones", "remedies", "karma", "Purana Lakshana", "Tantric traditions"],
+          "entities": {"concepts": ["karma", "Purana Lakshana"], "remedy_types": ["gemstone", "worship", "kriya", "prayoga"]},
+          "summary": "Discusses gemstones and remedial practice within worship, kriya, prayoga and Tantric tradition. Gemstone advice must remain specialist-only until chart strength, house rulership, dignity, combustion, aspects and current Dasha are calculated.",
+          "verification_status": "public title and description verified",
+          "safety_level": "specialist_verification_required",
+          "rag_eligible": true,
+          "exact_answer_eligible": true
+        },
+        {
+          "id": "SA-004",
+          "title": "Donations as Remedy",
+          "url": "https://music.youtube.com/channel/UCfyLpBgzsLpuHxUpASGtfgA",
+          "topics": ["donation", "Dana", "Bhagavad Gita", "remedy"],
+          "entities": {"remedy_types": ["Dana", "charity", "behavioural upaya"]},
+          "summary": "Explores donation as a remedial and ethical practice, including how donation may be made more meaningful. Exact conditions and scriptural claims require episode-level verification.",
+          "verification_status": "channel episode title verified; transcript expansion needed",
+          "rag_eligible": false,
+          "exact_answer_eligible": false
+        },
+        {
+          "id": "SA-005",
+          "title": "The Greatest Remedy - Sattva Guna",
+          "url": "https://music.youtube.com/channel/UCfyLpBgzsLpuHxUpASGtfgA",
+          "topics": ["Sattva", "behavioural remedy", "spiritual development"],
+          "entities": {"concepts": ["Sattva Guna"], "remedy_types": ["behavioural upaya", "lifestyle"]},
+          "summary": "Frames development of Sattva as a broad remedial principle. This can support low-risk behavioural recommendations, provided the app does not oversimplify complex health or life problems.",
+          "verification_status": "channel episode title verified; transcript expansion needed",
+          "rag_eligible": false,
+          "exact_answer_eligible": false
+        },
+        {
+          "id": "SA-006",
+          "title": "Deity, Mantra, Yantra and Paths of Spirituality",
+          "url": "https://music.youtube.com/channel/UCfyLpBgzsLpuHxUpASGtfgA",
+          "topics": ["deity", "mantra", "yantra", "spiritual paths"],
+          "entities": {"mantra_types": ["mantra"], "remedy_types": ["mantra", "yantra", "worship"]},
+          "summary": "Discusses the relationship among deity, mantra, yantra and spiritual paths. The app should use this to explain categories, not to auto-prescribe advanced practices without exact guidance.",
+          "verification_status": "channel episode title verified; transcript expansion needed",
+          "rag_eligible": false,
+          "exact_answer_eligible": false
+        },
+        {
+          "id": "SA-007",
+          "title": "Yantra - Secrets, Usage, Importance and How It Works",
+          "url": "https://music.youtube.com/channel/UCfyLpBgzsLpuHxUpASGtfgA",
+          "topics": ["Yantra", "Ishta Yantra", "usage"],
+          "entities": {"concepts": ["Yantra", "Ishta Yantra"], "remedy_types": ["yantra", "worship"]},
+          "summary": "Introduces Yantra usage and importance within the speaker's practitioner framework. Specific Yantra selection and consecration requirements need transcript-level verification.",
+          "verification_status": "channel episode title verified; transcript expansion needed",
+          "safety_level": "guidance_recommended",
+          "rag_eligible": false,
+          "exact_answer_eligible": false
+        },
+        {
+          "id": "SA-008",
+          "title": "Sri Rama Raksha Stotram - Protection and Sun Remedy",
+          "url": "https://music.youtube.com/channel/UCfyLpBgzsLpuHxUpASGtfgA",
+          "topics": ["Sri Rama Raksha Stotra", "Sun remedy", "protection"],
+          "entities": {"planets": ["Sun"], "mantra_types": ["Stotra"], "remedy_types": ["stotra", "devotional practice"]},
+          "summary": "Presents Sri Rama Raksha Stotra as a protective devotional practice and Sun-related remedy in the speaker's framework. Exact recitation and eligibility details require source-level expansion.",
+          "verification_status": "channel episode title verified; transcript expansion needed",
+          "rag_eligible": false,
+          "exact_answer_eligible": false
+        },
+        {
+          "id": "SA-009",
+          "title": "Vishnu Sahasranama as Remedy",
+          "url": "https://music.youtube.com/channel/UCfyLpBgzsLpuHxUpASGtfgA",
+          "topics": ["Vishnu Sahasranama", "remedy", "devotion"],
+          "entities": {"mantra_types": ["Sahasranama", "Stotra"], "remedy_types": ["devotional practice", "recitation"]},
+          "summary": "Presents Vishnu Sahasranama as a broad devotional remedy. The app should distinguish such general devotional practice from chart-specific Graha mantra prescriptions.",
+          "verification_status": "channel episode title verified; transcript expansion needed",
+          "rag_eligible": false,
+          "exact_answer_eligible": false
+        }
+      ]
+    },
+    {
+      "speaker": "Dennis Harness",
+      "tradition": "vedic_astrology_nakshatra",
+      "authority_level": "established_nakshatra_teacher",
+      "records": [
+        {
+          "id": "DH-001",
+          "title": "The Nakshatras - Introduction",
+          "url": "https://www.youtube.com/watch?v=UC0Vb6RGmYU",
+          "topics": ["27 Nakshatras", "deities", "cosmic energies", "planet in Nakshatra"],
+          "entities": {"concepts": ["Nakshatra", "Nakshatra deity", "planet in Nakshatra"]},
+          "summary": "Introduces Nakshatras as 27 lunar mansions represented by deities or cosmic energies, with each Nakshatra colouring a planet placed within it with a particular dynamic.",
+          "verification_status": "public description verified",
+          "rag_eligible": true,
+          "exact_answer_eligible": true
+        },
+        {
+          "id": "DH-002",
+          "title": "Secrets of Each Nakshatra",
+          "url": "https://www.youtube.com/watch?v=HD6MJ5pwX8E",
+          "topics": ["27 Nakshatras", "symbolism", "psychological themes", "spiritual development"],
+          "entities": {"concepts": ["Nakshatra", "lunar mansion"]},
+          "summary": "A broad teaching on the individual Nakshatras and their symbolic, psychological and spiritual meanings. Each Nakshatra needs its own timestamped record before the app can answer exact questions about all 27.",
+          "verification_status": "public title and speaker context verified; detailed expansion needed",
+          "rag_eligible": false,
+          "exact_answer_eligible": false
+        },
+        {
+          "id": "DH-003",
+          "title": "The Spirituality of Nakshatras",
+          "url": "https://www.youtube.com/watch?v=-NFfxgM1gso",
+          "topics": ["Nakshatra spirituality", "self-awareness", "spiritual development"],
+          "entities": {"concepts": ["Nakshatra", "spirituality"]},
+          "summary": "Explores the spiritual dimension of Nakshatras and their use for self-awareness and development rather than only prediction.",
+          "verification_status": "public description verified",
+          "rag_eligible": true,
+          "exact_answer_eligible": true
+        },
+        {
+          "id": "DH-004",
+          "title": "Nakshatras and Compatibility Secrets",
+          "url": "https://www.youtube.com/watch?v=g2NyDrUg7cE",
+          "topics": ["Nakshatra compatibility", "relationships", "relationship strengths"],
+          "entities": {"concepts": ["Nakshatra compatibility", "relationships"]},
+          "summary": "Discusses how Nakshatras may be used to understand relationship patterns and strengths. The app should not present this as deterministic compatibility or a basis for consequential relationship decisions.",
+          "verification_status": "public description verified",
+          "safety_level": "non_deterministic_guidance_only",
+          "rag_eligible": true,
+          "exact_answer_eligible": true
+        },
+        {
+          "id": "DH-005",
+          "title": "Nakshatras and Professions",
+          "url": "https://www.youtube.com/watch?v=WzvcAGxohFo",
+          "topics": ["Nakshatra", "career", "profession"],
+          "entities": {"concepts": ["Nakshatra", "career", "profession"]},
+          "summary": "Explores career and professional tendencies through Nakshatra interpretation. Use as reflective practitioner material, not as a deterministic career assessment.",
+          "verification_status": "public title and description verified",
+          "safety_level": "non_deterministic_guidance_only",
+          "rag_eligible": true,
+          "exact_answer_eligible": true
+        },
+        {
+          "id": "DH-006",
+          "title": "Relationship Potential and Compatibility",
+          "url": "https://www.youtube.com/watch?v=59kJrY-IqAQ",
+          "topics": ["relationships", "compatibility", "therapeutic importance of Nakshatras"],
+          "entities": {"concepts": ["relationship potential", "compatibility", "Nakshatra"]},
+          "summary": "Discusses relationship potential and the therapeutic interpretive importance of Nakshatras. The app should use this for self-reflection and communication prompts, not decisions about marriage or separation.",
+          "verification_status": "public description verified",
+          "safety_level": "non_deterministic_guidance_only",
+          "rag_eligible": true,
+          "exact_answer_eligible": true
+        }
+      ]
+    },
+    {
+      "speaker": "Ernst Wilhelm",
+      "tradition": "vedic_astrology_psychological_interpretation",
+      "authority_level": "established_teacher_alternative_methodology",
+      "records": [
+        {
+          "id": "EW-001",
+          "title": "Why Are There So Many Ayanamshas in Vedic Astrology?",
+          "url": "https://www.youtube.com/watch?v=ymdbL3Qx3II",
+          "topics": ["Ayanamsa", "sidereal calculation", "methodological differences"],
+          "entities": {"concepts": ["Ayanamsa", "sidereal zodiac"]},
+          "summary": "Discusses why multiple ayanamsa systems exist. Useful for methodology disclosure, but the app's calculation engine remains frozen to Lahiri/Chitrapaksha unless the user explicitly chooses another validated option.",
+          "verification_status": "public title and description verified",
+          "rag_eligible": true,
+          "exact_answer_eligible": true
+        },
+        {
+          "id": "EW-002",
+          "title": "Secrets of Rahu in Vedic Astrology",
+          "url": "https://www.youtube.com/watch?v=7jXN42_GxNQ",
+          "topics": ["Rahu", "node interpretation"],
+          "entities": {"planets": ["Rahu"], "concepts": ["lunar nodes"]},
+          "summary": "A dedicated discussion of Rahu. Detailed interpretive claims require transcript-level expansion before exact-answer use.",
+          "verification_status": "public title verified; transcript expansion needed",
+          "rag_eligible": false,
+          "exact_answer_eligible": false
+        },
+        {
+          "id": "EW-003",
+          "title": "New Rashi Sutras in the Context of Lajjitaadi Avasthas and Rahu/Ketu",
+          "url": "https://www.youtube.com/watch?v=uNvmdMSWpIw",
+          "topics": ["Lajjitaadi Avasthas", "Rashi Sutras", "Rahu", "Ketu", "psychological interpretation"],
+          "entities": {"planets": ["Rahu", "Ketu"], "concepts": ["Avastha", "Rashi Sutra", "psychological yoga"]},
+          "summary": "Discusses how planetary Avasthas condition signs and psychological patterns, including Rahu/Ketu themes. This is an alternative interpretive framework and must be labelled separately from the app's classical calculation layer.",
+          "verification_status": "published chapter metadata verified",
+          "rag_eligible": true,
+          "exact_answer_eligible": true
+        },
+        {
+          "id": "EW-004",
+          "title": "Jyotish Techniques, Avasthas, Ayanamsa and Galactic Centre",
+          "url": "https://www.youtube.com/watch?v=K5IBeKlXk_Y",
+          "topics": ["Avasthas", "Ayanamsa", "Jyotish methodology", "Kala software"],
+          "entities": {"concepts": ["Avastha", "Ayanamsa", "Galactic Centre"]},
+          "summary": "A methodological discussion of Jyotish techniques, Avasthas and ayanamsa. Useful for expert-level context about interpretive differences, not for changing the current Lahiri calculation silently.",
+          "verification_status": "public description verified",
+          "rag_eligible": true,
+          "exact_answer_eligible": true
+        }
+      ]
+    }
+  ],
+  "coverage_summary": {
+    "atmakaraka": ["SR-001"],
+    "vimshottari": ["SR-002", "SR-003"],
+    "graha_mantra": ["SR-005", "VD-001", "VD-002", "VD-003", "VD-004"],
+    "classical_remedies": ["VD-005", "SA-001", "SA-002"],
+    "gemstones": ["SA-003"],
+    "dana": ["SA-004"],
+    "yantra": ["SA-006", "SA-007"],
+    "nakshatra": ["DH-001", "DH-002", "DH-003", "DH-004", "DH-005", "DH-006", "VD-007"],
+    "ayanamsa": ["EW-001", "EW-004"],
+    "avastha": ["EW-003", "EW-004"],
+    "rahu_ketu": ["VD-004", "EW-002", "EW-003"]
+  }
+}
