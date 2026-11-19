@@ -1,7 +1,7 @@
 [theme]
 base = "dark"
 primaryColor = "#FFD700"  # Gold
-backgroundColor = "#0E1117" # Deep space black
-secondaryBackgroundColor = "#1E1E2E" # Dark card background
-textColor = "#FAFAFA"
+backgroundColor = "#1A1A2E" # Deep Cosmic Indigo (Softer than black)
+secondaryBackgroundColor = "#2B2B40" # Lighter slate for cards
+textColor = "#EAEAEA" # Off-white for easier reading
 font = "sans serif"
