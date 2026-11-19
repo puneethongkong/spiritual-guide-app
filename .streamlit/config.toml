@@ -1,0 +1,7 @@
+[theme]
+base = "dark"
+primaryColor = "#FFD700"  # Gold
+backgroundColor = "#0E1117" # Deep space black
+secondaryBackgroundColor = "#1E1E2E" # Dark card background
+textColor = "#FAFAFA"
+font = "sans serif"
