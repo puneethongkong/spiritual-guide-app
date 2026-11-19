@@ -6,12 +6,21 @@ from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_community.vectorstores import Chroma
 import os
 import requests
-import math
+import plotly.graph_objects as go
 
 # --- PAGE CONFIGURATION ---
 st.set_page_config(page_title="Ancient Wisdom Guide", page_icon="🕉️", layout="wide")
+
+# Custom CSS for a cleaner card look
+st.markdown("""
+<style>
+    .stMetric { background-color: #1E1E2E; padding: 15px; border-radius: 10px; border: 1px solid #333; }
+    .stProgress > div > div > div > div { background-color: #FFD700; }
+</style>
+""", unsafe_allow_html=True)
+
 st.title("🕉️ Ancient Wisdom & Modern Science Guide")
-st.markdown("*Deterministic Vedic Analysis integrated with Modern Psychology.*")
+st.markdown("*Deep analysis of your Vedic Chart, Mind, and Body.*")
 
 # --- CONSTANTS ---
 SIGNS = ["Aries", "Taurus", "Gemini", "Cancer", "Leo", "Virgo", "Libra", "Scorpio", "Sagittarius", "Capricorn", "Aquarius", "Pisces"]
@@ -21,7 +30,6 @@ NAKSHATRAS = [
     "Mula", "Purvashadha", "Uttarashadha", "Shravana", "Dhanishta", "Shatabhisha", "Purva Bhadrapada", "Uttara Bhadrapada", "Revati"
 ]
 DASHA_LORDS = ["Ketu", "Venus", "Sun", "Moon", "Mars", "Rahu", "Jupiter", "Saturn", "Mercury"]
-DASHA_YEARS = [7, 20, 6, 10, 7, 18, 16, 19, 17]
 
 # --- ASTROLOGY ENGINE ---
 def get_nakshatra(longitude):
@@ -33,17 +41,17 @@ def calculate_vedic_profile(year, month, day, tob, lat, lon, tz):
     ut_hour = dt.hour + dt.minute/60 - tz
     jd = swe.julday(dt.year, dt.month, dt.day, ut_hour)
     
-    # 1. Calculate Ascendant
+    # Ascendant
     cusps, ascmc = swe.houses(jd, lat, lon, b'W')
     asc_deg = ascmc[0]
     asc_sign = SIGNS[int(asc_deg / 30)]
     
-    # 2. Calculate Moon & Nakshatra
+    # Moon Nakshatra
     moon_pos, _ = swe.calc_ut(jd, swe.MOON)
     moon_long = moon_pos[0]
     moon_nakshatra = get_nakshatra(moon_long)
     
-    # 3. Find Atmakaraka (Highest degree planet, excluding Sun & Rahu)
+    # Atmakaraka
     planets = {"Moon": swe.MOON, "Mars": swe.MARS, "Mercury": swe.MERCURY, "Jupiter": swe.JUPITER, "Venus": swe.VENUS, "Saturn": swe.SATURN}
     degrees = {}
     for name, pid in planets.items():
@@ -52,23 +60,19 @@ def calculate_vedic_profile(year, month, day, tob, lat, lon, tz):
         
     atmakaraka = max(degrees, key=degrees.get)
     
-    # 4. Calculate Current Dasha (Vimshottari - simplified calculation)
-    # Find the Nakshatra lord of the Moon to start the Dasha
+    # Current Dasha (Simplified)
     nakshatra_index = int(moon_long / (13 + 20/60))
     start_dasha_index = nakshatra_index % 9
-    # Simplified: Assume we are in the Dasha of the Moon's Nakshatra Lord (For accurate Dasha we need exact birth time balance)
     current_dasha = DASHA_LORDS[start_dasha_index]
     
-    # 5. Calculate Current Transits (Today)
+    # Transits
     today = datetime.now()
     jd_today = swe.julday(today.year, today.month, today.day, today.hour)
     saturn_today, _ = swe.calc_ut(jd_today, swe.SATURN)
     jupiter_today, _ = swe.calc_ut(jd_today, swe.JUPITER)
-    
     saturn_sign = SIGNS[int(saturn_today[0] / 30)]
     jupiter_sign = SIGNS[int(jupiter_today[0] / 30)]
 
-    # Vedic Mapping for UI
     mapping = {
         "Jupiter": {"chakra": "Ajna (Third Eye)", "dosha": "Kapha", "theme": "Wisdom & Expansion", "nama": "N523 Shadanana"},
         "Mars": {"chakra": "Manipura (Solar Plexus)", "dosha": "Pitta", "theme": "Courage & Action", "nama": "N503 Lakinyamba"},
@@ -142,79 +146,78 @@ if st.button("Run Deterministic Vedic Analysis", type="primary"):
     else:
         with st.spinner(f"Calculating {user_name}'s deterministic Vedic chart..."):
             
-            # 1. Get the Hard Math
             chart = calculate_vedic_profile(birth_year, birth_month, birth_day, tob, lat, lon, tz)
             
-            # 2. Calculate SISRI
+            # SISRI
             cet = int(((q1 + q2 + q3) / 12) * 100)
             pmp = int(((q4 + q5 + q6) / 12) * 100)
             ta = int(((q7 + q8 + q9) / 12) * 100)
             cse = int(((q10 + q11 + q12) / 12) * 100)
             
-            # 3. Spiritual Score (Math)
+            # Spiritual Score
             base_avg = (cet + pmp + ta + cse) / 4
             vedic_bonus = 10 if chart['atmakaraka'] in ["Jupiter", "Moon"] else 5
             spiritual_score = round(((base_avg + vedic_bonus) / 110) * 10, 1)
             if spiritual_score > 10.0: spiritual_score = 10.0
             
-            # 4. Retrieve Book Context
             retriever = load_knowledge_base()
             docs = retriever.invoke(f"{chart['atmakaraka']} {chart['moon_nakshatra']} remedies {chart['dosha']}")
             context = "\n\n".join([d.page_content for d in docs])
             
-            # 5. The AI Prompt (Strict Interpretation)
             llm = ChatOpenAI(model="glm-4.5-flash", openai_api_key=api_key, openai_api_base="https://api.z.ai/api/paas/v4", temperature=0.7, max_tokens=1200, extra_body={"thinking": {"type": "disabled"}})
             
             prompt = f"""
-            You are an expert Vedic Astrologer. You are interpreting a chart that has been calculated with 100% mathematical precision by Swiss Ephemeris. DO NOT invent any astrological data. Only interpret the facts below.
-            
-            User: {user_name}
-            Spiritual Score: {spiritual_score}/10
-            
-            FACT SHEET (Calculated Today):
-            - Ascendant: {chart['asc_sign']}
-            - Moon Nakshatra: {chart['moon_nakshatra']}
-            - Atmakaraka (Soul Planet): {chart['atmakaraka']}
-            - Current Dasha: {chart['current_dasha']}
-            - Saturn Transit: {chart['saturn_transit']}
-            - Jupiter Transit: {chart['jupiter_transit']}
-            
-            Modern SISRI: Thinking {cet}%, Meaning {pmp}%, Spiritual {ta}%, Calm {cse}%
-            Context from ancient texts: {context}
+            You are an expert Vedic Astrologer. You are interpreting a chart calculated with 100% mathematical precision.
+            User: {user_name}. Spiritual Score: {spiritual_score}/10.
+            Chart: Ascendant {chart['asc_sign']}, Moon Nakshatra {chart['moon_nakshatra']}, Atmakaraka {chart['atmakaraka']}, Dasha {chart['current_dasha']}, Saturn in {chart['saturn_transit']}, Jupiter in {chart['jupiter_transit']}.
+            SISRI: Thinking {cet}%, Meaning {pmp}%, Spiritual {ta}%, Calm {cse}%.
+            Context: {context}
             
             Output strictly in this format:
-            DIAGNOSIS: Address {user_name}. Synthesize their Nakshatra ({chart['moon_nakshatra']}), Atmakaraka ({chart['atmakaraka']}), and current Dasha ({chart['current_dasha']}). Explain their core soul friction.
-            CHAKRA_FIX: Focus on the {chart['chakra']}. Explain why their chart indicates a block here and how to open it.
-            AYURVEDA_FIX: Prescribe 2 actions for {chart['dosha']} imbalance.
-            PSYCHOLOGY_FIX: 1 reframe based on their lowest SISRI score.
-            VEDIC_REMEDY: Prescribe {chart['nama']} and explain how it pierces the {chart['chakra']}.
+            DIAGNOSIS: Address {user_name}. Synthesize Nakshatra, Atmakaraka, and Dasha. Explain core soul friction.
+            CHAKRA_FIX: Focus on {chart['chakra']}. Explain the block and how to open it.
+            AYURVEDA_FIX: 2 actions for {chart['dosha']} imbalance.
+            PSYCHOLOGY_FIX: 1 reframe based on lowest SISRI score.
+            VEDIC_REMEDY: Prescribe {chart['nama']} and explain how it pierces {chart['chakra']}.
             """
             
             response = llm.invoke(prompt)
             content = response.content
             
-            # --- DISPLAY THE DASHBOARD ---
-            st.success(f"✅ Deterministic Analysis Complete for {user_name}")
+            # --- VISUAL DASHBOARD ---
+            st.success(f"✅ Analysis Complete for {user_name}")
             
-            # NEW: The Full Astrological Fact Sheet
-            with st.expander("🔭 Your Calculated Vedic Chart (Fact Sheet)", expanded=False):
-                st.write(f"**Ascendant (Lagna):** {chart['asc_sign']}")
-                st.write(f"**Moon Nakshatra (Emotional Blueprint):** {chart['moon_nakshatra']}")
-                st.write(f"**Atmakaraka (Soul Planet):** {chart['atmakaraka']}")
-                st.write(f"**Current Dasha (Karmic Period):** {chart['current_dasha']}")
-                st.write(f"**Transits Today:** Saturn in {chart['saturn_transit']}, Jupiter in {chart['jupiter_transit']}")
+            # Astrological Fact Sheet in a nice box
+            with st.expander("🔭 Your Calculated Vedic Chart", expanded=True):
+                c1, c2, c3 = st.columns(3)
+                c1.metric("Ascendant", chart['asc_sign'])
+                c2.metric("Moon Nakshatra", chart['moon_nakshatra'])
+                c3.metric("Current Dasha", chart['current_dasha'])
+                st.caption(f"Transits Today: Saturn in {chart['saturn_transit']}, Jupiter in {chart['jupiter_transit']}")
             
+            # Big Metrics
             col1, col2, col3, col4 = st.columns(4)
-            col1.metric("Theme", chart['theme'])
-            col2.metric("Nakshatra", chart['moon_nakshatra'])
+            col1.metric("Core Theme", chart['theme'])
+            col2.metric("Active Chakra", chart['chakra'])
             col3.metric("Dosha", chart['dosha'])
             col4.metric("Spiritual Score", f"{spiritual_score}/10")
             
-            st.markdown(f"### {user_name}'s Modern Psychological Profile")
-            st.progress(cet, text=f"Critical Thinking: {cet}%")
-            st.progress(pmp, text=f"Meaning & Purpose: {pmp}%")
-            st.progress(ta, text=f"Transcendental Awareness: {ta}%")
-            st.progress(cse, text=f"Inner Calm (CSE): {cse}%")
+            # Radar Chart for Psychology
+            st.markdown(f"### {user_name}'s Psychological Profile")
+            fig = go.Figure(data=go.Scatterpolar(
+                r=[cet, pmp, ta, cse],
+                theta=['Critical Thinking', 'Meaning', 'Transcendental', 'Inner Calm'],
+                fill='toself',
+                marker=dict(color='#FFD700')
+            ))
+            fig.update_layout(
+                polar=dict(radialaxis=dict(visible=True, range=[0, 100])),
+                showlegend=False,
+                paper_bgcolor='rgba(0,0,0,0)',
+                plot_bgcolor='rgba(0,0,0,0)',
+                font=dict(color='white')
+            )
+            st.plotly_chart(fig, use_container_width=True)
             
             st.divider()
             
@@ -230,8 +233,8 @@ if st.button("Run Deterministic Vedic Analysis", type="primary"):
                 with st.expander(f"🌀 The Chakra Blockage: {chart['chakra']}", expanded=True):
                     st.write(chakra)
                 col_a, col_b = st.columns(2)
-                with col_a: st.info(f"**🧘 Ayurvedic Body Fix ({chart['dosha']})**\n\n{body}")
-                with col_b: st.warning(f"**🧠 Psychological Mind Fix**\n\n{mind}")
+                with col_a: st.info(f"**🧘 Ayurvedic Fix ({chart['dosha']})**\n\n{body}")
+                with col_b: st.warning(f"**🧠 Psychological Fix**\n\n{mind}")
                 st.success(f"**🕉️ Lalita Sahasranama Remedy**\n\n{remedy}")
             except Exception:
                 st.info(content)
