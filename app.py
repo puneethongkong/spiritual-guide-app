@@ -1,5 +1,7 @@
 import json
 import os
+import urllib.request
+import urllib.error
 from datetime import date, datetime, timedelta, timezone
 
 import chromadb
@@ -11,7 +13,7 @@ from langchain_openai import ChatOpenAI
 
 st.set_page_config(page_title="Ancient Wisdom Synthesis", page_icon="🕉️", layout="wide", initial_sidebar_state="collapsed")
 
-APP_VERSION = "AWS v1.23 User-Centred Home"
+APP_VERSION = "AWS v1.24 Three Knowledge Modes"
 EMBEDDING_MODEL = "paraphrase-MiniLM-L3-v2"
 COLLECTION_NAME = "ancient_wisdom"
 PAGES = ["Home", "Ask", "My Reading", "My Remedies", "Explore"]
@@ -146,6 +148,67 @@ def search_teachers(query,k=5):
 def zai_key():
     try:return st.secrets.get("ZAI_API_KEY","")
     except Exception:return ""
+
+def tavily_key():
+    try:return st.secrets.get("TAVILY_API_KEY","")
+    except Exception:return ""
+
+def effective_knowledge_mode(requested):
+    if requested=="Offline": return "Offline"
+    if requested=="Deep Research" and tavily_key() and zai_key(): return "Deep Research"
+    if requested in ("Deep Research","Trusted Library") and zai_key(): return "Trusted Library"
+    return "Offline"
+
+def safe_web_query(question,personal=None):
+    # Never send identifying birth data or the complete personal chart to web search.
+    terms=[question]
+    if personal:
+        terms.extend([personal["timing"]["mahadasha"],personal["timing"]["antardasha"],personal["atmakaraka"]])
+    query=" ".join(str(x) for x in terms)
+    query=query.replace("Mahadasha","planetary period").replace("Antardasha","sub-period").replace("Atmakaraka","Vedic astrology significator")
+    return query[:380]
+
+def web_domains_for(question):
+    q=question.lower()
+    if any(x in q for x in ["health","medical","ayurveda","sleep","stress","anxiety","yoga","meditation","dosha","digestion"]):
+        return ["who.int","nccih.nih.gov","ayush.gov.in","ccras.nic.in","pubmed.ncbi.nlm.nih.gov"]
+    return []
+
+def search_web_knowledge(question,personal=None,max_results=5):
+    key=tavily_key()
+    if not key:return []
+    payload={
+        "query":safe_web_query(question,personal),"search_depth":"advanced","topic":"general",
+        "max_results":max_results,"chunks_per_source":2,"include_answer":False,
+        "include_raw_content":False,"safe_search":True
+    }
+    domains=web_domains_for(question)
+    if domains:payload["include_domains"]=domains
+    request=urllib.request.Request(
+        "https://api.tavily.com/search",
+        data=json.dumps(payload).encode("utf-8"),
+        headers={"Authorization":f"Bearer {key}","Content-Type":"application/json"},
+        method="POST"
+    )
+    try:
+        with urllib.request.urlopen(request,timeout=35) as response:
+            data=json.loads(response.read().decode("utf-8"))
+    except Exception:
+        return []
+    results=[]
+    for item in data.get("results",[])[:max_results]:
+        results.append({
+            "title":item.get("title") or "Web source","url":item.get("url") or "",
+            "content":item.get("content") or "","score":item.get("score"),
+            "published_date":item.get("published_date")
+        })
+    return results
+
+def web_evidence_context(results):
+    return "\n\n".join(
+        f"[W{i}] {r['title']} | {r['url']}\n{r['content']}"
+        for i,r in enumerate(results,1)
+    )
 def get_llm():return ChatOpenAI(model="glm-4.5-flash",openai_api_key=zai_key(),openai_api_base="https://api.z.ai/api/paas/v4",temperature=.35,max_tokens=1800,extra_body={"thinking":{"type":"disabled"}})
 def evidence_context(docs,teachers):
     out=[]
@@ -157,27 +220,32 @@ def _trim_words(text,limit):
     words=(text or "").split()
     return " ".join(words[:limit])+("…" if len(words)>limit else "")
 
-def synthesize(question,docs,teachers,personal=None,depth="Simple",history=None):
+def synthesize(question,docs,teachers,personal=None,depth="Simple",history=None,knowledge_mode="Trusted Library"):
     docs=docs[:5]; teachers=teachers[:4]
-    if not zai_key():
-        if not docs and not teachers:
-            return "I could not find enough verified local material. **Needs Verification.**"
+    mode=effective_knowledge_mode(knowledge_mode)
+    web_results=search_web_knowledge(question,personal,5) if mode=="Deep Research" else []
+    if mode=="Offline" or not zai_key():
+        if not docs and not teachers:return "I could not find enough verified local material. **Needs Verification.**",web_results,mode
         parts=[]
-        if personal:
-            parts.append(f"**Personal context:** {personal['timing']['mahadasha']} major period, {personal['timing']['antardasha']} sub-period.")
+        if personal:parts.append(f"**Personal context:** {personal['timing']['mahadasha']} major period, {personal['timing']['antardasha']} sub-period.")
         if teachers:
             summary=teachers[0].get("summary") or teachers[0].get("explanation_text")
-            if summary: parts.append(_trim_words(summary,70 if depth=="Simple" else 130))
-        elif docs:
-            parts.append(_trim_words(" ".join(docs[0].page_content.split()),80 if depth=="Simple" else 150))
-        parts.append("**Practical note:** treat this as traditional or reflective guidance. Specific gemstones, herbs, fasting, medical claims and advanced practices require verification.")
-        return "\n\n".join(parts)
-    limits={"Simple":"80-140 words, direct answer first, no raw quotations and no teacher names unless necessary","Detailed":"180-300 words with direct answer, practical meaning and caution","Advanced":"350-550 words with technical Vedic logic, disagreements and concise source notes"}
-    prompt=f"""Answer in plain language. Question: {question}\nDepth: {depth}; {limits[depth]}.\nPersonal chart: {json.dumps(personal,default=str) if personal else 'not supplied'}\nRecent conversation: {json.dumps((history or [])[-6:],ensure_ascii=False)}\nEvidence:\n{evidence_context(docs,teachers)}\nRules: synthesise, do not dump passages; explain Sanskrit terms; never invent remedies, gemstone suitability, universal chakra mappings or medical claims; say Needs Verification when evidence is weak; end Simple answers with one practical takeaway."""
-    try:
-        return get_llm().invoke(prompt).content
-    except Exception:
-        return synthesize(question,docs,teachers,personal,depth,[]) if not zai_key() else "Enhanced synthesis is temporarily unavailable. Please use the local library view or try again. **Needs Verification for any specific remedy.**"
+            if summary:parts.append(_trim_words(summary,70 if depth=="Simple" else 130))
+        elif docs:parts.append(_trim_words(" ".join(docs[0].page_content.split()),80 if depth=="Simple" else 150))
+        parts.append("**Practical note:** traditional or reflective guidance only. Specific gemstones, herbs, fasting, medical claims and advanced practices require verification.")
+        return "\n\n".join(parts),web_results,mode
+    limits={"Simple":"100-180 words, direct answer first, no raw quotations and no teacher names unless necessary","Detailed":"300-550 words with direct answer, practical meaning, evidence distinctions and caution","Advanced":"700-1100 words with technical Vedic logic, disagreements and concise source notes"}
+    prompt=f"""Answer in plain language. Question: {question}
+Knowledge mode: {mode}. Depth: {depth}; {limits[depth]}.
+Personal chart: {json.dumps(personal,default=str) if personal else 'not supplied'}
+Recent conversation: {json.dumps((history or [])[-6:],ensure_ascii=False)}
+Trusted library and practitioner evidence:
+{evidence_context(docs,teachers)}
+Live web evidence:
+{web_evidence_context(web_results)}
+Rules: calculated facts override all prose; synthesise rather than dump passages; distinguish Calculated Fact, Classical/Trusted Library, Practitioner View, Web Research, Modern Evidence and Needs Verification; explain Sanskrit; never invent remedies, gemstone suitability, universal chakra mappings or medical claims; do not treat web blogs as classical authority; end with a practical takeaway."""
+    try:return get_llm().invoke(prompt).content,web_results,mode
+    except Exception:return "Enhanced synthesis is temporarily unavailable. The trusted local evidence remains available below.",web_results,"Trusted Library"
 
 # ---------- Deep personal synthesis ----------
 def personal_fact_summary(c):
@@ -223,18 +291,30 @@ def combined_layer_context(layers):
         blocks.append(f"\n## RETRIEVAL LAYER: {layer.upper()}\n"+evidence_context(docs[:5],teachers[:4]))
     return "\n".join(blocks)
 
-def deep_personal_report(c,depth="Detailed"):
+def deep_personal_report(c,depth="Detailed",knowledge_mode="Trusted Library"):
     facts,layers=retrieve_personal_layers(c)
-    if not zai_key():
-        return facts,layers,None
+    mode=effective_knowledge_mode(knowledge_mode)
+    web_results=[]
+    if mode=="Deep Research":
+        web_queries=[
+            "current evidence yoga meditation stress sleep wellbeing",
+            "Ayurveda daily routine sleep digestion mental steadiness evidence safety",
+            "traditional medicine person centred safety evidence"
+        ]
+        for query in web_queries:web_results.extend(search_web_knowledge(query,c,3))
+    if mode=="Offline" or not zai_key():
+        return facts,layers,None,web_results,mode
     lengths={"Simple":"650-900 words","Detailed":"1100-1600 words","Advanced":"1800-2600 words"}
     prompt=f"""Create a rigorous integrated personal Ancient Wisdom report. Length {lengths.get(depth,'1100-1600 words')}.
 
 LOCKED CALCULATED FACTS:
 {json.dumps(facts,ensure_ascii=False,default=str)}
 
-RETRIEVED KNOWLEDGE:
+RETRIEVED TRUSTED KNOWLEDGE:
 {combined_layer_context(layers)}
+
+LIVE WEB RESEARCH:
+{web_evidence_context(web_results)}
 
 Required structure:
 1. Executive synthesis: 5-8 lines on the central personal pattern and current phase.
@@ -251,9 +331,9 @@ Required structure:
 Rules: Calculated facts override retrieved prose. Never invent placements, classical quotations, mantra counts, gemstone suitability, medical outcomes or universal chakra correspondences. Practitioner material must not be promoted to classical consensus. Keep Simple language accessible even though the underlying analysis is deep."""
     try:
         report=get_llm().invoke(prompt).content
-    except Exception as exc:
+    except Exception:
         report=None
-    return facts,layers,report
+    return facts,layers,report,web_results,mode
 
 def render_local_personal_layers(c,layers):
     st.markdown("### Deep local knowledge view")
@@ -307,12 +387,29 @@ def profile_panel():
             tz=st.number_input("UTC offset at birth",-12.0,14.0,key="birth_tz",step=.25)
             confirmed=st.checkbox("I confirm the birth time, coordinates and UTC offset",key="profile_confirmed")
 
+        st.markdown("### Knowledge source")
+        requested_mode=st.radio(
+            "Knowledge source",
+            ["Trusted Library","Deep Research","Offline"],
+            index=["Trusted Library","Deep Research","Offline"].index(st.session_state.get("knowledge_mode","Deep Research")),
+            horizontal=False,
+            label_visibility="collapsed"
+        )
+        descriptions={
+            "Trusted Library":"Your chart + 21-source library + selected teachers.",
+            "Deep Research":"Trusted Library + current web research + enhanced synthesis.",
+            "Offline":"Local chart, library and teacher index only. No internet calls."
+        }
+        st.caption(descriptions[requested_mode])
+        effective=effective_knowledge_mode(requested_mode)
+        if effective!=requested_mode:
+            st.info(f"{requested_mode} is not fully configured. Using {effective} for this session.")
         depth=st.select_slider("Answer detail",["Simple","Detailed","Advanced"],value=st.session_state.get("depth","Simple"))
         advanced=st.toggle("Show advanced Vedic details",value=st.session_state.get("advanced",False))
         if st.button("Save profile",use_container_width=True):
-            st.session_state.update(profile_name=name,profile_dob=dob,profile_tob=tob,profile_preset=preset,profile_lat=lat,profile_lon=lon,profile_tz=tz,depth=depth,advanced=advanced)
+            st.session_state.update(profile_name=name,profile_dob=dob,profile_tob=tob,profile_preset=preset,profile_lat=lat,profile_lon=lon,profile_tz=tz,knowledge_mode=requested_mode,depth=depth,advanced=advanced)
             st.success("Profile saved for this session")
-        return {"name":name or "Seeker","dob":dob,"tob":tob,"place":preset,"lat":lat,"lon":lon,"tz":tz,"confirmed":confirmed,"depth":depth,"advanced":advanced}
+        return {"name":name or "Seeker","dob":dob,"tob":tob,"place":preset,"lat":lat,"lon":lon,"tz":tz,"confirmed":confirmed,"knowledge_mode":requested_mode,"effective_mode":effective,"depth":depth,"advanced":advanced}
 
 def ensure_chart(cfg,force=False):
     if not cfg.get("confirmed"):
@@ -378,9 +475,13 @@ def ask_page(cfg):
     if question:
         st.session_state.chat.append({"role":"user","content":question}); personal=st.session_state.get("chart"); search_q=question
         if personal:search_q+=f" {personal['timing']['mahadasha']} Mahadasha {personal['timing']['antardasha']} Antardasha {personal['atmakaraka']} Atmakaraka"
-        docs,_=search_local(search_q,7); teachers=search_teachers(search_q,6); response=synthesize(question,docs,teachers,personal,cfg["depth"],st.session_state.chat)
-        st.session_state.chat.append({"role":"assistant","content":response}); st.session_state.last_sources=(docs,teachers); st.rerun()
+        docs,_=search_local(search_q,7); teachers=search_teachers(search_q,6); response,web_results,used_mode=synthesize(question,docs,teachers,personal,cfg["depth"],st.session_state.chat,cfg["knowledge_mode"])
+        st.session_state.chat.append({"role":"assistant","content":response}); st.session_state.last_sources=(docs,teachers); st.session_state.last_web=web_results; st.session_state.last_mode=used_mode; st.rerun()
     if st.session_state.get("last_sources"):sources_expander(*st.session_state.last_sources)
+    if st.session_state.get("last_web"):
+        with st.expander(f"Live web research · {len(st.session_state.last_web)} sources"):
+            for r in st.session_state.last_web:
+                st.markdown(f"- [{r['title']}]({r['url']})")
     if st.session_state.chat and st.button("Clear conversation"):st.session_state.chat=[];st.session_state.pop("last_sources",None);st.rerun()
 def reading_page(cfg):
     st.markdown("## My Personal Reading")
@@ -389,10 +490,12 @@ def reading_page(cfg):
         st.warning("Confirm birth time, coordinates and UTC offset in Your Profile before generating the chart.")
     if st.button("Generate Full Personal Synthesis",type="primary",use_container_width=True,disabled=not cfg.get("confirmed")):
         c=ensure_chart(cfg,True)
-        facts,layers,report=deep_personal_report(c,cfg["depth"])
+        facts,layers,report,web_results,used_mode=deep_personal_report(c,cfg["depth"],cfg["knowledge_mode"])
         st.session_state.personal_facts=facts
         st.session_state.personal_layers=layers
         st.session_state.personal_report=report
+        st.session_state.personal_web=web_results
+        st.session_state.personal_mode=used_mode
 
     if "chart" not in st.session_state:return
     c=st.session_state.chart;t=c["timing"]
@@ -411,6 +514,11 @@ def reading_page(cfg):
         render_local_personal_layers(c,st.session_state.personal_layers)
     else:
         st.info("Click Generate Full Personal Synthesis to build the multi-layer report.")
+
+    if st.session_state.get("personal_web"):
+        with st.expander(f"Live web research · {len(st.session_state.personal_web)} sources"):
+            for r in st.session_state.personal_web:
+                st.markdown(f"- [{r['title']}]({r['url']})")
 
     if cfg["advanced"]:
         st.markdown("### Advanced calculated chart")
@@ -431,7 +539,7 @@ def remedies_page(cfg):
     q=f"personal remedies strengthen pacify balance {t['mahadasha']} Mahadasha {t['antardasha']} Antardasha {c['atmakaraka']} Atmakaraka house {c['planets'][c['atmakaraka']]['house']} mantra dana behaviour yoga Ayurveda gemstone"
     docs,_=search_local(q,10);teachers=search_teachers(q,10)
     if st.button("Build Detailed Remedy Plan",type="primary",use_container_width=True):
-        if zai_key():
+        if effective_knowledge_mode(cfg["knowledge_mode"])!="Offline" and zai_key():
             prompt=f"""Build a structured remedy plan from this locked chart {json.dumps(personal_fact_summary(c),default=str)} and this evidence {evidence_context(docs,teachers)}. Rank 3-5 remedies. For each give purpose, exact chart reason, source basis, application only if source-supported, expected traditional objective, and guidance level. Separate low-risk behavioural/devotional/yoga/Ayurveda support from guidance-required advanced mantra/fasting/yantra and specialist gemstone questions. Distinguish strengthen versus pacify. Never invent mantra counts, medical effects or gemstone suitability."""
             try:st.session_state.remedy_answer=get_llm().invoke(prompt).content
             except Exception:st.session_state.remedy_answer=None
@@ -449,7 +557,7 @@ def explore_page(cfg):
     with t1:
         topic=st.selectbox("Choose a topic",["Planets","Life periods","Chakras","Meditation","Mantras","Ayurveda","Yoga","Gemstones","Remedies","Nakshatras"]);q=st.text_input("What would you like to know?",placeholder=f"Ask about {topic.lower()}")
         if st.button("Explore Topic",disabled=not q,use_container_width=True):
-            docs,_=search_local(f"{topic} {q}",7);teachers=search_teachers(f"{topic} {q}",6);st.session_state.explore_answer=synthesize(q,docs,teachers,None,cfg["depth"]);st.session_state.explore_sources=(docs,teachers)
+            docs,_=search_local(f"{topic} {q}",7);teachers=search_teachers(f"{topic} {q}",6);st.session_state.explore_answer,st.session_state.explore_web,st.session_state.explore_mode=synthesize(q,docs,teachers,None,cfg["depth"],None,cfg["knowledge_mode"]);st.session_state.explore_sources=(docs,teachers)
         if st.session_state.get("explore_answer"):st.markdown(st.session_state.explore_answer);sources_expander(*st.session_state.explore_sources)
     with t2:
         _,count=get_store();st.metric("Indexed classical and official passages",f"{count:,}");q=st.text_input("Search the 21-source library",key="library_query")
@@ -479,6 +587,9 @@ def main():
         st.write(f"Ancient Wisdom library: **{count:,} indexed passages**")
         st.write(f"Practitioner knowledge: **{teacher_count} structured records**")
         st.write("Answer engine: **Enhanced online**" if zai_key() else "Answer engine: **Local knowledge**")
+        st.write(f"Selected knowledge mode: **{cfg['knowledge_mode']}**")
+        st.write(f"Active knowledge mode: **{cfg['effective_mode']}**")
+        st.write("Web research connector: **Ready**" if tavily_key() else "Web research connector: **Not configured**")
         st.caption("These figures are system diagnostics, not part of your reading.")
 
     st.divider();page=st.session_state.page
