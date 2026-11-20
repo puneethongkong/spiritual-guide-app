@@ -7,3 +7,5 @@ chromadb
 sentence-transformers
 pymupdf
 plotly
+timezonefinder
+tzdata
