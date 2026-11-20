@@ -5,6 +5,7 @@ import urllib.error
 import urllib.parse
 import urllib.request
 from datetime import date, datetime, timedelta, timezone
+from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 import chromadb
 import streamlit as st
@@ -20,7 +21,7 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-APP_VERSION = "AWS v1.31 Stable Profile and Location"
+APP_VERSION = "AWS v1.32 Automatic Place and Historical UTC"
 EMBEDDING_MODEL = "paraphrase-MiniLM-L3-v2"
 COLLECTION_NAME = "ancient_wisdom"
 PAGES = ["Home", "Ask", "My Reading", "My Remedies", "Explore"]
@@ -246,11 +247,111 @@ def geocode_place(place):
     query = urllib.parse.urlencode({"q": place, "format":"jsonv2", "limit":5, "addressdetails":1})
     request = urllib.request.Request(
         "https://nominatim.openstreetmap.org/search?" + query,
-        headers={"User-Agent":"AncientWisdomSynthesis/1.31 (birthplace lookup)"},
+        headers={
+            "User-Agent":"AncientWisdomSynthesis/1.32 birthplace lookup",
+            "Accept-Language":"en",
+        },
     )
     with urllib.request.urlopen(request, timeout=20) as response:
         data = json.loads(response.read().decode("utf-8"))
-    return [{"label":x.get("display_name","Result"),"lat":float(x["lat"]),"lon":float(x["lon"])} for x in data]
+    return [{
+        "label": item.get("display_name", "Result"),
+        "lat": float(item["lat"]),
+        "lon": float(item["lon"]),
+    } for item in data]
+
+
+def timezone_for_coordinates(lat, lon, dob, tob):
+    """Resolve IANA zone by coordinates, then compute the historic offset locally."""
+    query = urllib.parse.urlencode({"latitude": lat, "longitude": lon})
+    urls = [
+        "https://timeapi.io/api/Time/current/coordinate?" + query,
+        "https://timeapi.io/api/TimeZone/coordinate?" + query,
+    ]
+    payload = None
+    last_error = None
+    for url in urls:
+        try:
+            request = urllib.request.Request(
+                url,
+                headers={"User-Agent":"AncientWisdomSynthesis/1.32 timezone lookup"},
+            )
+            with urllib.request.urlopen(request, timeout=20) as response:
+                payload = json.loads(response.read().decode("utf-8"))
+            if payload:
+                break
+        except Exception as exc:
+            last_error = exc
+    if not payload:
+        raise RuntimeError(f"Timezone lookup unavailable: {last_error}")
+    zone_name = (
+        payload.get("timeZone")
+        or payload.get("timezone")
+        or payload.get("timeZoneId")
+        or payload.get("iana")
+    )
+    if not zone_name and isinstance(payload.get("data"), dict):
+        data = payload["data"]
+        zone_name = data.get("timeZone") or data.get("timezone") or data.get("iana")
+    if not zone_name:
+        raise RuntimeError("Timezone service did not return an IANA timezone.")
+    try:
+        local_dt = datetime(dob.year, dob.month, dob.day, tob.hour, tob.minute, tob.second, tzinfo=ZoneInfo(zone_name))
+    except ZoneInfoNotFoundError as exc:
+        raise RuntimeError(f"Timezone data unavailable for {zone_name}") from exc
+    offset = local_dt.utcoffset()
+    if offset is None:
+        raise RuntimeError("Historical UTC offset could not be calculated.")
+    return zone_name, offset.total_seconds() / 3600.0, local_dt.tzname() or ""
+
+
+def _init_profile_widgets():
+    saved = st.session_state.get("saved_profile", default_profile())
+    defaults = {
+        "w_name": saved["name"],
+        "w_day": int(saved["dob"].day),
+        "w_month": int(saved["dob"].month),
+        "w_year": int(saved["dob"].year),
+        "w_tob": saved["tob"],
+        "w_place_query": saved["place"],
+        "w_lat": float(saved["lat"]),
+        "w_lon": float(saved["lon"]),
+        "w_tz": float(saved["tz"]),
+        "w_zone_name": saved.get("zone_name", ""),
+        "w_zone_abbr": saved.get("zone_abbr", ""),
+    }
+    for key, value in defaults.items():
+        st.session_state.setdefault(key, value)
+
+
+def _apply_selected_location():
+    results = st.session_state.get("location_results", [])
+    index = st.session_state.get("w_location_index", 0)
+    if not results or not (0 <= index < len(results)):
+        return
+    selected = results[index]
+    st.session_state.w_place_query = selected["label"]
+    st.session_state.w_lat = float(selected["lat"])
+    st.session_state.w_lon = float(selected["lon"])
+    st.session_state.w_zone_name = ""
+    st.session_state.w_zone_abbr = ""
+    try:
+        dob = date(int(st.session_state.w_year), int(st.session_state.w_month), int(st.session_state.w_day))
+        zone_name, utc_offset, zone_abbr = timezone_for_coordinates(
+            selected["lat"], selected["lon"], dob, st.session_state.w_tob
+        )
+        st.session_state.w_tz = float(utc_offset)
+        st.session_state.w_zone_name = zone_name
+        st.session_state.w_zone_abbr = zone_abbr
+        st.session_state.location_lookup_message = (
+            f"Location and birth-date timezone resolved: {zone_name} "
+            f"({zone_abbr}), UTC {utc_offset:+.2f}."
+        )
+    except Exception as exc:
+        st.session_state.location_lookup_message = (
+            "Coordinates were filled, but the historical timezone could not be resolved. "
+            f"Verify the UTC offset manually. Details: {exc}"
+        )
 
 
 def profile_signature(profile):
@@ -262,60 +363,122 @@ def default_profile():
 
 
 def profile_panel():
-    saved = st.session_state.get("saved_profile", default_profile())
+    _init_profile_widgets()
     with st.sidebar:
         st.markdown("### Your Profile")
-        with st.form("profile_form"):
-            name = st.text_input("Name", value=saved["name"], placeholder="Your name")
-            c1, c2, c3 = st.columns([1,1.5,1.2])
-            with c1: day = st.number_input("Day", 1, 31, int(saved["dob"].day), 1)
-            with c2: month = st.selectbox("Month", list(range(1,13)), index=saved["dob"].month-1, format_func=lambda x: datetime(2000,x,1).strftime("%B"))
-            with c3: year = st.number_input("Year", 1900, 2050, int(saved["dob"].year), 1)
-            tob = st.time_input("Exact birth time", value=saved["tob"])
-            place = st.text_input("Birthplace", value=saved["place"], placeholder="City, state/province, country")
-            search_clicked = st.form_submit_button("Find birthplace online", use_container_width=True)
-        if search_clicked:
-            if not place.strip(): st.warning("Enter a birthplace first.")
+        st.text_input("Name", key="w_name", placeholder="Your name")
+        c1, c2, c3 = st.columns([1, 1.5, 1.2])
+        with c1:
+            st.number_input("Day", 1, 31, 1, key="w_day")
+        with c2:
+            st.selectbox(
+                "Month", list(range(1, 13)), key="w_month",
+                format_func=lambda x: datetime(2000, x, 1).strftime("%B"),
+            )
+        with c3:
+            st.number_input("Year", 1900, 2050, 1, key="w_year")
+        st.time_input("Exact birth time", key="w_tob")
+
+        st.markdown("#### Birthplace")
+        st.text_input(
+            "City, state/province, country",
+            key="w_place_query",
+            placeholder="e.g. Bharwain, Himachal Pradesh, India",
+        )
+        if st.button("Find birthplace and timezone", use_container_width=True):
+            query = st.session_state.w_place_query.strip()
+            if not query:
+                st.warning("Enter a birthplace first.")
             else:
                 try:
-                    st.session_state.location_results = geocode_place(place.strip())
+                    results = geocode_place(query)
+                    st.session_state.location_results = results
+                    st.session_state.w_location_index = 0
+                    if results:
+                        _apply_selected_location()
+                    else:
+                        st.warning("No matching birthplace was found. Try adding the country or region.")
+                    st.rerun()
                 except Exception as exc:
-                    st.session_state.location_results = []
                     st.error(f"Birthplace lookup failed: {exc}")
+
         results = st.session_state.get("location_results", [])
-        chosen = None
         if results:
-            labels = [x["label"] for x in results]
-            selected = st.selectbox("Choose the correct birthplace", labels, key="location_result_choice")
-            chosen = results[labels.index(selected)]
-            st.caption(f"Latitude {chosen['lat']:.6f} · Longitude {chosen['lon']:.6f}")
-        with st.expander("Location details and timezone", expanded=not bool(chosen)):
-            lat_default = chosen["lat"] if chosen else saved["lat"]
-            lon_default = chosen["lon"] if chosen else saved["lon"]
-            lat = st.number_input("Latitude", -90.0, 90.0, float(lat_default), format="%.6f", key="profile_lat_input")
-            lon = st.number_input("Longitude", -180.0, 180.0, float(lon_default), format="%.6f", key="profile_lon_input")
-            tz = st.number_input("UTC offset at birth", -12.0, 14.0, float(saved["tz"]), .25, key="profile_tz_input")
-            st.caption("Coordinates are filled from online place search. Historical UTC offset and daylight-saving rules must still be confirmed for the birth date.")
-        confirmed = st.checkbox("I confirm the birth time, birthplace, coordinates and UTC offset", key="profile_confirmation_input")
+            labels = [r["label"] for r in results]
+            st.selectbox(
+                "Choose the correct result",
+                options=list(range(len(results))),
+                format_func=lambda i: labels[i],
+                key="w_location_index",
+                on_change=_apply_selected_location,
+            )
+
+        message = st.session_state.get("location_lookup_message")
+        if message:
+            if "could not" in message.lower():
+                st.warning(message)
+            else:
+                st.success(message)
+
+        with st.expander("Location details and manual correction", expanded=False):
+            st.number_input("Latitude", -90.0, 90.0, key="w_lat", format="%.6f")
+            st.number_input("Longitude", -180.0, 180.0, key="w_lon", format="%.6f")
+            st.number_input("UTC offset at birth", -12.0, 14.0, step=.25, key="w_tz")
+            if st.session_state.w_zone_name:
+                st.caption(
+                    f"Timezone: {st.session_state.w_zone_name} "
+                    f"({st.session_state.w_zone_abbr or 'historical abbreviation unavailable'})"
+                )
+            st.caption(
+                "Coordinates come from OpenStreetMap search. The UTC offset is calculated "
+                "for the entered birth date/time when timezone resolution succeeds. Verify "
+                "ambiguous or historically unusual times before generating the chart."
+            )
+
+        confirmed = st.checkbox(
+            "I confirm the birth time, selected birthplace and calculated/manual UTC offset",
+            key="w_confirmed",
+        )
+
         st.markdown("### Knowledge source")
-        mode = st.radio("Knowledge source", KNOWLEDGE_MODES, index=KNOWLEDGE_MODES.index(st.session_state.get("knowledge_mode", "Deep Research")), label_visibility="collapsed")
-        depth = st.select_slider("Answer detail", ANSWER_DEPTHS, value=st.session_state.get("depth", "Detailed"))
-        advanced = st.toggle("Show advanced Vedic details", value=st.session_state.get("advanced", False))
-        save = st.button("Save and confirm profile", type="primary", use_container_width=True)
-        if save:
+        mode = st.radio(
+            "Knowledge source", KNOWLEDGE_MODES,
+            index=KNOWLEDGE_MODES.index(st.session_state.get("knowledge_mode", "Deep Research")),
+            label_visibility="collapsed",
+        )
+        depth = st.select_slider(
+            "Answer detail", ANSWER_DEPTHS,
+            value=st.session_state.get("depth", "Detailed"),
+        )
+        advanced = st.toggle(
+            "Show advanced Vedic details",
+            value=st.session_state.get("advanced", False),
+        )
+
+        if st.button("Save and confirm profile", type="primary", use_container_width=True):
             try:
-                dob = date(int(year), int(month), int(day))
+                dob = date(int(st.session_state.w_year), int(st.session_state.w_month), int(st.session_state.w_day))
             except ValueError as exc:
                 st.error(f"Invalid date of birth: {exc}")
                 dob = None
-            if not name.strip(): st.error("Enter a name.")
-            elif not place.strip(): st.error("Enter and select a birthplace, or enter coordinates manually.")
-            elif not confirmed: st.error("Confirm the birth details before saving.")
+            if not st.session_state.w_name.strip():
+                st.error("Enter a name.")
+            elif not st.session_state.w_place_query.strip():
+                st.error("Find and select a birthplace, or enter the coordinates manually.")
+            elif not confirmed:
+                st.error("Confirm the birth details before saving.")
             elif dob:
-                final_place = chosen["label"] if chosen else place.strip()
-                final_lat = chosen["lat"] if chosen else float(lat)
-                final_lon = chosen["lon"] if chosen else float(lon)
-                new_profile = {"name":name.strip(),"dob":dob,"tob":tob,"place":final_place,"lat":final_lat,"lon":final_lon,"tz":float(tz)}
+                new_profile = {
+                    "name": st.session_state.w_name.strip(),
+                    "dob": dob,
+                    "tob": st.session_state.w_tob,
+                    "place": st.session_state.w_place_query.strip(),
+                    "lat": float(st.session_state.w_lat),
+                    "lon": float(st.session_state.w_lon),
+                    "tz": float(st.session_state.w_tz),
+                    "zone_name": st.session_state.w_zone_name,
+                    "zone_abbr": st.session_state.w_zone_abbr,
+                }
                 old_signature = st.session_state.get("saved_profile_signature")
                 new_signature = profile_signature(new_profile)
                 st.session_state.saved_profile = new_profile
@@ -324,14 +487,31 @@ def profile_panel():
                 st.session_state.depth = depth
                 st.session_state.advanced = advanced
                 if old_signature != new_signature:
-                    for key in ["chart","chart_signature","personal_report","personal_layers","remedy_answer","remedy_sources"]:
+                    for key in [
+                        "chart", "chart_signature", "personal_report", "personal_layers",
+                        "remedy_answer", "remedy_sources", "last_sources",
+                    ]:
                         st.session_state.pop(key, None)
                 st.success("Profile saved and confirmed.")
                 st.rerun()
+
         saved_now = st.session_state.get("saved_profile")
         if saved_now:
-            st.success(f"Confirmed: {saved_now['place']}")
-        return {"saved_profile":saved_now,"knowledge_mode":mode,"effective_mode":effective_mode(mode),"depth":depth,"advanced":advanced}
+            st.success(
+                f"Confirmed: {saved_now['place']} · "
+                f"{saved_now['lat']:.4f}, {saved_now['lon']:.4f} · "
+                f"UTC {saved_now['tz']:+.2f}"
+            )
+        effective = effective_mode(mode)
+        if effective != mode:
+            st.info(f"{mode} is unavailable; using {effective}.")
+        return {
+            "saved_profile": saved_now,
+            "knowledge_mode": mode,
+            "effective_mode": effective,
+            "depth": depth,
+            "advanced": advanced,
+        }
 
 
 def ensure_chart(cfg, force=False):
