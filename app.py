@@ -11,7 +11,7 @@ from langchain_openai import ChatOpenAI
 
 st.set_page_config(page_title="Ancient Wisdom Synthesis", page_icon="🕉️", layout="wide", initial_sidebar_state="collapsed")
 
-APP_VERSION = "AWS v1.22 Deep Personal Synthesis"
+APP_VERSION = "AWS v1.23 User-Centred Home"
 EMBEDDING_MODEL = "paraphrase-MiniLM-L3-v2"
 COLLECTION_NAME = "ancient_wisdom"
 PAGES = ["Home", "Ask", "My Reading", "My Remedies", "Explore"]
@@ -27,7 +27,7 @@ st.markdown("""
 [data-testid="stDataFrame"]{border:1px solid #343961;border-radius:14px;overflow:hidden}
 .stButton>button{background:linear-gradient(135deg,#5d4ba0,#8d68d8);color:white;border:1px solid #9d83df;border-radius:24px;font-weight:650;min-height:2.75rem;box-shadow:0 8px 18px rgba(72,49,128,.28)}
 .stButton>button:hover{border-color:#e2c45f;color:white;transform:translateY(-1px)}
-h1,h2,h3,h4{color:#f6f0e7}.hero{padding:25px 29px;border:1px solid #41466f;border-radius:24px;background:linear-gradient(135deg,rgba(37,43,84,.97),rgba(17,20,43,.94));box-shadow:0 20px 55px rgba(0,0,0,.28);margin-bottom:18px}.eyebrow{color:#e2c45f;font-size:.8rem;font-weight:760;letter-spacing:.17em;text-transform:uppercase}.subtitle{color:#bbb5c8;font-size:1.05rem;margin:0}.muted{color:#9c97aa}.choice{padding:18px;border:1px solid #3a3f67;border-radius:17px;background:linear-gradient(145deg,rgba(28,32,63,.95),rgba(17,20,42,.95));min-height:145px}.small{color:#aaa6b6;font-size:.88rem}
+h1,h2,h3,h4{color:#f6f0e7}.hero h1{font-size:2.05rem!important;line-height:1.15!important;margin:.35rem 0 .55rem 0!important}.hero{padding:18px 24px!important}.hero .subtitle{font-size:.98rem!important;line-height:1.45!important}.hero .eyebrow{font-size:.72rem!important}.hero{padding:25px 29px;border:1px solid #41466f;border-radius:24px;background:linear-gradient(135deg,rgba(37,43,84,.97),rgba(17,20,43,.94));box-shadow:0 20px 55px rgba(0,0,0,.28);margin-bottom:18px}.eyebrow{color:#e2c45f;font-size:.8rem;font-weight:760;letter-spacing:.17em;text-transform:uppercase}.subtitle{color:#bbb5c8;font-size:1.05rem;margin:0}.muted{color:#9c97aa}.choice{padding:18px;border:1px solid #3a3f67;border-radius:17px;background:linear-gradient(145deg,rgba(28,32,63,.95),rgba(17,20,42,.95));min-height:145px}.small{color:#aaa6b6;font-size:.88rem}
 </style>
 """, unsafe_allow_html=True)
 
@@ -330,18 +330,45 @@ def sources_expander(docs,teachers):
 
 # ---------- Pages ----------
 def home_page(cfg):
-    st.markdown("## What would you like to do?")
-    cols=st.columns(4); cards=[("🔮 Understand Me","Generate a personal reading from your birth details.","Open My Reading","My Reading"),("💬 Ask Anything","Ask normal questions. No Vedic knowledge required.","Ask Ancient Wisdom","Ask"),("🪷 What Can I Do?","See personal practices, remedies and cautions.","Open My Remedies","My Remedies"),("📚 Explore","Browse the library, topics, maps and teachers.","Explore the Library","Explore")]
+    st.markdown("## How can I help you today?")
+
+    # The most useful action is available immediately, without navigating first.
+    with st.form("home_ask_form",clear_on_submit=True):
+        home_question=st.text_input(
+            "Ask anything",
+            placeholder="e.g. What should I focus on now? What does Saturn mean? Which mantra may help focus?",
+            label_visibility="collapsed"
+        )
+        ask_now=st.form_submit_button("Ask Ancient Wisdom",type="primary",use_container_width=True)
+    if ask_now and home_question.strip():
+        navigate("Ask",home_question.strip())
+
+    st.caption("Ask in ordinary language. Once a personal chart is generated, the same question automatically uses the chart as context.")
+
+    st.markdown("### Or choose a path")
+    cols=st.columns(3)
+    cards=[
+        ("🔮 My Personal Reading","Enter or confirm birth details and build a deep personal synthesis across Jyotish, current timing, Ayurveda, yoga, mantra and remedies.","Build My Reading","My Reading"),
+        ("🪷 My Remedies","Turn the calculated chart and retrieved knowledge into practical priorities, low-risk practices and carefully qualified traditional options.","View My Remedies","My Remedies"),
+        ("📚 Explore Knowledge","Search the 21-source library, inspect topics and browse indexed teachers when you want to research rather than personalise.","Explore Knowledge","Explore")
+    ]
     for i,(title,desc,label,page) in enumerate(cards):
         with cols[i]:
             st.markdown(f"<div class='choice'><h3>{title}</h3><p>{desc}</p></div>",unsafe_allow_html=True)
             if st.button(label,key=f"home_{i}",use_container_width=True):navigate(page)
-    st.markdown("### Try asking")
-    prompts=[("Why am I restless?","Why am I feeling restless lately?"),("What is a mantra?","What is a mantra and how is it used?"),("Which gemstone suits me?","Is any gemstone traditionally suitable for me?"),("What does Saturn mean?","What does Saturn mean in simple language?"),("How can I improve focus?","What practical and traditional methods may help improve focus?")]
-    pcs=st.columns(5)
+
+    st.markdown("### Common questions")
+    prompts=[
+        ("What should I focus on now?","What should I focus on right now, and why?"),
+        ("Why am I restless?","Why am I feeling restless lately?"),
+        ("What is a mantra?","What is a mantra and how is it used?"),
+        ("Could a gemstone suit me?","Is any gemstone traditionally relevant to my chart, and what must be verified first?")
+    ]
+    pcs=st.columns(4)
     for i,(label,q) in enumerate(prompts):
         with pcs[i]:
             if st.button(label,key=f"prompt_{i}",use_container_width=True):navigate("Ask",q)
+
 def ask_page(cfg):
     st.markdown("## Ask Ancient Wisdom"); st.caption("Ask in ordinary language. The app uses your personal chart automatically once generated.")
     if "chat" not in st.session_state:st.session_state.chat=[]
@@ -442,11 +469,18 @@ def explore_page(cfg):
 # ---------- Main ----------
 def main():
     cfg=profile_panel();_,count=get_store();teacher_count=len(get_practitioners())
-    st.markdown("<div class='hero'><div class='eyebrow'>Personal Wisdom & Remedy Engine</div><h1>Ancient Wisdom Synthesis</h1><p class='subtitle'>A novice can ask in ordinary language. Advanced Vedic detail remains available when wanted.</p><div class='muted' style='margin-top:10px'>"+APP_VERSION+"</div></div>",unsafe_allow_html=True)
-    s1,s2,s3=st.columns(3);s1.success(f"Wisdom library: {count:,} passages" if count else "Wisdom library unavailable");s2.success(f"Teacher knowledge: {teacher_count} records");s3.success("Enhanced online available" if zai_key() else "Local knowledge ready")
+    st.markdown("<div class='hero'><div class='eyebrow'>PERSONAL WISDOM & REMEDY ENGINE</div><h1>Ancient Wisdom Synthesis</h1><p class='subtitle'>Personal guidance from calculated Vedic astrology and a searchable library spanning Jyotish, Ayurveda, yoga, mantra, remedies and practitioner perspectives.</p></div>",unsafe_allow_html=True)
+
     if "page" not in st.session_state:st.session_state.page="Home"
     chosen=st.radio("Navigation",PAGES,horizontal=True,index=PAGES.index(st.session_state.page),label_visibility="collapsed")
     if chosen!=st.session_state.page:st.session_state.page=chosen;st.rerun()
+
+    with st.expander("Library & system status",expanded=False):
+        st.write(f"Ancient Wisdom library: **{count:,} indexed passages**")
+        st.write(f"Practitioner knowledge: **{teacher_count} structured records**")
+        st.write("Answer engine: **Enhanced online**" if zai_key() else "Answer engine: **Local knowledge**")
+        st.caption("These figures are system diagnostics, not part of your reading.")
+
     st.divider();page=st.session_state.page
     if page=="Home":home_page(cfg)
     elif page=="Ask":ask_page(cfg)
