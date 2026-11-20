@@ -11,7 +11,7 @@ from langchain_openai import ChatOpenAI
 
 st.set_page_config(page_title="Ancient Wisdom Synthesis", page_icon="🕉️", layout="wide", initial_sidebar_state="collapsed")
 
-APP_VERSION = "AWS v1.21 Validated Unified Baseline"
+APP_VERSION = "AWS v1.22 Deep Personal Synthesis"
 EMBEDDING_MODEL = "paraphrase-MiniLM-L3-v2"
 COLLECTION_NAME = "ancient_wisdom"
 PAGES = ["Home", "Ask", "My Reading", "My Remedies", "Explore"]
@@ -179,6 +179,97 @@ def synthesize(question,docs,teachers,personal=None,depth="Simple",history=None)
     except Exception:
         return synthesize(question,docs,teachers,personal,depth,[]) if not zai_key() else "Enhanced synthesis is temporarily unavailable. Please use the local library view or try again. **Needs Verification for any specific remedy.**"
 
+# ---------- Deep personal synthesis ----------
+def personal_fact_summary(c):
+    t=c["timing"]
+    planets={}
+    for n,p in c["planets"].items():
+        planets[n]={
+            "sign":p["sign"],"degree":round(p["degree"],2),"house":p["house"],
+            "nakshatra":p["nakshatra"],"pada":p["pada"],
+            "condition":p["condition"],"rules_houses":p["rules_houses"],
+            "retrograde":p["retrograde"]
+        }
+    return {
+        "ascendant":c["ascendant"]["sign"],
+        "ascendant_degree":round(c["ascendant"]["degree"],2),
+        "moon_nakshatra":c["planets"]["Moon"]["nakshatra"],
+        "moon_pada":c["planets"]["Moon"]["pada"],
+        "atmakaraka":c["atmakaraka"],
+        "mahadasha":t["mahadasha"],"antardasha":t["antardasha"],
+        "md_end":t["md_end"],"ad_end":t["ad_end"],
+        "planets":planets,"conjunctions":c["conjunctions"],"aspects":c["aspects"]
+    }
+
+def retrieve_personal_layers(c):
+    facts=personal_fact_summary(c); t=c["timing"]; ak=c["atmakaraka"]
+    queries={
+        "jyotish":f"{facts['ascendant']} ascendant {ak} Atmakaraka {t['mahadasha']} Mahadasha {t['antardasha']} Antardasha houses lordship nakshatra current life themes",
+        "ayurveda":f"Ayurveda mind body routine sleep digestion agni dosha balance {ak} {t['mahadasha']} supportive lifestyle",
+        "mantra":f"{ak} {t['mahadasha']} {t['antardasha']} mantra devotional practice japa stotra graha remedy",
+        "yoga":f"yoga meditation pranayama grounding focus balance {ak} {t['mahadasha']}",
+        "remedies":f"{ak} {t['mahadasha']} {t['antardasha']} upaya remedies dana charity behaviour gemstone strengthen pacify",
+        "chakra":f"{ak} planet chakra subtle body correspondence balance"
+    }
+    layers={}
+    for key,q in queries.items():
+        docs,_=search_local(q,6); teachers=search_teachers(q,5)
+        layers[key]=(docs,teachers)
+    return facts,layers
+
+def combined_layer_context(layers):
+    blocks=[]
+    for layer,(docs,teachers) in layers.items():
+        blocks.append(f"\n## RETRIEVAL LAYER: {layer.upper()}\n"+evidence_context(docs[:5],teachers[:4]))
+    return "\n".join(blocks)
+
+def deep_personal_report(c,depth="Detailed"):
+    facts,layers=retrieve_personal_layers(c)
+    if not zai_key():
+        return facts,layers,None
+    lengths={"Simple":"650-900 words","Detailed":"1100-1600 words","Advanced":"1800-2600 words"}
+    prompt=f"""Create a rigorous integrated personal Ancient Wisdom report. Length {lengths.get(depth,'1100-1600 words')}.
+
+LOCKED CALCULATED FACTS:
+{json.dumps(facts,ensure_ascii=False,default=str)}
+
+RETRIEVED KNOWLEDGE:
+{combined_layer_context(layers)}
+
+Required structure:
+1. Executive synthesis: 5-8 lines on the central personal pattern and current phase.
+2. Personal Jyotish: Ascendant, Ascendant lord, Moon/Nakshatra, Atmakaraka, important planets/houses, dignity/retrogression/combustion, conjunctions and major classical aspects. Explain why each matters.
+3. Current timing: integrate Mahadasha and Antardasha with their actual placements, lordships and condition in this chart. Give opportunities, pressures and decision themes.
+4. Ayurveda and mind-body: use retrieved Ayurveda material for supportive themes such as routine, sleep, digestion/Agni, steadiness and lifestyle. Do NOT diagnose Prakriti or Vikriti from astrology alone. State what additional assessment would be needed.
+5. Chakra/subtle-body: show mappings only where retrieved; identify framework differences rather than creating a universal mapping.
+6. Mantra and spiritual practice: distinguish simple devotional practice, Graha mantra, stotra, bija/tantric or diksha-sensitive practices. Recommend only what retrieved evidence supports.
+7. Personal remedies: rank 3-5 actions. For every action state PURPOSE, WHY THIS PERSON, SOURCE BASIS, HOW TO APPLY if supported, and GUIDANCE LEVEL. Distinguish strengthen from balance/pacify.
+8. Gemstones: list relevant traditional correspondence only if useful, and explain why chart suitability needs stronger verification than Mahadasha alone.
+9. Three priorities now: three concise actionable priorities.
+10. Evidence map: briefly say which conclusions come from calculated facts, classical/official sources, practitioner frameworks, and which remain Needs Verification.
+
+Rules: Calculated facts override retrieved prose. Never invent placements, classical quotations, mantra counts, gemstone suitability, medical outcomes or universal chakra correspondences. Practitioner material must not be promoted to classical consensus. Keep Simple language accessible even though the underlying analysis is deep."""
+    try:
+        report=get_llm().invoke(prompt).content
+    except Exception as exc:
+        report=None
+    return facts,layers,report
+
+def render_local_personal_layers(c,layers):
+    st.markdown("### Deep local knowledge view")
+    labels={"jyotish":"Personal Jyotish","ayurveda":"Ayurveda & mind-body","mantra":"Mantra & spiritual practice","yoga":"Yoga & meditation","remedies":"Traditional remedies","chakra":"Chakra / subtle-body perspectives"}
+    for key in ["jyotish","ayurveda","mantra","yoga","remedies","chakra"]:
+        docs,teachers=layers[key]
+        with st.expander(labels[key],expanded=(key in ("jyotish","remedies"))):
+            if teachers:
+                for r in teachers[:2]:
+                    text=r.get("summary") or r.get("explanation_text") or ""
+                    if text: st.write(_trim_words(text,120))
+            if docs:
+                for d in docs[:2]:
+                    m=d.metadata or {}; st.caption(f"{m.get('book') or m.get('source','Unknown')} · PDF page {m.get('pdf_page','Needs Verification')}")
+                    st.write(_trim_words(" ".join(d.page_content.split()),120))
+
 # ---------- UI state and profile ----------
 def navigate(page,question=None):
     st.session_state.page=page
@@ -265,33 +356,67 @@ def ask_page(cfg):
     if st.session_state.get("last_sources"):sources_expander(*st.session_state.last_sources)
     if st.session_state.chat and st.button("Clear conversation"):st.session_state.chat=[];st.session_state.pop("last_sources",None);st.rerun()
 def reading_page(cfg):
-    st.markdown("## My Personal Reading"); st.caption("Enter birth details in Your Profile, then generate the reading.")
+    st.markdown("## My Personal Reading")
+    st.caption("The engine analyses the full calculated chart first, then retrieves Jyotish, Ayurveda, yoga, mantra, chakra and remedy knowledge around that chart.")
     if not cfg.get("confirmed"):
-        st.warning("Confirm the birth time, coordinates and UTC offset in Your Profile before generating the chart.")
-    if st.button("Generate My Personal Reading",type="primary",use_container_width=True,disabled=not cfg.get("confirmed")):
-        ensure_chart(cfg,True); st.session_state.pop("reading_answer",None)
-    if "chart" not in st.session_state: return
-    c=st.session_state.chart;t=c["timing"];a,b,d,e=st.columns(4);a.metric("How you approach life",c["ascendant"]["sign"],"Vedic term: Ascendant");b.metric("Your emotional pattern",f"{c['planets']['Moon']['nakshatra']} · quarter {c['planets']['Moon']['pada']}","Vedic term: Nakshatra");d.metric("Major life period",t["mahadasha"],f"to {t['md_end']}");e.metric("Current sub-period",t["antardasha"],f"to {t['ad_end']}")
-    st.markdown(f"### Core developmental theme: {c['atmakaraka']}");st.write(f"This chart gives special developmental importance to {PLAIN[c['atmakaraka']] }.")
-    q=f"Explain this personal chart in plain language: {c['ascendant']['sign']} rising, {c['planets']['Moon']['nakshatra']} Moon, {c['atmakaraka']} Atmakaraka, {t['mahadasha']} Mahadasha, {t['antardasha']} Antardasha"
-    docs,_=search_local(q,8); teachers=search_teachers(q,6)
-    if st.button("Explain What This Means",use_container_width=True):st.session_state.reading_answer=synthesize(q,docs,teachers,c,cfg["depth"])
-    if st.session_state.get("reading_answer"):st.markdown(st.session_state.reading_answer);sources_expander(docs,teachers)
+        st.warning("Confirm birth time, coordinates and UTC offset in Your Profile before generating the chart.")
+    if st.button("Generate Full Personal Synthesis",type="primary",use_container_width=True,disabled=not cfg.get("confirmed")):
+        c=ensure_chart(cfg,True)
+        facts,layers,report=deep_personal_report(c,cfg["depth"])
+        st.session_state.personal_facts=facts
+        st.session_state.personal_layers=layers
+        st.session_state.personal_report=report
+
+    if "chart" not in st.session_state:return
+    c=st.session_state.chart;t=c["timing"]
+    a,b,d,e=st.columns(4)
+    a.metric("How you approach life",c["ascendant"]["sign"],"Vedic term: Ascendant")
+    b.metric("Your emotional pattern",f"{c['planets']['Moon']['nakshatra']} · quarter {c['planets']['Moon']['pada']}","Vedic term: Nakshatra")
+    d.metric("Major life period",t["mahadasha"],f"to {t['md_end']}")
+    e.metric("Current sub-period",t["antardasha"],f"to {t['ad_end']}")
+    st.markdown(f"### Core developmental theme: {c['atmakaraka']}")
+    st.write(f"The chart gives special developmental importance to {PLAIN[c['atmakaraka']] }. This is only one layer; the report below integrates the rest of the chart and knowledge base.")
+
+    if st.session_state.get("personal_report"):
+        st.markdown(st.session_state.personal_report)
+    elif st.session_state.get("personal_layers"):
+        st.info("Enhanced synthesis is not connected, so the app is showing the deep local retrieval layers instead of collapsing the reading to one short paragraph.")
+        render_local_personal_layers(c,st.session_state.personal_layers)
+    else:
+        st.info("Click Generate Full Personal Synthesis to build the multi-layer report.")
+
     if cfg["advanced"]:
-        rows=[{"Planet":n,"Sign":p["sign"],"Degree":fmt_deg(p["degree"]),"House":p["house"],"Nakshatra":p["nakshatra"],"Pada":p["pada"],"Condition":"; ".join(p["condition"]),"Rules houses":", ".join(map(str,p["rules_houses"])) or "—"} for n,p in c["planets"].items()];st.dataframe(rows,use_container_width=True,hide_index=True)
-        with st.expander("Timing and chart mechanics"):st.dataframe(t["md_timeline"],use_container_width=True,hide_index=True);st.dataframe(t["ad_timeline"],use_container_width=True,hide_index=True);st.dataframe(c["conjunctions"],use_container_width=True,hide_index=True);st.dataframe(c["aspects"],use_container_width=True,hide_index=True)
+        st.markdown("### Advanced calculated chart")
+        rows=[{"Planet":n,"Sign":p["sign"],"Degree":fmt_deg(p["degree"]),"House":p["house"],"Nakshatra":p["nakshatra"],"Pada":p["pada"],"Condition":"; ".join(p["condition"]),"Rules houses":", ".join(map(str,p["rules_houses"])) or "—"} for n,p in c["planets"].items()]
+        st.dataframe(rows,use_container_width=True,hide_index=True)
+        with st.expander("Mahadasha and Antardasha timelines"):st.dataframe(t["md_timeline"],use_container_width=True,hide_index=True);st.dataframe(t["ad_timeline"],use_container_width=True,hide_index=True)
+        with st.expander("Conjunctions and classical aspects"):st.dataframe(c["conjunctions"],use_container_width=True,hide_index=True);st.dataframe(c["aspects"],use_container_width=True,hide_index=True)
+
 def remedies_page(cfg):
     st.markdown("## My Remedies")
     if "chart" not in st.session_state:
-        st.info("Generate My Personal Reading first. Remedies are not produced from default or unconfirmed birth data.")
-        if st.button("Go to My Reading",use_container_width=True): navigate("My Reading")
+        st.info("Generate My Personal Reading first. The remedy plan must come from the calculated personal chart, not default or generic planet rules.")
+        if st.button("Go to My Reading",use_container_width=True):navigate("My Reading")
         return
-    c=st.session_state.chart; t=c["timing"]; st.markdown(f"### Current focus: {t['mahadasha']} major period · {t['antardasha']} sub-period · {c['atmakaraka']} developmental theme")
-    q=f"source-supported low-risk personal remedies for {t['mahadasha']} Mahadasha {t['antardasha']} Antardasha {c['atmakaraka']} Atmakaraka house {c['planets'][c['atmakaraka']]['house']}"
-    docs,_=search_local(q,9);teachers=search_teachers(q,8)
-    if st.button("Build My Personal Action Plan",type="primary",use_container_width=True):st.session_state.remedy_answer=synthesize(q,docs,teachers,c,cfg["depth"])
-    if st.session_state.get("remedy_answer"):st.markdown(st.session_state.remedy_answer);sources_expander(docs,teachers)
+    c=st.session_state.chart;t=c["timing"]
+    st.markdown(f"### Current focus: {t['mahadasha']} major period · {t['antardasha']} sub-period · {c['atmakaraka']} developmental theme")
+    st.caption("The engine ranks low-risk actions first and keeps gemstones, advanced mantra and stronger interventions behind verification.")
+    q=f"personal remedies strengthen pacify balance {t['mahadasha']} Mahadasha {t['antardasha']} Antardasha {c['atmakaraka']} Atmakaraka house {c['planets'][c['atmakaraka']]['house']} mantra dana behaviour yoga Ayurveda gemstone"
+    docs,_=search_local(q,10);teachers=search_teachers(q,10)
+    if st.button("Build Detailed Remedy Plan",type="primary",use_container_width=True):
+        if zai_key():
+            prompt=f"""Build a structured remedy plan from this locked chart {json.dumps(personal_fact_summary(c),default=str)} and this evidence {evidence_context(docs,teachers)}. Rank 3-5 remedies. For each give purpose, exact chart reason, source basis, application only if source-supported, expected traditional objective, and guidance level. Separate low-risk behavioural/devotional/yoga/Ayurveda support from guidance-required advanced mantra/fasting/yantra and specialist gemstone questions. Distinguish strengthen versus pacify. Never invent mantra counts, medical effects or gemstone suitability."""
+            try:st.session_state.remedy_answer=get_llm().invoke(prompt).content
+            except Exception:st.session_state.remedy_answer=None
+        else:st.session_state.remedy_answer=None
+        st.session_state.remedy_sources=(docs,teachers)
+    if st.session_state.get("remedy_answer"):st.markdown(st.session_state.remedy_answer)
+    elif st.session_state.get("remedy_sources"):
+        st.markdown("### Retrieved remedy evidence")
+        sources_expander(*st.session_state.remedy_sources)
+        st.info("Enhanced synthesis is unavailable. Use the source evidence above rather than a generic remedy generated without support.")
     st.warning("Gemstones, herbs, fasting, advanced pranayama and Bija/Tantric practices require verification or qualified guidance.")
+
 def explore_page(cfg):
     st.markdown("## Explore Ancient Wisdom");t1,t2,t3=st.tabs(["Topics","Wisdom Library","Teachers"])
     with t1:
